@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://techmaster.vn/posts/34075/tai-sao-ban-nen-hoc-nodejs -->
+<html lang="vi" class="gr__techmaster_vn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    
+    <title>Tại sao bạn nên học Node.js?</title><meta name="keywords" content="Techmaster, học lập trình, thiết kế web, học iOS"><meta name="description" content="Giới thiệu Javascript đang dần trở nên phổ biến, đi kèm với nó là rất nhiều sự thay đổi, khiến cho bộ mặt của ngành phát triển web trở nên lung linh hơn....">
+    <meta property="fb:app_id" content="290270177727593">
+<meta property="og:site_name" content="techmaster.vn">
+<meta property="og:locale" content="vi_VN">
+
+<meta property="og:url" content="https://techmaster.vn/posts/34075/tai-sao-ban-nen-hoc-nodejs">
+
+
+    <meta property="og:type" content="article">
+
+
+    <meta property="og:title" content="Tại sao bạn nên học Node.js?">
+
+
+    <meta property="og:description" content="Giới thiệu Javascript đang dần trở nên phổ biến, đi kèm với nó là rất nhiều sự thay đổi, khiến cho bộ mặt của ngành phát triển web trở nên lung linh hơn. Javascript bây giờ đã xuất hiện trên cả phía server-side, cùng với sức mạnh của nó ở phía client-side vốn dĩ đã rất mạnh mẽ, tạo nên 1 xu hướng mới, trào lưu mới trong lập trình web. Nếu so với cách đây chỉ vài năm thôi, thật khó để tưởng tượng được rằng thế giới website vẫn còn bị quanh quẩn trong những môi trường sand-box như Flash hay Java Applets. Trước khi đi sâu vào tìm hiểu Node.js, chúng ta cần lướt qua về những thuận lợi của việc sử dụng Javascript xuyên suốt hệ thống web từ&amp;nbsp;server-side đến&amp;nbsp;client-side (across the stack) với khả năng hợp nhất giữa ngôn ngữ và định dạng dữ liệu (JSON). Khả năng này cho phép các nhà phát triển tái sử dụng tài nguyên 1 cách hiệu quả, cộng thêm hàng tá các tính năng mạnh mẽ khác của Javascript giúp nó, cũng như Node,js, xứng đáng có mặt trong danh sách các kỹ năng của bạn trong tương lai. Theo Wikipedia, “Node.js là một nền tảng dựng trên trình biên dịch Google’s Chrome V8 Javascript, một nền tảng các lớp trừu tượng và một thư viện lõi, được viết chính bằng Javascript.” Theo như Ryan Dahl, cha đẻ của Node.js, “Node.js hướng đến việc tạo nên những realtime websites (websites&amp;nbsp;tương tác thời gian thực). Điều này lấy cảm hứng từ Gmail. Thực vậy, với Node.js, các nhà phát triển làm việc theo event-driven (cơ thế hướng sự kiện), non-blocking (thực thi không tuần tự). Cuối cùng thì sau hơn 20 năm của cơ chế web resquest – response, đã xuất hiện ứng dụng realtime web, two way connection (tương tác 2 chiều). Nói ngắn gọn về Node.js: đi đầu trong việc tạo nên những realtime websites thông qua cơ chế websocket. Cuối cùng thì sau hơn 20 năm của cơ chế web resquest – response, đã xuất hiện ứng dụng realtime web, two way connection (tương tác 2 chiều). Với Node.js, phía client và server có thể bắt đầu giao tiếp với nhau 1 cách đơn giản hơn rất nhiều (do cùng ngôn ngữ), dẫn đến dữ liệu được trao đổi 1 cách thoải mái. Với hệ thống request-response cũ, chỉ phía client là có khả năng gửi thông điệp đến server. Trước đây Flash và Java-Applets thống trị trên nền web, tuy nhiên về cơ bản chúng chỉ là các sandbox-enviroment (môi trường hộp cát), sử dụng trang web như là giao thức truyền tải dữ liệu đến đích là các client. Thêm nữa, việc chúng có cơ chế chạy độc lập và được điều khiển qua các cổng không chính thống (non-standard port) làm cho chúng ngốn nhiều tài nguyên hơn, yêu cầu hệ thống nhiều hơn. Trong bài viết này, chúng ta sẽ thảo luận về những điểm mạnh của&amp;nbsp;Node.js, cũng như lý do tại sao chúng ta sử dụng Node.js và KHÔNG sử dụng Node.js. Cơ chế làm việc Ý tưởng chính của Node.js: sử dụng cơ chế non-blocking, event-driven I/O để làm giảm nhẹ và nâng cao hiệu quả trong việc xử lý một khối lượng rất lớn dữ liệu trên các ứng dụng realtime đa nền tảng. Tuy nhiên cần lưu ý: Node.js không phải là chiếc đũa thần nhiệm màu, có thể giúp ta vẫy tay là tạo ra được những trang web thực. Thay vào đó, Node.js là một nền tảng cho phép những nhà phát triển làm việc một cách hiệu quả với những websites realtime. Hiểu rõ điều này sẽ giúp bạn không sa lầy vào việc tôn sung thái quá Node.js. Với những hệ thống yêu cầu cao về CPU, cần tính toán nặng nề, sử dụng Node.js là một thảm họa. Cái mà Node.js mạnh mẽ, như đã nói, là việc xây dựng được những ứng dụng network, khả năng kiểm soát được một lượng lớn các kết nối đồng thời lưu lượng cao, đồng nghĩa với việc tính tương tác rất cao. Node.js không phải là chiếc đũa thần nhiệm màu, có thể giúp ta vẫy tay là tạo ra được những trang web thực. Cách mà nó chạy nền thực sự khá thú vị. Hãy so sánh với kỹ thuật web-serving truyền thống: mỗi kết nối (request) sinh ra một thread (luồng xử lý), chiếm một lượng bộ nhớ RAM hệ thống và dần dần chiếm hết dung lượng RAM khả dĩ. Node.js không như vậy. Nó chỉ chạy trên 1 thread duy nhất, sử dụng lời gọi non-blocking I/O, cho phép nó xử lý được cả ngàn kết nối cùng lúc. (Hình dưới) Một phép tính đơn giản: giả sử mỗi thread có 2Mb bộ nhớ, chạy trên một hệ thống 8Gb RAM trên lý thuyết chỉ có thể xử lý được 4000 kết nối cùng lúc. Đấy còn chưa kể đến bộ nhớ dùng để chuyển đổi nội dung giữa các thread. Đây là viễn cảnh mà bạn sẽ phải đương đầu trong kỹ thuật web-serving truyền thống. Cùng điều kiện, Node.js vượt trội hơn hẳn với khả năng xử lý 1,000,000 kết nối cùng lúc. Tuy nhiên việc chia sẻ chỉ một luồng đơn giữa các request của clients liệu có tối ưu? Có và không. Với những tác vụ yêu cầu tính toán nặng nề, thread đơn của Node.js sẽ bị chặn và sẽ gây ra những vấn đề ở phía client, cụ thể là những request đến sẽ phải chờ cho việc tính toán kết thúc. Bên cạnh đó, developers&amp;nbsp;cũng cần cẩn thận để tránh quăng những exception vào core Node.js event-loop (vòng lặp sự kiện lõi). Việc này sẽ khiến chương trình bị ngừng, thậm chí bị crash. Có một kỹ thuật để tránh được việc quăng lung tung exception: kiểm soát lỗi bằng cách pass nó thành tham số trong hàm callback (thay vì quăng nó ra như mấy ngôn ngữ khác). Cho dù có một số exeption khó kiểm soát có xu hướng nhảy thẳng vào mặt các devs, kha khá các công cụ và đa mô hình cho phép điều khiển tiến trình trong Node.js và biểu diễn, phục hồi các thể hiện lỗi (cho dù bạn không có khả năng phục hồi session của người dùng). Thông thường nhất là sử dụng Forever module, hay dùng một công cụ thứ 3 là Upstart and Monit. NPM: Node Package Manager (Bộ quản lý gói Node) Khi nói về Node.js, có một điều không thể bị bỏ qua, đấy là bộ quản lý gói build-in sử dụng công cụ npm, được cài mặc định theo bộ cài Node.js. Nguyên lý của module NPM là: một bộ các thành phần mở, có khả năng tái sử dụng, có thể được cài đặt thông qua online repository (kho mã nguồn online). Danh sách các gói npm có thể được tìm thấy trên trang chủ https://npmjs.org, hoặc truy cập thông qua công cụ npm CLI, được cài tự động cùng với Node.js. Hệ sinh thái module npm mở (open source), ai cũng có thể truy cập và tải về miễn phí, cũng như tạo ra và upload module của riêng họ. Một số module npm phổ biến: Express: expressjs, một framework phát triển web dựa trên Sinatra, nền tảng chuẩn cho rất nhiều ứng dụng Node.js bây giờ. Connect: Connect là một framework server HTTP mở rộng, cung câp một bộ các plugins “hiệu năng cao” như middleware, serves, đồng thời cũng là nền tảng cho Express. Socket.io và sockjs: thành phần server-side của hai websocket thông dụng nhất hiện nay. Jade: một trong những template engine phổ biến (chuẩn viết html), dựa trên HAML, nền tảng của Expressjs. Mongo và mongojs: gói MongoDB cung cấp những APIs cho hệ cơ sở dữ liệu đối tượng MongoDB trong Node.js Redis: thư viện người dùng. CoffeeScript: trình biên dịch CoffeeScript cho phép những nhà phát triển viết nên chương trình Node.js bằng Coffee (uống cà phê là viết được Node.js &amp;lt;3) Underscore (lodash, lazy): thư viện cung cấp rất nhiều tiện ích, được sử dụng phổ biến nhất trong Javascript, được gói gọn trong Node.js, với cách thực thi khác biệt, hứa hẹn sẽ mang đến hiệu năng tốt hơn. Forever: rõ ràng đây là tiện ích thông dụng nhất, giúp cho mã Node chạy một cách liên tục. Danh sách trên đây&amp;nbsp;chỉ mang tính giới thiệu. Thực tế còn rất nhiều các module mạnh mẽ khác nữa, sẽ để giành cho bạn đọc tìm hiểu :fu: Ví dụ thực tế sử dụng Node.js Chat Chat là một ứng dụng realtime, đa người dùng điển hình. Đây là ví dụ trực quan nhất về khả năng của Node.js: nhẹ, xử lý lượng lớn truy cập, dữ liệu mang tính nhạy cảm (nhưng ít tiến trình và không yêu cầu tính toán nặng), chạy đa thiết bị. Hãy đi sâu vào cách mà một ứng dụng chat hoạt động! Giả dụ chúng ta có một chat room trên trang web. Tại đây mọi người có thể vào và để lại tin nhắn cho một vài người hoặc tất cả trong room. Cụ thể hơn, cứ cho rằng có 3 ông đang say sưa chat chit ở trong cái room chat ấy. Ở phía server-side, ta có một ứng dụng Express đơn giản, làm 2 công việc: Một bộ xử lý request GET “/” sẽ cung cấp cho trang web nội dung của khung chat và một nút “Send” để gửi tin nhắn. Một máy chủ websocket sẽ lắng nghe những tin nhắn mới từ websocket người dùng. Ở phía client-side, ta có trang HTML với vài bộ xử lý, một cho nút “Send” lấy nội dung tin nhắn và gửi nó cho websocket, một cái khác lắng nghe tin nhắn đến ở websocket người dùng. Bây giờ nếu ông A gửi tin nhắn, sẽ có những sự kiện sau xảy ra: Trình duyệt bắt lấy sự kiện nhấn chuột vào nút “Send”, lấy nội dung từ trường input (một đoạn text: “Alo em à? Nhớ anh không?”), đồng thời phát ra một tin nhắn websocket từ websocket người dùng đã kết nối tới server. Những thành phần server-side của bộ kết nối websocket nhận những tin nhắn và chuyển tiếp nó cho websocket kết nối tới ông B và ông C. Websocket người dùng chạy trên trang web sẽ xử lý nội dung tin nhắn và trả về cho trang web nội dung tin nhắn bằng cách thêm tin nhắn vào khung chat. Lúc này ông B và ông C sẽ thấy tin nhắn mới đến. Vậy là đã xong ví dụ trực quan nhất cho Node.js. Đương nhiên đây chỉ là phiên bản đơn giản. Bạn hoàn toàn có thể thêm thắt những tính năng khác của riêng bạn vào (hoặc bugs :D). Sau tất cả, Node.js vẫn trung thành với luật lệ của riêng nó: phản ứng với các sự kiện, kiểm soát các kết nối đồng thời và đảm bảo tính liên tục cho trải nghiệm người dùng. API kết nối và truy xuất cơ sở dữ liệu đối tượng. Đến giờ thì đã rõ ràng Node.js là soái ca trong việc tạo nên những ứng dụng realtime. Bên cạnh đó, việc lấy dữ liệu (JSON) từ các cơ sở dữ liệu đối tượng (MongoDB chẳng hạn) cũng không là vấn đề với Node.js. Ví dụ, nếu bạn sử dụng Rails, bạn sẽ phải convert từ JSON sang dạng nhị phân, sau đó lại phải convert ngược lại khi dữ liệu được lấy về bằng Blackbone.js hay thậm chí là bằng AJAX. Với Node.js, dữ liệu từ đầu đến cuối đều là dạng JSON. Easy. Túm lại, với Node.js, bạn sẽ chẳng cần phải quan tâm đến việc chuyển đổi kiểu dữ liệu (vì chỉ có một kiểu thoai, JSON). Luồng dữ liệu (Data Streaming) Trên nhiều nền tảng web truyền thống, request và response HTTP được xem như những sự kiện đơn lẻ. Thực tế, chúng là các luồng. Điều này đã được nhận ra trong Node.js và được sử dụng để xây dựng nên vài tính năng hữu ích. Ví dụ, file hoàn toàn có thể được xử lý trong quá trình upload, như là mã hóa các realtime video, audio,… Proxy Node.js có thể được tận dụng như là một server-side proxy, xử lý một lượng rất lớn các kết nối đồng thời theo cách thức non-blocking. Điều này đặc biệt hữu dụng khi ủy quyền cho các server khác nhau phản hồi theo thời gian, hoặc thu thập dữ liệu đa nguồn. Ví dụ: một ứng dụng server-side giao tiếp với nguồn tài nguyên thứ 3 (third-party), lấy về dữ liệu từ nhiều nguồn khác nhau, hoặc lưu trữ tài nguyên như ảnh và video từ dịch vụ cloud. Node.js hoàn toàn hữu ích nếu cơ sở hạ tầng proxy không tương xứng hay bạn muốn tìm kiếm giải pháp cho việc phát triển cục bộ. Khi nói thế thì ý của tôi là bạn có thể xây dựng app client-side với một server phát triển cho Node.js, đồng thời trong quá trình sản xuất bạn có thể kiểm soát tương tác với server proxy chuyên biệt (nginx, HAProxy, etc). Bài viết được dịch từ nguồn:&amp;nbsp;https://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js">
+
+
+    <meta property="og:image" content="https://techmaster.vn/fileman/Uploads/users/3277/nodejs.png">
+
+
+
+    <link rel="stylesheet" type="text/css" href="./Tại sao bạn nên học Node.js__files/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./Tại sao bạn nên học Node.js__files/icon">
+    <link rel="stylesheet" type="text/css" href="./Tại sao bạn nên học Node.js__files/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="./Tại sao bạn nên học Node.js__files/monokai.css">
+    <link rel="stylesheet" type="text/css" href="./Tại sao bạn nên học Node.js__files/style_animate.css">
+    
+    
+    <style>
+        .hisella-messages {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            z-index: 999999;
+        }
+
+        .hisella-messages-outer {
+            position: relative;
+        }
+
+        #hisella-minimize {
+            background: #3b5998;
+            font-size: 14px;
+            color: #fff;
+            padding: 3px 10px;
+            position: absolute;
+            top: -34px;
+            left: -1px;
+            border: 1px solid #E9EAED;
+            cursor: pointer;
+        }
+
+        .hisella-messages {
+            bottom: -300px;
+            right: -105px;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="./Tại sao bạn nên học Node.js__files/blog.css">
+
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" async="" src="./Tại sao bạn nên học Node.js__files/recaptcha__vi.js"></script><script id="facebook-jssdk" src="./Tại sao bạn nên học Node.js__files/xfbml.customerchat.js"></script><script async="" src="./Tại sao bạn nên học Node.js__files/follow.js" charset="UTF-8" crossorigin="*"></script><script async="" src="./Tại sao bạn nên học Node.js__files/fbevents.js"></script><script async="" src="./Tại sao bạn nên học Node.js__files/analytics.js"></script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31629610-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <script src="./Tại sao bạn nên học Node.js__files/api.js" async="" defer=""></script>
+    <script type="text/javascript" src="./Tại sao bạn nên học Node.js__files/jquery.min.js"></script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/vi_VN/fbevents.js');
+        fbq('init', '1043327282441146');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1043327282441146&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+<style type="text/css">/*style-recomment*/.box-rcm #rcm-hireme{transition: all 0.6s ease-in-out; font-family: 'Roboto', sans-serif; overflow: hidden; height: 0;}.box-rcm div.rcm-jobs-multi.x-rcm{padding: 0}.box-rcm div.rcm-jobs-multi.tagged{line-height: 140%;}.box-rcm div.rcm-jobs-multi.j-orange{background-position: center 3px;}.box-rcm div.rcm-jobs-multi.blue, div.rcm-jobs-multi.j-orange {background-image: none!important;}.box-rcm div.rcm-jobs-multi {color: #333;font-family: Roboto,Helvetica,Verdana,Arial,sans-serif;font-size: 12px;text-align: left;line-height: 130%;padding: 2px;margin: 12px 0 1.5em;clear: both;background-repeat: no-repeat;background-position: 0 0;box-sizing: border-box;}.box-rcm div.rcm-jobs-multi.x-rcm.j-orange>a.header-top {background-color: #d94127; background-image: linear-gradient(to right,rgba(214,67,48,.9) 0,rgba(255,200,200,.9) 100%), url(https://topdev.vn/assets/img/logo_white.png); background-position-x: center; background-size: auto 100%;}.box-rcm div.rcm-jobs-multi.x-rcm>a.header-top {line-height: 50px;height: 50px;position: relative;background-repeat: no-repeat;}.box-rcm div.rcm-jobs-multi>a.header-top {width: 100%;display: block;color: #efefef;text-align: left; padding-left: 15px; font-size: 20px;line-height: 42px;text-decoration: none;}.box-rcm div.rcm-jobs-multi.x-rcm>.ljobs-rcm {padding: 12px;border: 1px solid #e4e6e8;border-top: none; border-bottom: 2px solid #d94127}.box-rcm div.rcm-jobs-multi>.ljobs-rcm {background: #fff;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul {margin: 0;padding: 0;list-style: none;display: block;}.box-rcm div.rcm-jobs-multi.x-rcm>.ljobs-rcm>ul li {border-top-color: #eff0f1;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul>li:first-child {border-top: none;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul>li {border-top: 1px solid #d6d9dc;position: relative; list-style: none;}.box-rcm div.rcm-jobs-multi.x-rcm>.ljobs-rcm>ul .job-wrap {padding-left: 0;padding-right: 0;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap:first-child {border-top: none;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap {overflow: hidden;margin: 0;padding: 5px 12px;position: relative;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap a.job {display: block;cursor: pointer;text-decoration: none; float: left; width: 84%; }.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap .title {font-weight: 700;font-size: 13px;display: block;cursor: pointer;text-decoration: none;color: #be5656;padding-right: 12px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap div {margin: 3px 0; line-height: 26px;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap .company {font-weight: 700;color: #505050;margin-right: 7px; font-size: 12px;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap .location, .j-salary {color: #505050;font-style: italic; font-size:12px; display: inline-block; margin-right: 7px;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap .location svg, .j-salary svg {height: 12px;width: 12px;position: relative;top: 1px;fill: #b5b7b8;display: inline-block;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap .location>span, .j-salary>span {display: inline-block;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap .post-tag {text-align: center;color: #000;background-color: #f5f5f5;padding: .25em .5em;margin: 0 2px 2px 0!important;text-decoration: none;font-size: 12px;line-height: 1.4;white-space: nowrap;display: inline-block;border-radius: 0;border: 1px solid #ddd;float: none;font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap .thumbnail{float: left; width: 15%; margin-right: 1%; overflow: hidden; display: flex; align-items: center; justify-content: center;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap .thumbnail .item-logo{width:60% !important; height: auto !important; border:none; margin: 0 auto; padding: 10% 2%;}@media screen and (min-width: 320px) and (max-width: 800px) {.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul li{margin-left:0px;}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap .thumbnail{display: none}.box-rcm div.rcm-jobs-multi>.ljobs-rcm>ul .job-wrap a.job {width: 100%;}}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#1d3c78;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
+.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_in_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_out_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bubble_pop_in{animation-duration:250ms;animation-name:fb_customer_chat_bubble_bounce_in_animation}.fb_customer_chat_bubble_animated_no_badge{box-shadow:0 3px 12px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_no_badge:hover{box-shadow:0 5px 24px rgba(0, 0, 0, .3)}.fb_customer_chat_bubble_animated_with_badge{box-shadow:-5px 4px 14px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_with_badge:hover{box-shadow:-5px 8px 24px rgba(0, 0, 0, .2)}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}.fb_mobile_overlay_active{background-color:#fff;height:100%;overflow:hidden;position:fixed;visibility:hidden;width:100%}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_v2_mobile_chat_started{0%{opacity:0;top:20px}100%{opacity:1;top:0}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_v2_mobile_chat_started{0%{opacity:1;top:0}100%{opacity:0;top:20px}}@keyframes fb_customer_chat_bubble_bounce_in_animation{0%{bottom:6pt;opacity:0;transform:scale(0, 0);transform-origin:center}70%{bottom:18pt;opacity:1;transform:scale(1.2, 1.2)}100%{transform:scale(1, 1)}}</style></head>
+
+<body data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+<!--Topdev Ads-->
+<script type="text/javascript">
+    (function(){
+        var s1=document.createElement('script'),s0=document.getElementsByTagName('script')[0];
+        s1.async=true;
+        s1.src='//tr.topdevvn.com/js/follow.js';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End Topdev Ads-->
+
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '290270177727593',
+            autoLogAppEvents : true,
+            xfbml: true,
+            version: 'v3.2'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<!--Chat bot-->
+
+<!--End Chat bot-->
+
+
+
+<header class="site-nav">
+    
+        <nav class="user-nav">
+            <div class="nav-wrapper container">
+                <ul class="left contact-infos">
+                    <li>
+                        
+                            
+                        
+                            
+                                <span class="phone">
+                                    <a href="tel:0902209011"><i class="fa fa-phone" aria-hidden="true"></i> 090 220 9011 </a>
+                                </span>
+
+                                <span class="mail hide-on-small-and-down">
+                                    <a href="mailto:cuong@techmaster.vn"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                        cuong@techmaster.vn</a>
+                                </span>
+                            
+                        
+                        <span class="header-socials hide-on-med-and-down">
+                            <a class="facebook" href="https://www.facebook.com/techmastervn/?fref=ts" target="_blank"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
+                            <a class="youtube" href="https://www.youtube.com/user/TechMasterVN" target="_blank"><i class="fa fa-youtube-square fa-2x" aria-hidden="true"></i></a>
+                        </span>
+                    </li>
+                </ul>
+                <ul class="right">
+                    <li><a href="https://techmaster.vn/posts/34075/tai-sao-ban-nen-hoc-nodejs#modal1" id="login-btn" class=" modal-trigger login-btn">Đăng nhập</a></li>
+                    <li><a href="https://techmaster.vn/posts/34075/tai-sao-ban-nen-hoc-nodejs#modal1" id="register-btn" class=" modal-trigger register-btn">Đăng ký</a></li>
+                </ul>
+            </div>
+        </nav>
+    
+
+    <nav>
+        <div class="nav-wrapper container">
+            <div class="row">
+                <div class="col s12">
+                    <a href="https://techmaster.vn/" class="brand-logo">
+                        <img src="./Tại sao bạn nên học Node.js__files/logo.png" alt="logo">
+                    </a>
+                    
+
+<!-- Begin nav desktop -->
+<ul class="right hide-on-med-and-down parent-menu">
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/">
+                Trang chủ
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/khoa-hoc">
+                Khóa học
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/lich-khai-giang">
+                Lịch khai giảng
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/q-and-a">
+                Q &amp; A
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/posts">
+                Blog
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/jobs">
+                Việc làm
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/interviews">
+                Phỏng vấn
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a class="dropdown-button" data-activates="dropdown1">
+                Chúng tôi <i class="material-icons right">arrow_drop_down</i>
+            </a><ul id="dropdown1" class="dropdown-content">
+                
+                    
+                    
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/trung-tam">
+                Trung tâm
+            </a>
+        </li>
+    
+
+                
+                    
+                    
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/quy-dinh">
+                Quy định chung
+            </a>
+        </li>
+    
+
+                
+                    
+                    
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/giang-vien">
+                Giảng viên
+            </a>
+        </li>
+    
+
+                
+                    
+                    
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/quy-dinh">
+                Tuyển dụng giảng viên
+            </a>
+        </li>
+    
+
+                
+                    
+                    
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/Thiet-bi-dao-tao">
+                Thiết bị đào tạo
+            </a>
+        </li>
+    
+
+                
+                    
+                    
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/Danh-sach-khach-hang-doi-tac-cua-TechMaster">
+                Khách hàng - Đối tác
+            </a>
+        </li>
+    
+
+                
+                    
+                    
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/the-thao">
+                Chơi thể thao
+            </a>
+        </li>
+    
+
+                
+                    
+                    
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/team-building-royal-city">
+                Team building - Royal City
+            </a>
+        </li>
+    
+
+                
+                    
+                    
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/video">
+                Video hoạt động
+            </a>
+        </li>
+    
+
+                
+            </ul>
+            
+        </li>
+
+    
+
+    
+</ul><!-- End nav desktop -->
+
+
+
+<!-- Begin nav mobile -->
+<a href="https://techmaster.vn/posts/34075/tai-sao-ban-nen-hoc-nodejs#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+<ul class="side-nav collapsible" id="mobile-demo" data-collapsible="accordion" style="width: 200px; left: -210px;">
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/">
+                Trang chủ
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/khoa-hoc">
+                Khóa học
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/lich-khai-giang">
+                Lịch khai giảng
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/q-and-a">
+                Q &amp; A
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/posts">
+                Blog
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/jobs">
+                Việc làm
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a href="https://techmaster.vn/interviews">
+                Phỏng vấn
+            </a>
+        </li>
+    
+
+    
+        
+        
+    
+        <li>
+            <a class="collapsible-header  waves-effect waves-teal">
+                Chúng tôi <i class="material-icons right">arrow_drop_down</i>
+            </a>
+            <div class="collapsible-body" style="">
+                <ul>
+                    
+                        
+                        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/trung-tam">
+                Trung tâm
+            </a>
+        </li>
+    
+
+                        <li class="divider"></li>
+                    
+                        
+                        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/quy-dinh">
+                Quy định chung
+            </a>
+        </li>
+    
+
+                        <li class="divider"></li>
+                    
+                        
+                        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/giang-vien">
+                Giảng viên
+            </a>
+        </li>
+    
+
+                        <li class="divider"></li>
+                    
+                        
+                        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/quy-dinh">
+                Tuyển dụng giảng viên
+            </a>
+        </li>
+    
+
+                        <li class="divider"></li>
+                    
+                        
+                        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/Thiet-bi-dao-tao">
+                Thiết bị đào tạo
+            </a>
+        </li>
+    
+
+                        <li class="divider"></li>
+                    
+                        
+                        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/Danh-sach-khach-hang-doi-tac-cua-TechMaster">
+                Khách hàng - Đối tác
+            </a>
+        </li>
+    
+
+                        <li class="divider"></li>
+                    
+                        
+                        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/the-thao">
+                Chơi thể thao
+            </a>
+        </li>
+    
+
+                        <li class="divider"></li>
+                    
+                        
+                        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/team-building-royal-city">
+                Team building - Royal City
+            </a>
+        </li>
+    
+
+                        <li class="divider"></li>
+                    
+                        
+                        
+    
+        <li>
+            <a href="https://techmaster.vn/trungtam/video">
+                Video hoạt động
+            </a>
+        </li>
+    
+
+                        <li class="divider"></li>
+                    
+                </ul>
+            </div>
+        </li>
+    
+
+    
+</ul><!-- End nav mobile -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="phone_box">
+		<style type="text/css">
+			.phonering-alo-phone.phonering-alo-static {
+			    opacity:.6
+			}
+
+			.phonering-alo-phone.phonering-alo-hover,.phonering-alo-phone:hover {
+			    opacity:1
+			}
+
+			.phonering-alo-ph-circle {
+			    width:160px;
+			    height:160px;
+			    top:20px;
+			    left:20px;
+			    position:absolute;
+			    background-color:transparent;
+			    border-radius:100% !important;
+			    border:2px solid rgba(30,30,30,0.4);
+			    border:2px solid #bfebfc 9;
+			    opacity:.1;
+			    -webkit-animation:phonering-alo-circle-anim 1.2s infinite ease-in-out;
+			    animation:phonering-alo-circle-anim 1.2s infinite ease-in-out;
+			    transition:all .5s;
+			    -webkit-transform-origin:50% 50%;
+			    -ms-transform-origin:50% 50%;
+			    transform-origin:50% 50%
+			}
+
+			.phonering-alo-phone.phonering-alo-active .phonering-alo-ph-circle {
+			    -webkit-animation:phonering-alo-circle-anim 1.1s infinite ease-in-out!important;
+			    animation:phonering-alo-circle-anim 1.1s infinite ease-in-out!important
+			}
+
+			.phonering-alo-phone.phonering-alo-static .phonering-alo-ph-circle {
+			    -webkit-animation:phonering-alo-circle-anim 2.2s infinite ease-in-out!important;
+			    animation:phonering-alo-circle-anim 2.2s infinite ease-in-out!important
+			}
+
+			.phonering-alo-phone.phonering-alo-hover .phonering-alo-ph-circle,.phonering-alo-phone:hover .phonering-alo-ph-circle {
+			    border-color:#00aff2;
+			    opacity:.5
+			}
+
+			.phonering-alo-phone.phonering-alo-green.phonering-alo-hover .phonering-alo-ph-circle,.phonering-alo-phone.phonering-alo-green:hover .phonering-alo-ph-circle {
+			    border-color:#75eb50 ;
+			    border-color:#baf5a7;
+			    opacity:.5
+			}
+
+			.phonering-alo-phone.phonering-alo-green .phonering-alo-ph-circle {
+			    border-color:#00aff2 ;
+			    border-color:#bfebfc;
+			    opacity:.5
+			}
+
+			.phonering-alo-phone.phonering-alo-gray.phonering-alo-hover .phonering-alo-ph-circle,.phonering-alo-phone.phonering-alo-gray:hover .phonering-alo-ph-circle {
+			    border-color:#ccc;
+			    opacity:.5
+			}
+
+			.phonering-alo-phone.phonering-alo-gray .phonering-alo-ph-circle {
+			    border-color:#75eb50 ;
+			    opacity:.5
+			}
+
+			.phonering-alo-ph-circle-fill {
+			    width:100px;
+			    height:100px;
+			    top:50px;
+			    left:50px;
+			    position:absolute;
+			    background-color: #000;
+			    border-radius:100% !important;
+			    border:2px solid transparent;
+			    -webkit-animation:phonering-alo-circle-fill-anim 2.3s infinite ease-in-out;
+			    animation:phonering-alo-circle-fill-anim 2.3s infinite ease-in-out;
+			    transition:all .5s;
+			    -webkit-transform-origin:50% 50%;
+			    -ms-transform-origin:50% 50%;
+			    transform-origin:50% 50%
+			}
+
+			.phonering-alo-phone.phonering-alo-active .phonering-alo-ph-circle-fill {
+			    -webkit-animation:phonering-alo-circle-fill-anim 1.7s infinite ease-in-out!important;
+			    animation:phonering-alo-circle-fill-anim 1.7s infinite ease-in-out!important
+			}
+
+			.phonering-alo-phone.phonering-alo-static .phonering-alo-ph-circle-fill {
+			    -webkit-animation:phonering-alo-circle-fill-anim 2.3s infinite ease-in-out!important;
+			    animation:phonering-alo-circle-fill-anim 2.3s infinite ease-in-out!important;
+			    opacity:0!important
+			}
+
+			.phonering-alo-phone.phonering-alo-hover .phonering-alo-ph-circle-fill,.phonering-alo-phone:hover .phonering-alo-ph-circle-fill {
+			    background-color:rgba(0,175,242,0.5);
+			    background-color:#00aff2 9;
+			    opacity:.75!important
+			}
+
+			.phonering-alo-phone.phonering-alo-green.phonering-alo-hover .phonering-alo-ph-circle-fill,.phonering-alo-phone.phonering-alo-green:hover .phonering-alo-ph-circle-fill {
+			    background-color:rgba(117,235,80,0.5);
+			    background-color:#baf5a7 9;
+			    opacity:.75!important
+			}
+
+			.phonering-alo-phone.phonering-alo-green .phonering-alo-ph-circle-fill {
+			    background-color:rgba(0,175,242,0.5);
+			    background-color:#a6e3fa 9
+			}
+
+			.phonering-alo-phone.phonering-alo-gray.phonering-alo-hover .phonering-alo-ph-circle-fill,.phonering-alo-phone.phonering-alo-gray:hover .phonering-alo-ph-circle-fill {
+			    background-color:rgba(204,204,204,0.5);
+			    background-color:#ccc 9;
+			    opacity:.75!important
+			}
+
+			.phonering-alo-phone.phonering-alo-gray .phonering-alo-ph-circle-fill {
+			    background-color:rgba(117,235,80,0.5);
+			    opacity:.75!important
+			}
+
+			.phonering-alo-ph-img-circle {
+			    width:60px;
+			    height:60px;
+			    top:70px;
+			    left:70px;
+			    position:absolute;
+			    background:rgba(30,30,30,0.1) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABNmlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjarY6xSsNQFEDPi6LiUCsEcXB4kygotupgxqQtRRCs1SHJ1qShSmkSXl7VfoSjWwcXd7/AyVFwUPwC/0Bx6uAQIYODCJ7p3MPlcsGo2HWnYZRhEGvVbjrS9Xw5+8QMUwDQCbPUbrUOAOIkjvjB5ysC4HnTrjsN/sZ8mCoNTIDtbpSFICpA/0KnGsQYMIN+qkHcAaY6addAPAClXu4vQCnI/Q0oKdfzQXwAZs/1fDDmADPIfQUwdXSpAWpJOlJnvVMtq5ZlSbubBJE8HmU6GmRyPw4TlSaqo6MukP8HwGK+2G46cq1qWXvr/DOu58vc3o8QgFh6LFpBOFTn3yqMnd/n4sZ4GQ5vYXpStN0ruNmAheuirVahvAX34y/Axk/96FpPYgAAACBjSFJNAAB6JQAAgIMAAPn/AACA6AAAUggAARVYAAA6lwAAF2/XWh+QAAAB/ElEQVR42uya7W3CMBCG31QM4A1aNggTlG6QbpBMkHYC1AloJ4BOABuEDcgGtBOETnD9c1ERCH/lwxeaV8oPFGP86Hy+DxMREW5Bd7gRjSDSNGn4/RiAOvm8C0ZCRD5PSkQVXSr1nK/xE3mcWimA1ZV3JYBZCIO4giQANoYxMwYS6+xKY4lT5dJPreWZY+uspqSCKPYN27GJVBDXheVSQe494ksiEWTuMXcu1dld9SARxDX1OAJ4lgjy4zDnFsC076A4adEiRwAZg4hOUSpNoCsBPDGM+HqkNGynYBCuILuWj+dgWysGsNe8nwL4GsrW0m2fxZBq9rW0rNcX5MOQ9eZD8JFahcG5g/iKT671alGAYQggpYWvpEPYWrU/HDTOfeRIX0q2SL3QN4tGhZJukVobQyXYWw7WtLDKDIuM+ZSzscyCE9PCy5IttCvnZNaeiGLNHKuz8ZVh/MXTVu/1xQKmIqLEAuJ0fNo3iG5B51oSkeKnsBi/4bG9gYB/lCytU5G9DryFW+3Gm+JLwU7ehbJrwTjq4DJU8bHcVbEV9dXXqqP6uqO5e2/QZRYJpqu2IUAA4B3tXvx8hgKp05QZW6dJqrLTNkB6vrRURLRwPHqtYgkC3cLWQAcDQGGKH13FER/NATzi786+BPDNjm1dMkfjn2pGkBHkf4D8DgBJDuDHx9BN+gAAAABJRU5ErkJggg==) no-repeat center center;
+			    border-radius:100% !important;
+			    border:2px solid transparent;
+			    -webkit-animation:phonering-alo-circle-img-anim 1s infinite ease-in-out;
+			    animation:phonering-alo-circle-img-anim 1s infinite ease-in-out;
+			    -webkit-transform-origin:50% 50%;
+			    -ms-transform-origin:50% 50%;
+			    transform-origin:50% 50%
+			}
+
+			.phonering-alo-phone.phonering-alo-active .phonering-alo-ph-img-circle {
+			    -webkit-animation:phonering-alo-circle-img-anim 1s infinite ease-in-out!important;
+			    animation:phonering-alo-circle-img-anim 1s infinite ease-in-out!important
+			}
+
+			.phonering-alo-phone.phonering-alo-static .phonering-alo-ph-img-circle {
+			    -webkit-animation:phonering-alo-circle-img-anim 0 infinite ease-in-out!important;
+			    animation:phonering-alo-circle-img-anim 0 infinite ease-in-out!important
+			}
+
+			.phonering-alo-phone.phonering-alo-hover .phonering-alo-ph-img-circle,.phonering-alo-phone:hover .phonering-alo-ph-img-circle {
+			    background-color:#00aff2
+			}
+
+			.phonering-alo-phone.phonering-alo-green.phonering-alo-hover .phonering-alo-ph-img-circle,.phonering-alo-phone.phonering-alo-green:hover .phonering-alo-ph-img-circle {
+			    background-color:#75eb50;
+			    background-color:#75eb50 9
+			}
+
+			.phonering-alo-phone.phonering-alo-green .phonering-alo-ph-img-circle {
+			    background-color:#00aff2;
+			    background-color:#00aff2 9
+			}
+
+			.phonering-alo-phone.phonering-alo-gray.phonering-alo-hover .phonering-alo-ph-img-circle,.phonering-alo-phone.phonering-alo-gray:hover .phonering-alo-ph-img-circle {
+			    background-color:#ccc
+			}
+
+			.phonering-alo-phone.phonering-alo-gray .phonering-alo-ph-img-circle {
+			    background-color:#75eb50
+			}
+
+			@-webkit-keyframes phonering-alo-circle-anim {
+			    0% {
+			        -webkit-transform:rotate(0) scale(.5) skew(1deg);
+			        -webkit-opacity:.1
+			    }
+
+			    30% {
+			        -webkit-transform:rotate(0) scale(.7) skew(1deg);
+			        -webkit-opacity:.5
+			    }
+
+			    100% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			        -webkit-opacity:.1
+			    }
+			}
+
+			@-webkit-keyframes phonering-alo-circle-fill-anim {
+			    0% {
+			        -webkit-transform:rotate(0) scale(.7) skew(1deg);
+			        opacity:.2
+			    }
+
+			    50% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			        opacity:.2
+			    }
+
+			    100% {
+			        -webkit-transform:rotate(0) scale(.7) skew(1deg);
+			        opacity:.2
+			    }
+			}
+
+			@-webkit-keyframes phonering-alo-circle-img-anim {
+			    0% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg)
+			    }
+
+			    10% {
+			        -webkit-transform:rotate(-25deg) scale(1) skew(1deg)
+			    }
+
+			    20% {
+			        -webkit-transform:rotate(25deg) scale(1) skew(1deg)
+			    }
+
+			    30% {
+			        -webkit-transform:rotate(-25deg) scale(1) skew(1deg)
+			    }
+
+			    40% {
+			        -webkit-transform:rotate(25deg) scale(1) skew(1deg)
+			    }
+
+			    50% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg)
+			    }
+
+			    100% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg)
+			    }
+			}
+
+			@-webkit-keyframes fadeInRight {
+			    0% {
+			        opacity:0;
+			        -webkit-transform:translate3d(100%,0,0);
+			        -ms-transform:translate3d(100%,0,0);
+			        transform:translate3d(100%,0,0)
+			    }
+
+			    100% {
+			        opacity:1;
+			        -webkit-transform:none;
+			        -ms-transform:none;
+			        transform:none
+			    }
+			}
+
+			@keyframes fadeInRight {
+			    0% {
+			        opacity:0;
+			        -webkit-transform:translate3d(100%,0,0);
+			        -ms-transform:translate3d(100%,0,0);
+			        transform:translate3d(100%,0,0)
+			    }
+
+			    100% {
+			        opacity:1;
+			        -webkit-transform:none;
+			        -ms-transform:none;
+			        transform:none
+			    }
+			}
+
+			@-webkit-keyframes fadeOutRight {
+			    0% {
+			        opacity:1
+			    }
+
+			    100% {
+			        opacity:0;
+			        -webkit-transform:translate3d(100%,0,0);
+			        -ms-transform:translate3d(100%,0,0);
+			        transform:translate3d(100%,0,0)
+			    }
+			}
+
+			@keyframes fadeOutRight {
+			    0% {
+			        opacity:1
+			    }
+
+			    100% {
+			        opacity:0;
+			        -webkit-transform:translate3d(100%,0,0);
+			        -ms-transform:translate3d(100%,0,0);
+			        transform:translate3d(100%,0,0)
+			    }
+			}
+
+			@-webkit-keyframes phonering-alo-circle-anim {
+			    0% {
+			        -webkit-transform:rotate(0) scale(.5) skew(1deg);
+			                transform:rotate(0) scale(.5) skew(1deg);
+			        opacity:.1
+			    }
+
+			    30% {
+			        -webkit-transform:rotate(0) scale(.7) skew(1deg);
+			                transform:rotate(0) scale(.7) skew(1deg);
+			        opacity:.5
+			    }
+
+			    100% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg);
+			        opacity:.1
+			    }
+			}
+
+			@keyframes phonering-alo-circle-anim {
+			    0% {
+			        -webkit-transform:rotate(0) scale(.5) skew(1deg);
+			                transform:rotate(0) scale(.5) skew(1deg);
+			        opacity:.1
+			    }
+
+			    30% {
+			        -webkit-transform:rotate(0) scale(.7) skew(1deg);
+			                transform:rotate(0) scale(.7) skew(1deg);
+			        opacity:.5
+			    }
+
+			    100% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg);
+			        opacity:.1
+			    }
+			}
+
+			@-webkit-keyframes phonering-alo-circle-fill-anim {
+			    0% {
+			        -webkit-transform:rotate(0) scale(.7) skew(1deg);
+			                transform:rotate(0) scale(.7) skew(1deg);
+			        opacity:.2
+			    }
+
+			    50% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg);
+			        opacity:.2
+			    }
+
+			    100% {
+			        -webkit-transform:rotate(0) scale(.7) skew(1deg);
+			                transform:rotate(0) scale(.7) skew(1deg);
+			        opacity:.2
+			    }
+			}
+
+			@keyframes phonering-alo-circle-fill-anim {
+			    0% {
+			        -webkit-transform:rotate(0) scale(.7) skew(1deg);
+			                transform:rotate(0) scale(.7) skew(1deg);
+			        opacity:.2
+			    }
+
+			    50% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg);
+			        opacity:.2
+			    }
+
+			    100% {
+			        -webkit-transform:rotate(0) scale(.7) skew(1deg);
+			                transform:rotate(0) scale(.7) skew(1deg);
+			        opacity:.2
+			    }
+			}
+
+			@-webkit-keyframes phonering-alo-circle-img-anim {
+			    0% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg)
+			    }
+
+			    10% {
+			        -webkit-transform:rotate(-25deg) scale(1) skew(1deg);
+			                transform:rotate(-25deg) scale(1) skew(1deg)
+			    }
+
+			    20% {
+			        -webkit-transform:rotate(25deg) scale(1) skew(1deg);
+			                transform:rotate(25deg) scale(1) skew(1deg)
+			    }
+
+			    30% {
+			        -webkit-transform:rotate(-25deg) scale(1) skew(1deg);
+			                transform:rotate(-25deg) scale(1) skew(1deg)
+			    }
+
+			    40% {
+			        -webkit-transform:rotate(25deg) scale(1) skew(1deg);
+			                transform:rotate(25deg) scale(1) skew(1deg)
+			    }
+
+			    50% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg)
+			    }
+
+			    100% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg)
+			    }
+			}
+
+			@keyframes phonering-alo-circle-img-anim {
+			    0% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg)
+			    }
+
+			    10% {
+			        -webkit-transform:rotate(-25deg) scale(1) skew(1deg);
+			                transform:rotate(-25deg) scale(1) skew(1deg)
+			    }
+
+			    20% {
+			        -webkit-transform:rotate(25deg) scale(1) skew(1deg);
+			                transform:rotate(25deg) scale(1) skew(1deg)
+			    }
+
+			    30% {
+			        -webkit-transform:rotate(-25deg) scale(1) skew(1deg);
+			                transform:rotate(-25deg) scale(1) skew(1deg)
+			    }
+
+			    40% {
+			        -webkit-transform:rotate(25deg) scale(1) skew(1deg);
+			                transform:rotate(25deg) scale(1) skew(1deg)
+			    }
+
+			    50% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg)
+			    }
+
+			    100% {
+			        -webkit-transform:rotate(0) scale(1) skew(1deg);
+			                transform:rotate(0) scale(1) skew(1deg)
+			    }
+			}
+		</style>
+		<style>
+			@media screen and (max-width: 425px) {
+			    #phonering-alo-phoneIcon {
+			        transform: scale(0.8) !important;
+			    }
+			    #phone_box{
+					position: fixed;
+					bottom: -60px;
+					left:-60px;
+					z-index: 999999999;
+			    }
+			}
+			@media screen and (min-width: 426px) {
+			    #phonering-alo-phoneIcon {
+			        transform: scale(1) !important;
+			    }
+			    #phone_box{
+			    	position: fixed;
+					bottom: -50px;
+    				left: -50px;
+    				z-index: 999999999;
+			    }
+			}
+
+		</style>
+		<div style="width: 200px;height: 200px; display:none" class="phonering-alo-phone phonering-alo-green phonering-alo-show" id="phonering-alo-phoneIcon">
+			<div class="phonering-alo-ph-circle"></div>
+			<div class="phonering-alo-ph-circle-fill"></div>
+			<a href="tel:01683097229" class="pps-btn-img" title="Liên hệ">
+				<div class="phonering-alo-ph-img-circle"></div>
+		 	</a>
+		</div>
+	</div>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+
+
+
+
+
+
+
+    <section>
+
+        <main class="container">
+            <div class="page-heading">
+                <div class="row nav-wrapper">
+                    <div class="col s12">
+                        <ul itemscope="" itemtype="http://schema.org/BreadcrumbList" class="main-breadcrumb">
+                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                                <a itemprop="item" href="https://techmaster.vn/">
+                                    <span itemprop="name">Trang chủ</span></a>
+                                <meta itemprop="position" content="1">
+                            </li>
+
+                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                                <a itemprop="item" href="https://techmaster.vn/posts">
+                                    <span itemprop="name">Blog</span></a>
+                                <meta itemprop="position" content="2">
+                            </li>
+
+                            <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                                <a itemprop="item" href="https://techmaster.vn/posts/34075/tai-sao-ban-nen-hoc-nodejs">
+                                    <span itemprop="name">Tại sao bạn nên học Node.js?</span></a>
+                                <meta itemprop="position" content="3">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row search-bar ">
+                    <div class="col s12 ">
+                        <ul class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <div class="col s12 m7 l8 xl9 search-input white">
+                                    
+<form role="search" method="get" id="frm-search" name="frm_search" action="https://techmaster.vn/search/posts">
+    <div class="input-field">
+        <input id="search" name="s" type="search" placeholder="Gõ từ khóa tìm kiếm" required="">
+        <label for="search" class="active"><i class="fa fa-2x fa-search" onclick="validateSearch()"></i></label>
+        <i class="material-icons active" onclick="resetSearch()">close</i>
+    </div>
+</form>
+                                </div>
+
+                                <div class="col s12 m5 l4 xl3 collapsible-header white">
+    <span class="chip square right">Danh mục bài viết</span>
+</div>
+<div class="col s12 collapsible-body white z-depth-1" id="data-filter" style="">
+    <ul class="tags">
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/440/p/1/agile">
+                        Agile (14)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/812/p/1/algorithm">
+                        Algorithm (12)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/72/p/1/altassian">
+                        Altassian (4)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/78/p/1/android">
+                        Android (81)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/458/p/1/arduino">
+                        Arduino (15)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/86/p/1/asp-net">
+                        ASP.net (18)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/438/p/1/c">
+                        C++ (21)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/82/p/1/cloud">
+                        Cloud (8)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/448/p/1/cong-viec">
+                        công việc (153)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/454/p/1/css">
+                        CSS (30)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/74/p/1/cuoc-song">
+                        Cuộc sống (147)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/435/p/1/database">
+                        Database (44)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/69/p/1/design">
+                        Design (60)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/814/p/1/design-pattern">
+                        Design Pattern (1)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/459/p/1/dien-tu">
+                        Điện tử (35)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/805/p/1/docker">
+                        Docker (10)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/6/p/1/education">
+                        Education (63)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/433/p/1/Eletronics">
+                        Eletronics (4)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/257/p/1/facebook">
+                        Facebook (2)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/93/p/1/game">
+                        Game (24)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/437/p/1/git">
+                        Git (10)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/457/p/1/go">
+                        Go (53)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/453/p/1/html">
+                        HTML (36)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/70/p/1/ios">
+                        iOS (276)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/813/p/1/japan">
+                        Japan (3)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/68/p/1/java">
+                        Java (140)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/224/p/1/javascript">
+                        JavaScript (112)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/798/p/1/john-vu">
+                        John Vũ (7)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/818/p/1/khoa-hoc">
+                        Khóa học (1)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/66/p/1/kiem-thu">
+                        Kiểm thử (14)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/444/p/1/lap-trinh">
+                        lập trình (334)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/450/p/1/lap-trinh-android">
+                        lập trình Android (35)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/447/p/1/lap-trinh-ios">
+                        lập trình ios (203)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/445/p/1/lap-trinh-php">
+                        lập trình php (43)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/451/p/1/lap-trinh-ung-dung">
+                        lập trình ứng dụng (101)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/452/p/1/lap-trinh-ung-dung-iphone">
+                        lập trình ứng dụng iphone (48)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/79/p/1/lap-trinh-web">
+                        Lập trình web (238)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/71/p/1/linux">
+                        Linux (38)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/88/p/1/mac-2">
+                        Mac (9)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/787/p/1/machine-learning">
+                        Machine Learning (12)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/802/p/1/magento">
+                        Magento (4)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/815/p/1/messaging">
+                        Messaging (1)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/455/p/1/microservice">
+                        Microservice (17)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/76/p/1/microsoft">
+                        Microsoft (17)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/9/p/1/news">
+                        News (62)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/436/p/1/nghe-nghiep">
+                        Nghề nghiệp (91)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/434/p/1/nodejs">
+                        Node.js (87)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/456/p/1/odoo">
+                        Odoo (3)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/797/p/1/opencv">
+                        OpenCV (1)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/81/p/1/php">
+                        PHP (74)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/83/p/1/project-management">
+                        Project Management (22)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/439/p/1/python">
+                        Python (21)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/80/p/1/ruby-on-rails">
+                        Ruby on Rails (54)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/73/p/1/scala">
+                        Scala (15)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/75/p/1/sharepoint">
+                        SharePoint (6)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/799/p/1/stem">
+                        STEM (10)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/417/p/1/swift">
+                        Swift (121)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/85/p/1/techmaster">
+                        TechMaster (152)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/443/p/1/tips-and-tricks">
+                        Tips and tricks (22)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/67/p/1/tutor">
+                        Tutor (74)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/442/p/1/twitter-boostrap">
+                        Twitter Boostrap (2)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/1/p/1/uncategorized">
+                        Uncategorized (26)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/449/p/1/ung-dung">
+                        ứng dụng (7)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/432/p/1/unity3d">
+                        Unity3D (13)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/446/p/1/viec-lam">
+                        việc làm (135)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/89/p/1/vmware">
+                        VMware (2)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/77/p/1/windowsphone">
+                        WindowsPhone (43)
+                    </a>
+                
+            </li>
+        
+            <li class="chip square">
+                
+                    <a href="https://techmaster.vn/categories/430/p/1/wordpress">
+                        WordPress (6)
+                    </a>
+                
+            </li>
+        
+    </ul>
+</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="page-main white">
+                <div class="post-content" itemscope="" itemtype="http://schema.org/NewsArticle">
+                    <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="https://techmaster.vn/posts">
+                    <div itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+                        <meta itemprop="url" content="https://techmaster.vn/fileman/Uploads/users/3277/nodejs.png">
+                        <meta itemprop="width" content="800">
+                        <meta itemprop="height" content="800">
+                    </div>
+                    <div itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+                        <div itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+                            <meta itemprop="url" content="https://techmaster.vn/img/logo.png">
+                            <meta itemprop="width" content="142">
+                            <meta itemprop="height" content="44">
+                        </div>
+                        <meta itemprop="name" content="TechmasterVn">
+                    </div>
+                    <div class="header-post center ">
+                        <h1 class="heading-title-large" itemprop="headline">Tại sao bạn nên học Node.js?</h1>
+                        <div class="info">
+                            <ul>
+                                <meta itemprop="datePublished" content="Fri Sep 30 2016 08:01:55 GMT+0700 (ICT)">
+                                <meta itemprop="dateModified" content="Mon Jan 16 2017 09:24:18 GMT+0700 (ICT)">
+                                <li>30/09/2016</li>
+                                <li>Bởi <strong class="color-green" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+                                        
+                                            <a href="https://techmaster.vn/posts/3277"><span itemprop="name">Kid</span></a>
+                                        
+                                    </strong></li>
+                                
+                                    
+                                    <li>trong
+                                        <strong><a href="https://techmaster.vn/categories/434/p/1/nodejs">Node.js</a></strong>
+                                    </li>
+                                
+                            </ul>
+
+                            <div class="fb-like fb_iframe_widget" data-href="" data-layout="button_count" data-action="like" data-colorscheme="light" data-show-faces="false" data-share="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=290270177727593&amp;color_scheme=light&amp;container_width=922&amp;href=https%3A%2F%2Ftechmaster.vn%2Fposts%2F34075%2Ftai-sao-ban-nen-hoc-nodejs&amp;layout=button_count&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;show_faces=false"><span style="vertical-align: bottom; width: 134px; height: 20px;"><iframe name="f39b5d1cf962d68" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" title="fb:like Facebook Social Plugin" src="./Tại sao bạn nên học Node.js__files/like.html" style="border: none; visibility: visible; width: 134px; height: 20px;" class=""></iframe></span></div>
+                        </div>
+                    </div>
+
+                    <div class="main-post ">
+                        <article class="content">
+                            <h2><strong>Giới thiệu</strong></h2>
+
+<p>Javascript đang dần trở nên phổ biến, đi kèm với nó là rất nhiều sự thay đổi, khiến cho bộ mặt của ngành phát triển web trở nên lung linh hơn. Javascript bây giờ đã xuất hiện trên cả phía server-side, cùng với sức mạnh của nó ở phía client-side vốn dĩ đã rất mạnh mẽ, tạo nên 1 xu hướng mới, trào lưu mới trong lập trình web. Nếu so với cách đây chỉ vài năm thôi, thật khó để tưởng tượng được rằng thế giới website vẫn còn bị quanh quẩn trong những môi trường sand-box như Flash hay Java Applets.</p>
+
+<p>Trước khi đi sâu vào tìm hiểu Node.js, chúng ta cần lướt qua về những thuận lợi của việc sử dụng Javascript xuyên suốt hệ thống web từ&nbsp;server-side đến&nbsp;client-side (<a href="https://www.toptal.com/javascript/guide-to-full-stack-javascript-initjs">across the stack</a>) với khả năng hợp nhất giữa ngôn ngữ và định dạng dữ liệu (JSON). Khả năng này cho phép các nhà phát triển tái sử dụng tài nguyên 1 cách hiệu quả, cộng thêm hàng tá các tính năng mạnh mẽ khác của Javascript giúp nó, cũng như Node.js, xứng đáng có mặt trong danh sách các kỹ năng của bạn trong tương lai.</p>
+
+<p>Theo <a href="https://en.wikipedia.org/wiki/Node.js">Wikipedia</a>, “Node.js là một nền tảng dựng trên trình biên dịch Google’s Chrome V8 Javascript, một nền tảng các lớp trừu tượng và một thư viện lõi, được viết chính bằng Javascript.” Theo như Ryan Dahl, cha đẻ của Node.js, “Node.js hướng đến việc tạo nên những <strong>realtime websites</strong> (websites&nbsp;tương tác thời gian thực). Điều này lấy cảm hứng từ Gmail. Thực vậy, với Node.js, các nhà phát triển làm việc theo event-driven (cơ thế hướng sự kiện), non-blocking (thực thi không tuần tự).</p>
+
+<blockquote>
+<p>Cuối cùng thì sau hơn 20 năm của cơ chế web resquest – response, đã xuất hiện ứng dụng realtime web, two way connection (tương tác 2 chiều).</p>
+</blockquote>
+
+<p>Nói ngắn gọn về Node.js: đi đầu trong việc tạo nên những realtime websites thông qua cơ chế websocket. Cuối cùng thì sau hơn 20 năm của cơ chế web resquest – response, đã xuất hiện ứng dụng realtime web, two way connection (tương tác 2 chiều). Với Node.js, phía client và server có thể bắt đầu giao tiếp với nhau 1 cách đơn giản hơn rất nhiều (do cùng ngôn ngữ), dẫn đến dữ liệu được trao đổi 1 cách thoải mái. Với hệ thống request-response cũ, chỉ phía client là có khả năng gửi thông điệp đến server. Trước đây Flash và Java-Applets thống trị trên nền web, tuy nhiên về cơ bản chúng chỉ là các sandbox-enviroment (môi trường hộp cát), sử dụng trang web như là giao thức truyền tải dữ liệu đến đích là các client. Thêm nữa, việc chúng có cơ chế chạy độc lập và được điều khiển qua các cổng không chính thống (non-standard port) làm cho chúng ngốn nhiều tài nguyên hơn, yêu cầu hệ thống nhiều hơn.</p>
+
+<p>Trong bài viết này, chúng ta sẽ thảo luận về những điểm mạnh của&nbsp;Node.js, cũng như lý do tại sao chúng ta sử dụng Node.js và <em>KHÔNG</em> sử dụng Node.js.</p>
+
+<div class="marker" style="background-color:#FFFF66;padding:1px 15px;">Tham khảo các <a href="https://techmaster.vn/khoa-hoc" target="_blank">khóa học lập trình</a> online, onlab, và <a href="https://techmaster.vn/posts/33583/thuc-tap-lap-trinh-web-mobile" target="_blank">thực tập lập trình</a>&nbsp;tại TechMaster</div>
+
+<h2><strong>Cơ chế làm việc</strong></h2>
+
+<p>Ý tưởng chính của Node.js: sử dụng cơ chế non-blocking, event-driven I/O để làm giảm nhẹ và nâng cao hiệu quả trong việc xử lý một khối lượng rất lớn dữ liệu trên các ứng dụng realtime đa nền tảng. Tuy nhiên cần lưu ý: Node.js không phải là chiếc đũa thần nhiệm màu, có thể giúp ta vẫy tay là tạo ra được những trang web thực. Thay vào đó, Node.js là <strong>một nền tảng cho phép những nhà phát triển làm việc một cách hiệu quả với những websites realtime</strong>. Hiểu rõ điều này sẽ giúp bạn không sa lầy vào việc tôn sùng thái quá Node.js. Với những hệ thống yêu cầu cao về CPU, cần tính toán nặng nề, sử dụng Node.js là một thảm họa. Cái mà Node.js mạnh mẽ, như đã nói, là việc xây dựng được những ứng dụng network, khả năng kiểm soát được một lượng lớn các kết nối đồng thời lưu lượng cao, đồng nghĩa với việc tính tương tác rất cao.</p>
+
+<blockquote>
+<p>Node.js không phải là chiếc đũa thần nhiệm màu, có thể giúp ta vẫy tay là tạo ra được những trang web thực.</p>
+</blockquote>
+
+<p>Cách mà nó chạy nền thực sự khá thú vị. Hãy so sánh với kỹ thuật web-serving truyền thống: mỗi kết nối (request) sinh ra một thread (luồng xử lý), chiếm một lượng bộ nhớ RAM hệ thống và dần dần chiếm hết dung lượng RAM khả dĩ. Node.js không như vậy. Nó chỉ chạy trên 1 thread duy nhất, sử dụng lời gọi non-blocking I/O, cho phép nó xử lý được cả ngàn kết nối cùng lúc. (Hình dưới)</p>
+
+<p style="text-align:center"><img align="center" alt="" border="0" name="Picture 3" src="./Tại sao bạn nên học Node.js__files/toptal-blog-1_B.png" style="max-width:100%"></p>
+
+<p>Một phép tính đơn giản: giả sử mỗi thread có 2Mb bộ nhớ, chạy trên một hệ thống 8Gb RAM trên lý thuyết chỉ có thể xử lý được 4000 kết nối cùng lúc. Đấy còn chưa kể đến bộ nhớ dùng để <a href="http://www.slideshare.net/marcusf/nonblocking-io-event-loops-and-nodejs">chuyển đổi nội dung giữa các thread</a>. Đây là viễn cảnh mà bạn sẽ phải đương đầu trong kỹ thuật web-serving truyền thống. Cùng điều kiện, Node.js vượt trội hơn hẳn với khả năng xử lý 1,000,000 kết nối cùng lúc.</p>
+
+<p>Tuy nhiên việc chia sẻ chỉ một luồng đơn giữa các request của clients liệu có tối ưu? Có và không. Với những tác vụ yêu cầu tính toán nặng nề, thread đơn của Node.js sẽ bị chặn và sẽ gây ra những vấn đề ở phía client, cụ thể là những request đến sẽ phải chờ cho việc tính toán kết thúc. Bên cạnh đó, developers&nbsp;cũng cần cẩn thận để tránh quăng những exception vào core Node.js event-loop (vòng lặp sự kiện lõi). Việc này sẽ khiến chương trình bị ngừng, thậm chí bị crash.</p>
+
+<p>Có một kỹ thuật để tránh được việc quăng lung tung exception: kiểm soát lỗi bằng cách pass nó thành tham số trong hàm callback (thay vì quăng nó ra như mấy ngôn ngữ khác). Cho dù có một số exeption khó kiểm soát có xu hướng nhảy thẳng vào mặt các devs, kha khá các công cụ và đa mô hình cho phép điều khiển tiến trình trong Node.js và biểu diễn, phục hồi các thể hiện lỗi (cho dù bạn không có khả năng phục hồi session của người dùng). Thông thường nhất là sử dụng Forever module, hay dùng một công cụ thứ 3 là Upstart and Monit.</p>
+
+<h2><strong>NPM: Node Package Manager (Bộ quản lý gói Node)</strong></h2>
+
+<p>Khi nói về Node.js, có một điều không thể bị bỏ qua, đấy là bộ quản lý gói build-in sử dụng công cụ npm, được cài mặc định theo bộ cài Node.js. Nguyên lý của module NPM là: một bộ các thành phần mở, có khả năng tái sử dụng, có thể được cài đặt thông qua online repository (kho mã nguồn online). Danh sách các gói npm có thể được tìm thấy trên trang chủ <a href="https://npmjs.org/">https://npmjs.org</a>, hoặc truy cập thông qua công cụ npm CLI, được cài tự động cùng với Node.js. Hệ sinh thái module npm mở (open source), ai cũng có thể truy cập và tải về miễn phí, cũng như tạo ra và upload module của riêng họ. Một số module npm phổ biến:</p>
+
+<ul>
+	<li><a href="http://expressjs.com/">Express</a>: expressjs, một framework phát triển web dựa trên Sinatra, nền tảng chuẩn cho rất nhiều ứng dụng Node.js bây giờ.</li>
+	<li><a href="http://www.senchalabs.org/connect/">Connect</a>: Connect là một framework server HTTP mở rộng, cung câp một bộ các plugins “hiệu năng cao” như middleware, serves, đồng thời cũng là nền tảng cho Express.</li>
+	<li><a href="http://socket.io/">Socket.io</a> và <a href="https://github.com/sockjs">sockjs</a>: thành phần server-side của hai websocket thông dụng nhất hiện nay.</li>
+	<li><a href="https://pugjs.org/api/getting-started.html">Jade</a>: một trong những template engine phổ biến (chuẩn viết html), dựa trên HAML, nền tảng của Expressjs.</li>
+	<li><a href="https://www.npmjs.com/package/mongodb">Mongo</a> và <a href="https://github.com/mafintosh/mongojs">mongojs</a>: gói MongoDB cung cấp những APIs cho hệ cơ sở dữ liệu đối tượng MongoDB trong Node.js</li>
+	<li><a href="https://github.com/NodeRedis/node_redis">Redis</a>: thư viện người dùng.</li>
+	<li><a href="https://github.com/NodeRedis/node_redis">CoffeeScript</a>: trình biên dịch CoffeeScript cho phép những nhà phát triển viết nên chương trình Node.js bằng Coffee (uống cà phê là viết được Node.js &lt;3)</li>
+	<li><a href="https://www.npmjs.com/package/underscore">Underscore</a> (<a href="https://lodash.com/">lodash</a>, <a href="https://www.npmjs.com/package/lazy">lazy</a>): thư viện cung cấp rất nhiều tiện ích, được sử dụng phổ biến nhất trong Javascript, được gói gọn trong Node.js, với cách thực thi khác biệt, hứa hẹn sẽ mang đến <a href="http://philosopherdeveloper.com/posts/introducing-lazy-js.html">hiệu năng tốt hơn</a>.</li>
+	<li><a href="https://www.npmjs.com/package/forever">Forever</a>: rõ ràng đây là tiện ích thông dụng nhất, giúp cho mã Node chạy một cách liên tục.</li>
+</ul>
+
+<p>Danh sách trên đây&nbsp;chỉ mang tính giới thiệu. Thực tế còn rất nhiều các module mạnh mẽ khác nữa, sẽ để giành cho bạn đọc tìm hiểu :fu:</p>
+
+<h2><strong>Ví dụ thực tế sử dụng Node.js</strong></h2>
+
+<h3><strong>Chat</strong></h3>
+
+<p>Chat là một ứng dụng realtime, đa người dùng điển hình. Đây là ví dụ trực quan nhất về khả năng của Node.js: nhẹ, xử lý lượng lớn truy cập, dữ liệu mang tính nhạy cảm (nhưng ít tiến trình và không yêu cầu tính toán nặng), chạy đa thiết bị.</p>
+
+<p>Hãy đi sâu vào cách mà một ứng dụng chat hoạt động!</p>
+
+<p>Giả dụ chúng ta có một chat room trên trang web. Tại đây mọi người có thể vào và để lại tin nhắn cho một vài người hoặc tất cả trong room. Cụ thể hơn, cứ cho rằng có 3 ông đang say sưa chat chit ở trong cái room chat ấy.</p>
+
+<p>Ở phía server-side, ta có một ứng dụng <a href="http://expressjs.com/">Express</a> đơn giản, làm 2 công việc:</p>
+
+<ol>
+	<li>Một bộ xử lý request GET “/” sẽ cung cấp cho trang web nội dung của khung chat và một nút “Send” để gửi tin nhắn.</li>
+	<li>
+	<p>Một máy chủ websocket sẽ lắng nghe những tin nhắn mới từ websocket người dùng.</p>
+	</li>
+</ol>
+
+<p>Ở phía client-side, ta có trang HTML với vài bộ xử lý, một cho nút “Send” lấy nội dung tin nhắn và gửi nó cho websocket, một cái khác lắng nghe tin nhắn đến ở websocket người dùng.</p>
+
+<p>Bây giờ nếu ông A gửi tin nhắn, sẽ có những sự kiện sau xảy ra:</p>
+
+<ol>
+	<li>
+	<p>Trình duyệt bắt lấy sự kiện nhấn chuột vào nút “Send”, lấy nội dung từ trường input (một đoạn text: “Alo em à? Nhớ anh không?”), đồng thời phát ra một tin nhắn websocket từ websocket người dùng đã kết nối tới server.</p>
+	</li>
+	<li>
+	<p>Những thành phần server-side của bộ kết nối websocket nhận những tin nhắn và chuyển tiếp nó cho websocket kết nối tới ông B và ông C.</p>
+	</li>
+	<li>
+	<p>Websocket người dùng chạy trên trang web sẽ xử lý nội dung tin nhắn và trả về cho trang web nội dung tin nhắn bằng cách thêm tin nhắn vào khung chat. Lúc này ông B và ông C sẽ thấy tin nhắn mới đến.</p>
+	</li>
+</ol>
+
+<p style="text-align:center"><img align="bottom" alt="" border="0" name="Picture 2" src="./Tại sao bạn nên học Node.js__files/toptal-blog-2_B.png" style="max-width:100%"></p>
+
+<p>Vậy là đã xong <a href="https://code.tutsplus.com/tutorials/real-time-chat-with-nodejs-socketio-and-expressjs--net-31708">ví dụ trực quan nhất</a> cho Node.js. Đương nhiên đây chỉ là phiên bản đơn giản. Bạn hoàn toàn có thể thêm thắt những tính năng khác của riêng bạn vào (hoặc bugs :D). Sau tất cả, Node.js vẫn trung thành với luật lệ của riêng nó: phản ứng với các sự kiện, kiểm soát các kết nối đồng thời và đảm bảo tính liên tục cho trải nghiệm người dùng.</p>
+
+<h3><strong>API kết nối và truy xuất cơ sở dữ liệu đối tượng.</strong></h3>
+
+<p>Đến giờ thì đã rõ ràng Node.js là soái ca trong việc tạo nên những ứng dụng realtime. Bên cạnh đó, việc lấy dữ liệu (JSON) từ các cơ sở dữ liệu đối tượng (MongoDB chẳng hạn) cũng không là vấn đề với Node.js. Ví dụ, nếu bạn sử dụng Rails, bạn sẽ phải convert từ JSON sang dạng nhị phân, sau đó lại phải convert ngược lại khi dữ liệu được lấy về bằng Blackbone.js hay thậm chí là bằng AJAX. Với Node.js, dữ liệu từ đầu đến cuối đều là dạng JSON. Easy. Túm lại, với Node.js, bạn sẽ chẳng cần phải quan tâm đến việc chuyển đổi kiểu dữ liệu (vì chỉ có một kiểu thoai, JSON).</p>
+
+<h3><strong>Luồng dữ liệu (Data Streaming)</strong></h3>
+
+<p>Trên nhiều nền tảng web truyền thống, request và response HTTP được xem như những sự kiện đơn lẻ. Thực tế, chúng là các luồng. Điều này đã được nhận ra trong Node.js và được sử dụng để xây dựng nên vài tính năng hữu ích. Ví dụ, file hoàn toàn có thể được xử lý trong quá trình upload, như là mã hóa các realtime video, audio,…</p>
+
+<h3><strong>Proxy</strong></h3>
+
+<p>Node.js có thể được tận dụng như là một server-side proxy, xử lý một lượng rất lớn các kết nối đồng thời theo cách thức non-blocking. Điều này đặc biệt hữu dụng khi ủy quyền cho các server khác nhau phản hồi theo thời gian, hoặc thu thập dữ liệu đa nguồn.</p>
+
+<p>Ví dụ: một ứng dụng server-side giao tiếp với nguồn tài nguyên thứ 3 (third-party), lấy về dữ liệu từ nhiều nguồn khác nhau, hoặc lưu trữ tài nguyên như ảnh và video từ dịch vụ cloud.</p>
+
+<p>Node.js hoàn toàn hữu ích nếu cơ sở hạ tầng proxy không tương xứng hay bạn muốn tìm kiếm giải pháp cho việc phát triển cục bộ. Khi nói thế thì ý của tôi là bạn có thể xây dựng app client-side với một server phát triển cho Node.js, đồng thời trong quá trình sản xuất bạn có thể kiểm soát tương tác với server proxy chuyên biệt (nginx, HAProxy, etc).</p>
+
+<p><em>Bài viết được dịch từ nguồn:&nbsp;<a href="https://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js">https://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js</a></em></p>
+
+                        </article>
+                    </div>
+
+                    <!--Topdev Ads-->
+                    <div class="ml-rcm" rc-type="job" rc-layout="bjobs" rc-li="3" rc-for="url" rc-title="Những việc làm hấp dẫn" token-site="2GKyfR2kB%2B4zw9XJipNqO6DMfe%2BV229B7ZiluQtWJI9LX1uPwFlwozMj46msl2Apj7%2Fh4JPCx50lyJbxiSsp0Q%3D%3D" animate="off"><div class="box-rcm"><div class="j-orange tagged x-rcm rcm-jobs-multi" id="rcm-hireme" style="height: auto !important"><a class="header-top" href="https://topdev.vn/" target="_blank"><span>Những việc làm hấp dẫn</span></a><div class="ljobs-rcm"><ul class="jobs"><li class="item-job"><img src="./Tại sao bạn nên học Node.js__files/image.gif" style="width: 1px !important; display: none !important;"><div class="job-wrap"><a class="thumbnail" href="https://topdev.vn/partners/detail-jobs/juniorsenior-full-stack-developer-advance-vision-technology-avtech-12114/?token=2GKyfR2kB%2B4zw9XJipNqO6DMfe%2BV229B7ZiluQtWJI9LX1uPwFlwozMj46msl2Apj7%2Fh4JPCx50lyJbxiSsp0Q%3D%3D"><img class="item-logo" src="./Tại sao bạn nên học Node.js__files/3094cdc8e3c0985d4b1612e1ce2fb699.png"></a><a class="job" title="Junior/Senior Full-stack Developer (.NET)" href="https://topdev.vn/partners/detail-jobs/juniorsenior-full-stack-developer-advance-vision-technology-avtech-12114/?token=2GKyfR2kB%2B4zw9XJipNqO6DMfe%2BV229B7ZiluQtWJI9LX1uPwFlwozMj46msl2Apj7%2Fh4JPCx50lyJbxiSsp0Q%3D%3D" target="_blank"><div class="title">Junior/Senior Full-stack Developer (.NET)</div><div><span class="company">Advance Vision Technology (AVTECH)</span><span class="location"><svg viewBox="0 0 12 12"><path d="M6 5.7c.4 0 .7-.1.9-.4.3-.3.4-.6.4-.9 0-.4-.1-.7-.4-.9-.2-.3-.5-.4-.9-.4s-.7.1-.9.4c-.3.2-.4.5-.4.9s.1.7.4.9c.2.3.5.4.9.4zm0-5c1 0 1.9.4 2.6 1.1.7.7 1.1 1.6 1.1 2.6 0 .5-.1 1.1-.4 1.8s-.5 1.3-.9 1.9c-.4.5-.7 1.1-1.1 1.6-.4.5-.7.9-.9 1.2l-.4.4c-.1-.1-.2-.3-.4-.5s-.5-.6-.9-1.2c-.4-.5-.8-1-1.1-1.6s-.7-1.1-.9-1.8c-.3-.7-.4-1.3-.4-1.8 0-1 .4-1.9 1.1-2.6S5 .7 6 .7z"></path></svg><span>Ho Chi Minh</span></span><span class="j-salary"><svg viewBox="0 0 12 12"><path d="M6 9.8L3.9 7.7c1.3-.9 3-.9 4.2 0L6 9.8zm3-3a4.81 4.81 0 0 0-6 0L2.2 6c2.2-1.8 5.5-1.8 7.7 0l-.9.8zm1.7-1.7a7.27 7.27 0 0 0-9.4 0l-.9-.8c3.2-2.8 7.9-2.8 11.1 0l-.8.8z"></path></svg><span>Negotiable</span></span></div><span class="post-tag">.NET</span><span class="post-tag">Full-Stack</span></a></div></li><li class="item-job"><img src="./Tại sao bạn nên học Node.js__files/image(1).gif" style="width: 1px !important; display: none !important;"><div class="job-wrap"><a class="thumbnail" href="https://topdev.vn/partners/detail-jobs/software-developer-cong-ty-tnhh-cybozu-viet-nam-11783/?token=2GKyfR2kB%2B4zw9XJipNqO6DMfe%2BV229B7ZiluQtWJI9LX1uPwFlwozMj46msl2Apj7%2Fh4JPCx50lyJbxiSsp0Q%3D%3D"><img class="item-logo" src="./Tại sao bạn nên học Node.js__files/230d7d790ec594d2fe2ab85ed8afe236.png"></a><a class="job" title="Software Developer (Java, JavaScript, NodeJS)" href="https://topdev.vn/partners/detail-jobs/software-developer-cong-ty-tnhh-cybozu-viet-nam-11783/?token=2GKyfR2kB%2B4zw9XJipNqO6DMfe%2BV229B7ZiluQtWJI9LX1uPwFlwozMj46msl2Apj7%2Fh4JPCx50lyJbxiSsp0Q%3D%3D" target="_blank"><div class="title">Software Developer (Java, JavaScript, NodeJS)</div><div><span class="company">CÔNG TY TNHH CYBOZU VIỆT NAM</span><span class="location"><svg viewBox="0 0 12 12"><path d="M6 5.7c.4 0 .7-.1.9-.4.3-.3.4-.6.4-.9 0-.4-.1-.7-.4-.9-.2-.3-.5-.4-.9-.4s-.7.1-.9.4c-.3.2-.4.5-.4.9s.1.7.4.9c.2.3.5.4.9.4zm0-5c1 0 1.9.4 2.6 1.1.7.7 1.1 1.6 1.1 2.6 0 .5-.1 1.1-.4 1.8s-.5 1.3-.9 1.9c-.4.5-.7 1.1-1.1 1.6-.4.5-.7.9-.9 1.2l-.4.4c-.1-.1-.2-.3-.4-.5s-.5-.6-.9-1.2c-.4-.5-.8-1-1.1-1.6s-.7-1.1-.9-1.8c-.3-.7-.4-1.3-.4-1.8 0-1 .4-1.9 1.1-2.6S5 .7 6 .7z"></path></svg><span>Ho Chi Minh</span></span><span class="j-salary"><svg viewBox="0 0 12 12"><path d="M6 9.8L3.9 7.7c1.3-.9 3-.9 4.2 0L6 9.8zm3-3a4.81 4.81 0 0 0-6 0L2.2 6c2.2-1.8 5.5-1.8 7.7 0l-.9.8zm1.7-1.7a7.27 7.27 0 0 0-9.4 0l-.9-.8c3.2-2.8 7.9-2.8 11.1 0l-.8.8z"></path></svg><span>Negotiable</span></span></div><span class="post-tag">Java</span><span class="post-tag">JavaScript</span><span class="post-tag">NodeJS</span></a></div></li><li class="item-job"><img src="./Tại sao bạn nên học Node.js__files/image(2).gif" style="width: 1px !important; display: none !important;"><div class="job-wrap"><a class="thumbnail" href="https://topdev.vn/partners/detail-jobs/10-java-developers-junior-senior-cong-ty-co-phan-cong-nghe-va-dich-vu-moca-12158/?token=2GKyfR2kB%2B4zw9XJipNqO6DMfe%2BV229B7ZiluQtWJI9LX1uPwFlwozMj46msl2Apj7%2Fh4JPCx50lyJbxiSsp0Q%3D%3D"><img class="item-logo" src="./Tại sao bạn nên học Node.js__files/c4cd98ebe13ce760eea293e77ec44c55.png"></a><a class="job" title="10 Java Developers (Junior/ Senior) (J2EE)" href="https://topdev.vn/partners/detail-jobs/10-java-developers-junior-senior-cong-ty-co-phan-cong-nghe-va-dich-vu-moca-12158/?token=2GKyfR2kB%2B4zw9XJipNqO6DMfe%2BV229B7ZiluQtWJI9LX1uPwFlwozMj46msl2Apj7%2Fh4JPCx50lyJbxiSsp0Q%3D%3D" target="_blank"><div class="title">10 Java Developers (Junior/ Senior) (J2EE)</div><div><span class="company">Công ty Cổ phần Công nghệ và Dịch vụ Moca</span><span class="location"><svg viewBox="0 0 12 12"><path d="M6 5.7c.4 0 .7-.1.9-.4.3-.3.4-.6.4-.9 0-.4-.1-.7-.4-.9-.2-.3-.5-.4-.9-.4s-.7.1-.9.4c-.3.2-.4.5-.4.9s.1.7.4.9c.2.3.5.4.9.4zm0-5c1 0 1.9.4 2.6 1.1.7.7 1.1 1.6 1.1 2.6 0 .5-.1 1.1-.4 1.8s-.5 1.3-.9 1.9c-.4.5-.7 1.1-1.1 1.6-.4.5-.7.9-.9 1.2l-.4.4c-.1-.1-.2-.3-.4-.5s-.5-.6-.9-1.2c-.4-.5-.8-1-1.1-1.6s-.7-1.1-.9-1.8c-.3-.7-.4-1.3-.4-1.8 0-1 .4-1.9 1.1-2.6S5 .7 6 .7z"></path></svg><span>Ho Chi Minh</span></span><span class="j-salary"><svg viewBox="0 0 12 12"><path d="M6 9.8L3.9 7.7c1.3-.9 3-.9 4.2 0L6 9.8zm3-3a4.81 4.81 0 0 0-6 0L2.2 6c2.2-1.8 5.5-1.8 7.7 0l-.9.8zm1.7-1.7a7.27 7.27 0 0 0-9.4 0l-.9-.8c3.2-2.8 7.9-2.8 11.1 0l-.8.8z"></path></svg><span>$700 - $1,500</span></span></div><span class="post-tag">J2EE</span><span class="post-tag">Java</span></a></div></li></ul></div><iframe src="./Tại sao bạn nên học Node.js__files/vgg-tag-m.html" style="display: none !important;"></iframe></div></div></div>
+                    <!--End Topdev Ads-->
+
+                    <div class="post-nav row">
+                        
+                            
+                                <a href="https://techmaster.vn/posts/33595/hoc-lap-trinh-web-bang-php-hay-nodejs" class="post-previous col s6">
+                                        <span class="thumb hide-on-med-and-down">
+                                            <img class="circle" width="80" height="80" alt="PHP vs Node.js - Cuộc chiến giữa hai công nghệ lập trình web" src="./Tại sao bạn nên học Node.js__files/hoc-lap-trinh-web-bang-php-hay-nodejs-12102015.jpg">
+                                        </span>
+
+                                    <span class="v-align">
+                                            <span class="caption hide-on-med-and-up"><i class="fa fa-2x fa-chevron-left"></i></span>
+                                            <span class="heading  hide-on-small-and-down">PHP vs Node.js - Cuộc chiến giữa hai công nghệ lập trình web</span>
+                                            <span class="quiet caption hide-on-small-and-down">
+                                            <time>13/10/2015</time>
+                                                Hồ Sỹ Hùng
+                                            </span>
+                                        </span>
+                                </a>
+                                
+                        
+                            
+                                <a href="https://techmaster.vn/posts" class="btn home-link">Blog Home</a>
+
+                                <a href="https://techmaster.vn/posts/34379/7-quy-tac-cau-truc-ung-dung-nodejs" class="post-next col s6">
+                                        <span class=" thumb hide-on-med-and-down">
+                                            <img class="circle" width="80" height="80" alt="7 Quy tắc cấu trúc ứng dụng Node.js" src="./Tại sao bạn nên học Node.js__files/keys_thinkstock-100570779-large.jpg">
+                                        </span>
+                                    <span class="v-align">
+                                        <span class="caption hide-on-med-and-up"><i class="fa fa-2x fa-chevron-right  right  "></i></span>
+                                        <span class="heading  hide-on-small-and-down">7 Quy tắc cấu trúc ứng dụng Node.js</span>
+                                        <span class="quiet caption hide-on-small-and-down">
+                                        <time>24/07/2017</time>
+                                            Kid
+                                        </span>
+                                        </span>
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                    </div>
+
+                    
+                        
+                            <div class="footer-post col s12">
+                                <figure>
+
+                                    <a href="https://techmaster.vn/posts/3277">
+                                        <img class="responsive-img circle" src="./Tại sao bạn nên học Node.js__files/3277.png" alt="Kid">
+                                    </a>
+
+                                </figure>
+
+                                <h4 class="author" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+                                    Bởi <strong>
+                                        <a href="https://techmaster.vn/posts/3277"><span itemprop="name">Kid</span></a>
+                                    </strong>
+                                </h4>
+
+                                <p itemprop="description">Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.</p>
+                            </div>
+                        
+
+                        <div class="col s12">
+                            
+
+<div class="fb-comments fb_iframe_widget fb_iframe_widget_fluid_desktop" data-href="" data-width="100%" data-numposts="" data-order_by="social" data-colorscheme="light" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=290270177727593&amp;color_scheme=light&amp;container_width=922&amp;height=100&amp;href=http%3A&amp;locale=vi_VN&amp;order_by=social&amp;sdk=joey&amp;title=T%E1%BA%A1i%20sao%20b%E1%BA%A1n%20n%C3%AAn%20h%E1%BB%8Dc%20Node.js%3F&amp;url=https%3A%2F%2Ftechmaster.vn%2Fposts%2F34075%2Ftai-sao-ban-nen-hoc-nodejs&amp;version=v3.2&amp;xid=https%253A%252F%252Ftechmaster.vn%252Fposts%252F34075%252Ftai-sao-ban-nen-hoc-nodejs" style="width: 100%;"><span style="vertical-align: top; width: 100%; height: 0px; overflow: hidden;"><iframe name="f249b3a7cbda718" width="1000px" height="100px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" title="fb:comments Facebook Social Plugin" src="./Tại sao bạn nên học Node.js__files/comments.html" style="border: none; visibility: visible; width: 0px; height: 0px;"></iframe></span></div>
+                        </div>
+                    
+                </div>
+            </div>
+        </main>
+    </section>
+
+
+<footer id="footer">
+    <div id="checkscreen"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 l3">
+                <div class=" clearfix">
+                    <h4>Chủ sở hữu website</h4>
+                </div>
+                <div class="nav nav-pills add-nav">
+                    <ul class="list-unstyled nav-list">
+                        <li>Công ty TNHH TechMaster Vietnam Ltd</li>
+                        <li>Số ĐKDN: 0105392153</li>
+                        <li>Ngày cấp: 4-7-2011</li>
+                        <li>Nơi cấp: Sở kế hoạch - đầu tư Hà nội</li>
+                        <li>Người đại diện pháp luật: Lê Minh Thu</li>
+                        <li>Chịu trách nhiệm nội dung: Trịnh Minh Cường</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col s12 l9">
+                <div class="row">
+                    <div class="col s12 l7 m6">
+                        <div class="row">
+                            <div class="col s12 l5 m6"><h4>Thông tin chung</h4>
+                                <ul class="list-unstyled nav-list">
+                                    <li><a href="https://techmaster.vn/trungtam/trung-tam">Thông tin trung tâm</a></li>
+                                    <li><a href="https://techmaster.vn/trungtam/giang-vien">Giảng viên</a></li>
+                                    <li><a href="https://techmaster.vn/trungtam/quy-dinh">Quy định </a></li>
+                                    <li><a href="https://techmaster.vn/trungtam/huong-dan-mua-khoa-hoc">Hướng dẫn mua khóa học</a></li>
+                                    <li><a href="https://techmaster.vn/trungtam/hoan-tra-uu-dai-hoc-phi">Hoàn trả - Ưu đãi học phí</a></li>
+                                    <li><a href="https://techmaster.vn/trungtam/bao-ve-thong-tin-ca-nhan">Chính sách bảo vệ thông tin khách hàng</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col s12 l7 m6"><h4>Contact</h4>
+                                <ul class="list-unstyled nav-list">
+                                    
+                                    <li>
+                                        <a href="tel:0383097229">
+                                            <i class="fa fa-phone"></i>
+                                            Ms. Huyền (Zalo): 038 309 7229
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="mailto:huyen@techmaster.vn">
+                                            <i class="fa fa-envelope"></i>
+                                            huyen@techmaster.vn
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="tel:0902209011">
+                                            <i class="fa fa-phone"></i>
+                                            Mr. Cường (Zalo): 090 220 9011
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="mailto:cuong@techmaster.vn">
+                                            <i class="fa fa-envelope"></i>
+                                            cuong@techmaster.vn
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 l5 m6">
+                        <h4>Địa chỉ
+                        </h4>
+
+                        <div class="chat-block">
+                            <div>
+                                
+                                    <a href="https://www.google.com/maps/place/48+T%E1%BB%91+H%E1%BB%AFu,+Trung+V%C4%83n,+T%E1%BB%AB+Li%C3%AAm,+H%C3%A0+N%E1%BB%99i,+Vietnam/@20.998029,105.7924504,17z/data=!3m1!4b1!4m5!3m4!1s0x3135acba8ad197a5:0xa55e51322131e722!8m2!3d20.998029!4d105.7946391" target="_blank">
+                                        <address> Tầng 12A Viwaseen Tower (khu văn phòng), 48 Tố Hữu, Trung Văn, Nam Từ Liêm, Hà Nội</address>
+                                        <time> Giờ mở cửa: <b>từ 8:00 - 18:00</b></time>
+                                    </a>
+                                
+                                    <a href="https://www.google.com/maps/place/Techmaster+Vietnam/@21.0154438,105.8454713,16.51z/data=!4m5!3m4!1s0x3135ab8ea079c829:0x1a3ebe79efa873b2!8m2!3d21.014827!4d105.846333" target="_blank">
+                                        <address> Số 14, ngõ 4, Nguyễn Đình Chiểu, Hai Bà Trưng, Hà Nội</address>
+                                        <time> Giờ mở cửa: <b>từ 9:30 - 18:00</b></time>
+                                    </a>
+                                
+                                    <a href="https://www.google.com/maps/place/Y-Nest+Coworking+Space/@20.9997867,105.8677234,17z/data=!3m1!4b1!4m5!3m4!1s0x3135ac0401c0c32d:0x4c23754ba125114a!8m2!3d20.9997817!4d105.8699174" target="_blank">
+                                        <address> TTTM V+ Hòa Bình, 505 Minh Khai, quận Hai Bà Trưng, Hà Nội (Y-NEST CO-WORKING SPACE )</address>
+                                        <time> Giờ mở cửa: <b>từ 9:30 - 18:00</b></time>
+                                    </a>
+                                
+                            </div>
+                            
+                                
+                                    
+                                        
+                                    
+                                    
+                                
+                            
+
+                            <ul class="list-inline social-links" style="margin-top: 10px;">
+                                <li><a class="facebook" href="https://www.facebook.com/techmastervn/?fref=ts" target="_blank"><i class="fa fa-facebook  fa-2x" aria-hidden="true"></i>
+                                    </a></li>
+                                <li><a class="youtube" href="https://www.youtube.com/user/TechMasterVN" target="_blank"><i class="fa fa-youtube fa-2x" aria-hidden="true"></i>
+                                    </a></li>
+                                <li><a class="github" href="https://github.com/arrowjs" target="_blank"><i class="fa fa-github-alt fa-2x" aria-hidden="true"></i>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="modal1" style="z-index: 100003" class="modal">
+    <ul class="tabs" style="width: 100%;">
+        <li class="tab" id="login-indicator"><a href="https://techmaster.vn/posts/34075/tai-sao-ban-nen-hoc-nodejs#login" class="active">Đăng nhập</a></li>
+        <li class="tab" id="register-indicator"><a href="https://techmaster.vn/posts/34075/tai-sao-ban-nen-hoc-nodejs#signup">Đăng ký</a></li>
+    <div class="indicator" style="right: 85px; left: 0px;"></div></ul>
+    <div id="login">
+        <div class="modal-content">
+            <div id="login-msg"></div>
+
+            <form method="post" id="frm-login">
+                <div class="input-field">
+                    <input id="email-lg" type="text" name="username" class="validate " placeholder="Email">
+                </div>
+
+                <div class="input-field">
+                    <input id="password-lg" type="password" name="password" class="validate " placeholder="Mật khẩu">
+                </div>
+
+                <p>
+                    <input type="checkbox" id="test5" name="remember">
+                    <label for="test5">Ghi nhớ tài khoản</label>
+                </p>
+
+                <button type="submit" class="btn teal waves-effect waves-light darken-3">Đăng nhập</button>
+                <a href="https://techmaster.vn/user/forgot-password" class="left-align">
+                    <i class="fa fa-question-circle"></i>
+                    <b class="link-modal link--underline">Quên mật khẩu?</b>
+                </a>
+            </form>
+        </div>
+
+        <div class="modal-footer row">
+            <div class="col s6">
+                <a href="https://techmaster.vn/auth/facebook" class="btn blue waves-effect waves-light">
+                    <b class="srt">Facebook</b>
+                    <i class="fa fa-facebook"></i>
+                </a>
+            </div>
+            <div class="col s6">
+                <a href="https://techmaster.vn/auth/google" class="btn red waves-effect waves-light">
+                    <b class="srt">Google</b>
+                    <i class="fa fa-google"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="signup" style="display: none;">
+        <form method="post" id="frm-register">
+            <div class="modal-content">
+                <div id="signup-msg" class="signup-msg"></div>
+
+                <div class="input-field">
+                    <input id="email" type="email" class="validate" name="email" placeholder="Email" data-position="top" data-delay="50" autocomplete="off">
+                    <label for="email" id="msg-email" class="active"></label>
+                </div>
+
+                <div class="input-field">
+                    <input id="password" type="password" class="validate" name="user_pass" placeholder="Mật khẩu" data-position="top" data-delay="50">
+                    <label for="password" id="msg-password" class="active"></label>
+                </div>
+
+                <p>
+                    <input type="checkbox" class="filled-in " id="showPassword">
+                    <label for="showPassword">Hiển thị mật khẩu</label>
+                </p>
+
+                <div class="input-field">
+                    <input id="name" type="text" class="validate " name="fullname" placeholder="Họ tên" data-position="top" data-delay="50" autocomplete="off">
+                    <label for="name" id="msg-fullname" class="active"></label>
+                </div>
+
+                <div class="input-field">
+                    <input id="phonenum" type="text" class="validate " name="phone" placeholder="Số điện thoại" data-position="top" data-delay="50" autocomplete="off">
+                    <label for="phonenum" id="msg-phone" class="active"></label>
+                </div>
+                <div id="recaptcha">
+                    <div class="g-recaptcha" data-sitekey="6Ld7yBMTAAAAAPfy0UHf5bN_YA4PbNGFCH06Yg0z" data-callback="validateCaptcha"><div style="width: 304px; height: 78px;"><div><iframe src="./Tại sao bạn nên học Node.js__files/anchor.html" width="304" height="78" role="presentation" name="a-cy8fwfi8ff44" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" id="btnRegister" class="btn blue waves-effect waves-light darken-3 disabled">
+                    Đăng ký
+                </button>
+                <p>
+                    Bằng cách nhấp vào Đăng ký, bạn đã đồng ý với các
+                    <a href="https://techmaster.vn/trungtam/quy-dinh" target="_blank"> Quy&nbsp;định </a> của chúng tôi.
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+</script>
+
+<!--Back to top button-->
+
+
+
+
+
+
+
+    
+        
+        
+             
+             
+    
+
+
+<script type="text/javascript" src="./Tại sao bạn nên học Node.js__files/materialize.min.js"></script>
+<script type="text/javascript" src="./Tại sao bạn nên học Node.js__files/base.js"></script>
+<script type="text/javascript" src="./Tại sao bạn nên học Node.js__files/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+<script>
+    
+
+    // Chat
+    (function ($) {
+      $(document).ready(function () {
+        var openChat = false;
+
+        $('#hisella-minimize').click(function () {
+          if (!openChat) {
+            openChat = true;
+            $('.hisella-messages').animate({right: '0'}).animate({bottom: '0'});
+          } else {
+            openChat = false;
+            $('.hisella-messages').animate({bottom: '-300px'}).animate({right: '-105px'}, 400);
+          }
+        })
+      });
+    })(jQuery);
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+    <script>
+        // Login
+        $('#frm-login').on('submit', function () {
+            showLoading('#modal1');
+
+            // Handle request
+            $.ajax({
+                url: '/user/login',
+                type: 'POST',
+                data: {
+                    username: $('input[name="username"]').first().val(),
+                    password: $('input[name="password"]').first().val(),
+                    remember: $('input[name="remember"]').first().is(':checked')
+                }
+            }).done(function (result) {
+                if (result.status) {
+                    // Login success, refresh page
+                    window.location.href = result.link;
+                } else {
+                    // Login fail, display error
+                    $('#login-msg').html('<div class="alert alert-danger">' + result.error + '</div>');
+                }
+
+                hideLoading('#modal1');
+            }).fail(function (error) {
+                console.log(error);
+                hideLoading('#modal1');
+            });
+
+            return false;
+        });
+
+        // Register
+        $('#frm-register').on('submit', function () {
+            if (!validateRegisterForm()) {
+                return false;
+            }
+
+            showLoading('#modal1');
+
+            // Handle request
+            $.ajax({
+                url: '/user/register',
+                type: 'POST',
+                data: {
+                    email: $('input[name="email"]').first().val(),
+                    user_pass: $('input[name="user_pass"]').first().val(),
+                    fullname: $('input[name="fullname"]').first().val(),
+                    phone: $('input[name="phone"]').first().val(),
+                    'g-recaptcha-response': grecaptcha.getResponse()
+                }
+            }).done(function (result) {
+                if (result.status) {
+                    window.location.href = result.link;
+                } else {
+                    grecaptcha.reset();
+                    $('#btnRegister').addClass('disabled');
+                    // Register fail, display error
+                    $('#signup-msg').html('<div class="alert alert-danger">' + result.error + '</div>');
+                }
+                hideLoading('#modal1');
+            }).fail(function (error) {
+                hideLoading('#modal1');
+            });
+
+            return false;
+        });
+    </script>
+
+
+
+    <script src="./Tại sao bạn nên học Node.js__files/highlight.min.js"></script>
+    <script type="text/javascript">
+        function $initHighlight(block, cls) {
+            try {
+                if (cls.search(/\bno\-highlight\b/) != -1)
+                    return process(block, true, 0x0F) +
+                            ' class=""';
+            } catch (e) {
+                console.log(e);
+            }
+            for (var i = 0 / 2; i < classes.length; i++) {
+                if (checkCondition(classes[i]) === undefined)
+                    return /\d+[\s/]/g;
+            }
+        }
+    </script>
+
+
+<div class="hiddendiv common"></div><div class="drag-target" style="left: 0px; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Tại sao bạn nên học Node.js__files/d_vbiawPdxB.html" style="border: none;"></iframe></div><div></div></div><div class="fb-customerchat fb_invisible_flow fb_iframe_widget" minimized="false" logged_in_greeting="Xin chào! Chúng tôi có thể giúp gì cho bạn?" logged_out_greeting="Xin chào! Chúng tôi có thể giúp gì cho bạn?" page_id="224779447588038" theme_color="#ff6b1e" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=290270177727593&amp;container_width=0&amp;locale=vi_VN&amp;logged_in_greeting=Xin%20ch%C3%A0o!%20Ch%C3%BAng%20t%C3%B4i%20c%C3%B3%20th%E1%BB%83%20gi%C3%BAp%20g%C3%AC%20cho%20b%E1%BA%A1n%3F&amp;logged_out_greeting=Xin%20ch%C3%A0o!%20Ch%C3%BAng%20t%C3%B4i%20c%C3%B3%20th%E1%BB%83%20gi%C3%BAp%20g%C3%AC%20cho%20b%E1%BA%A1n%3F&amp;minimized=false&amp;page_id=224779447588038&amp;sdk=joey&amp;theme_color=%23ff6b1e"><span style="vertical-align: bottom; width: 1000px; height: 0px;"><iframe name="f2ebab799105dc8" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" title="" src="./Tại sao bạn nên học Node.js__files/customerchat.html" style="border: none; visibility: visible; width: 288pt; height: 211px; border-radius: 9pt; bottom: 63pt; padding: 0px; position: fixed; right: 9pt; top: auto; z-index: 2147483647; max-height: 100%;" class=" fb_customer_chat_bounce_in_v2" data-testid="dialog_iframe"></iframe></span></div><div class="fb_dialog  fb_dialog_advanced fb_customer_chat_bubble_animated_no_badge fb_customer_chat_bubble_pop_in" style="background: none; border-radius: 50%; bottom: 18pt; display: inline; height: 45pt; padding: 0px; position: fixed; right: 18pt; top: auto; width: 45pt; z-index: 2147483646;"><div class="fb_dialog_content" style="background: none;"><iframe name="blank_f2ebab799105dc8" width="60px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" tabindex="-1" data-testid="bubble_iframe" src="./Tại sao bạn nên học Node.js__files/d_vbiawPdxB(1).html" style="border: none;"></iframe></div></div></div><div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;"></div><div class="g-recaptcha-bubble-arrow" style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;"></div><div class="g-recaptcha-bubble-arrow" style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;"></div><div style="z-index: 2000000000; position: relative;"><iframe title="hình xác thực recaptcha" src="./Tại sao bạn nên học Node.js__files/bframe.html" name="c-cy8fwfi8ff44" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 100%; height: 100%;"></iframe></div></div></body></html>
