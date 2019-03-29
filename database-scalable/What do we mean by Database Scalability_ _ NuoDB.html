@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)http://www.nuodb.com/techblog/what-do-we-mean-database-scalability -->
+<html lang="en" dir="ltr" prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# book: http://ogp.me/ns/book# profile: http://ogp.me/ns/profile# video: http://ogp.me/ns/video# product: http://ogp.me/ns/product# content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#" class="js no-touch cssanimations csstransitions svg inlinesvg gr__nuodb_com skrollr skrollr-desktop" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" src="./What do we mean by Database Scalability_ _ NuoDB_files/3f7b270661"></script><script src="./What do we mean by Database Scalability_ _ NuoDB_files/nr-1118.min.js"></script><script type="text/javascript" async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/BizibleAcct.js"></script><script type="text/javascript" async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/ei.js"></script><script type="text/javascript" async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/1978.js"></script><script type="text/javascript" async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/insight.min.js"></script><script type="text/javascript" async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/uwt.js"></script><script type="text/javascript" async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/analytics.js"></script><script type="text/javascript" async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/wm4h5aya5w5t.js"></script><script type="text/javascript" async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/sf14g.js"></script>
+  <script src="./What do we mean by Database Scalability_ _ NuoDB_files/gtm.js" type="text/javascript" async=""></script><script async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/analytics.js"></script><script type="text/javascript" async="" src="./What do we mean by Database Scalability_ _ NuoDB_files/munchkin.js"></script><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1118.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<link rel="shortcut icon" href="https://www.nuodb.com/sites/all/themes/nuodb/favicon.ico" type="image/vnd.microsoft.icon">
+<meta name="description" content="At a high level, both scalability and elasticity help to improve availability and performance when demand is changing, especially when changes are unpredictable. If the data is not available, applications cannot run. If applications cannot run or run slowly, the company loses business. Therefore, it is important to be able to ensure that databases are kept online and operational.">
+<meta name="generator" content="Drupal 7 (http://drupal.org)">
+<link rel="canonical" href="http://go.nuodb.com/rs/139-YPK-485/images/Database-Scaling-Options.pdf">
+<link rel="shortlink" href="https://www.nuodb.com/node/7613">
+<meta name="original-source" content="http://go.nuodb.com/rs/139-YPK-485/images/Database-Scaling-Options.pdf">
+<meta property="og:site_name" content="NuoDB">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.nuodb.com/techblog/what-do-we-mean-database-scalability">
+<meta property="og:title" content="What do we mean by Database Scalability?">
+<meta property="og:description" content="At a high level, both scalability and elasticity help to improve availability and performance when demand is changing, especially when changes are unpredictable. If the data is not available, applications cannot run. If applications cannot run or run slowly, the company loses business. Therefore, it is important to be able to ensure that databases are kept online and operational.">
+<meta property="og:updated_time" content="2019-03-20T10:46:27-04:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:url" content="https://www.nuodb.com/techblog/what-do-we-mean-database-scalability">
+<meta name="twitter:title" content="What do we mean by Database Scalability?">
+<meta name="twitter:description" content="At a high level, both scalability and elasticity help to improve availability and performance when demand is changing, especially when changes are unpredictable. If the data is not available, applications cannot run. If applications cannot run or run slowly, the company loses business. Therefore, it is important to be able to ensure that databases are kept online and operational.">
+<meta property="article:published_time" content="2018-02-09T05:00:00-05:00">
+<meta property="article:modified_time" content="2019-03-20T10:46:27-04:00">
+  <title>What do we mean by Database Scalability? | NuoDB</title>
+
+      <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- <meta name="format-detection" content="telephone=no"> !-->
+    <meta http-equiv="cleartype" content="on">
+
+  <link type="text/css" rel="stylesheet" href="./What do we mean by Database Scalability_ _ NuoDB_files/css_kShW4RPmRstZ3SpIC-ZvVGNFVAi0WEMuCnI0ZkYIaFw.css" media="all">
+<link type="text/css" rel="stylesheet" href="./What do we mean by Database Scalability_ _ NuoDB_files/css_DHcXHPYBSjIVaCQZEG4ZlpLkvslnFlBCnQUCzlbRBio.css" media="all">
+<link type="text/css" rel="stylesheet" href="./What do we mean by Database Scalability_ _ NuoDB_files/css_tg_qy9r8sar4UxqhRZmvWJSEoZu6VHxqc96OFh-wQ_E.css" media="all">
+<link type="text/css" rel="stylesheet" href="./What do we mean by Database Scalability_ _ NuoDB_files/css_ig2_8wkaDx1Ub_94f1oXTnOv4E7IG15HX5ZlqdLpy-Y.css" media="print">
+<link type="text/css" rel="stylesheet" href="./What do we mean by Database Scalability_ _ NuoDB_files/css_aKmyETQtplEFpZQuX2bHILCKL0ziq_SbObQ-Msxyzdw.css" media="all">
+<link type="text/css" rel="stylesheet" href="./What do we mean by Database Scalability_ _ NuoDB_files/css_LsQmiYoHfk_CetoCw-SxkPud9-PAk3OctWko_cbt_3s.css" media="all">
+<link type="text/css" rel="stylesheet" href="./What do we mean by Database Scalability_ _ NuoDB_files/css_VdwJE8LGbVHsRVYj0Pj4vdRjhAUxypn1zeZuD4abXHI.css" media="all">
+  <script src="./What do we mean by Database Scalability_ _ NuoDB_files/js_x0MhBQfHNAIO1NwkQgzf_TGN4b8eMmKre3nqUfoQv3w.js"></script>
+<script src="./What do we mean by Database Scalability_ _ NuoDB_files/js_gn1AboW4fem7msLkRzCA8VKzcjRt13bJubIRG6rcA0Q.js"></script>
+<script src="./What do we mean by Database Scalability_ _ NuoDB_files/js_ReIVBMVDWvEXZn3W0E-NX0n_BHl4NCpY7cibFhA-8jc.js"></script>
+<script src="./What do we mean by Database Scalability_ _ NuoDB_files/js_bcBF23M9ziX7ft16gv4scGPsr6IJd8O9Jr4thN0YxTc.js"></script>
+<script src="./What do we mean by Database Scalability_ _ NuoDB_files/jsapi"></script>
+<script src="./What do we mean by Database Scalability_ _ NuoDB_files/js_XDO68-T55T6B2e7oib63zFPgqxzWAKynEU5jWJJRd-U.js"></script>
+<script>document.write(unescape("%3Cscript src='//munchkin.marketo.net/munchkin-beta.js' type='text/javascript'%3E%3C/script%3E"));</script><script src="./What do we mean by Database Scalability_ _ NuoDB_files/munchkin-beta.js" type="text/javascript"></script>
+<script>Munchkin.init('139-YPK-485');</script>
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-20578225-1', 'auto');
+    ga('send', 'pageview');</script>
+<script src="./What do we mean by Database Scalability_ _ NuoDB_files/js_X7UY7x_ieVit1ICrHJCgT7lg6mClrwWx7-VHsrN0DQc.js"></script>
+<script src="./What do we mean by Database Scalability_ _ NuoDB_files/js_DWF9YgKds_LtwOE9Otlksx6S86E8FIUCXYYvqhhpoa0.js"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"nuodb","theme_token":"2HUzGMPXWUT7sZB_LuOg-CB_Zyh4_rZzP_tugr37IWc","jquery_version":"1.8","js":{"0":1,"1":1,"sites\/all\/modules\/contrib\/eu_cookie_compliance\/js\/eu_cookie_compliance.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/jquery\/1.8\/jquery.min.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.core.min.js":1,"sites\/all\/modules\/contrib\/eu_cookie_compliance\/js\/jquery.cookie-1.4.1.min.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/jquery.form\/3\/jquery.form.min.js":1,"misc\/ajax.js":1,"sites\/all\/modules\/contrib\/jquery_update\/js\/jquery_update.js":1,"sites\/all\/modules\/contrib\/marketo_ma\/js\/marketo_ma.js":1,"sites\/all\/modules\/contrib\/fancybox\/fancybox.js":1,"sites\/all\/libraries\/fancybox\/source\/jquery.fancybox.pack.js":1,"sites\/all\/libraries\/fancybox\/lib\/jquery.mousewheel-3.0.6.pack.js":1,"sites\/all\/libraries\/fancybox\/source\/helpers\/jquery.fancybox-media.js":1,"https:\/\/www.google.com\/jsapi":1,"misc\/progress.js":1,"sites\/all\/modules\/contrib\/ctools\/js\/modal.js":1,"sites\/all\/modules\/custom\/nuodb_modal_forms\/src\/nuodb_modal_init.js":1,"misc\/textarea.js":1,"sites\/all\/modules\/custom\/nuodb_ckeditor\/js\/nuodb_ckeditor.js":1,"modules\/filter\/filter.js":1,"sites\/all\/modules\/contrib\/ajax_comments\/ajax_comments.js":1,"2":1,"3":1,"4":1,"sites\/all\/libraries\/superfish\/jquery.hoverIntent.minified.js":1,"sites\/all\/libraries\/superfish\/superfish.js":1,"sites\/all\/libraries\/superfish\/supersubs.js":1,"sites\/all\/modules\/contrib\/superfish\/superfish.js":1,"sites\/all\/themes\/nuodb\/dist\/js\/theme.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"misc\/ui\/jquery.ui.core.css":1,"misc\/ui\/jquery.ui.theme.css":1,"modules\/comment\/comment.css":1,"sites\/all\/modules\/contrib\/date\/date_api\/date.css":1,"sites\/all\/modules\/contrib\/date\/date_popup\/themes\/datepicker.1.7.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"sites\/all\/modules\/custom\/nuodb_cost_calculator\/nuodb_cost_calculator.css":1,"sites\/all\/modules\/custom\/nuodb_cost_calculator\/nuodb_cost_calculator_print.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/contrib\/views\/css\/views.css":1,"sites\/all\/modules\/contrib\/ckeditor\/css\/ckeditor.css":1,"sites\/all\/modules\/contrib\/ctools\/css\/ctools.css":1,"sites\/all\/libraries\/fancybox\/source\/jquery.fancybox.css":1,"sites\/all\/modules\/contrib\/geshifilter\/geshifilter.css":1,"sites\/all\/modules\/contrib\/ctools\/css\/modal.css":1,"sites\/all\/modules\/custom\/nuodb_modal_forms\/src\/nuodb_modal.css":1,"sites\/all\/modules\/contrib\/typogrify\/typogrify.css":1,"sites\/all\/modules\/contrib\/eu_cookie_compliance\/css\/eu_cookie_compliance.bare.css":1,"sites\/all\/modules\/custom\/nuodb_ckeditor\/nuodb_ckeditor.css":1,"modules\/filter\/filter.css":1,"public:\/\/honeypot\/honeypot.css":1,"sites\/all\/libraries\/superfish\/css\/superfish.css":1,"sites\/all\/themes\/nuodb\/system.menus.css":1,"sites\/all\/themes\/nuodb\/dist\/css\/style.css":1}},"fancybox":{"helpers":{"media":[]},"selectors":[".lightbox"]},"CToolsModal":{"loadingText":"Loading...","closeText":"Close Window","closeImage":"\u003Cimg typeof=\u0022foaf:Image\u0022 src=\u0022https:\/\/www.nuodb.com\/sites\/all\/modules\/contrib\/ctools\/images\/icon-close-window.png\u0022 alt=\u0022Close window\u0022 title=\u0022Close window\u0022 \/\u003E","throbber":"\u003Cimg typeof=\u0022foaf:Image\u0022 src=\u0022https:\/\/www.nuodb.com\/sites\/all\/modules\/contrib\/ctools\/images\/throbber.gif\u0022 alt=\u0022Loading\u0022 title=\u0022Loading...\u0022 \/\u003E"},"nuodbModalFormsInfo":{"modalSize":{"type":"fixed","width":510,"height":570},"modalOptions":{"opacity":0.65,"background-color":"#000"},"closeImage":"\u003Cimg typeof=\u0022foaf:Image\u0022 src=\u0022https:\/\/www.nuodb.com\/sites\/all\/modules\/custom\/nuodb_modal_forms\/src\/btn-close.png\u0022 alt=\u0022Close window\u0022 title=\u0022Close window\u0022 \/\u003E","loadingText":"","closeText":""},"nuodbModalFormsRegistration":{"modalSize":{"type":"fixed","width":475,"height":600},"modalOptions":{"opacity":0.65,"background-color":"#000"},"closeImage":"\u003Cimg typeof=\u0022foaf:Image\u0022 src=\u0022https:\/\/www.nuodb.com\/sites\/all\/modules\/custom\/nuodb_modal_forms\/src\/btn-close.png\u0022 alt=\u0022Close window\u0022 title=\u0022Close window\u0022 \/\u003E","loadingText":"","closeText":""},"nuodbModalFormsLogin":{"modalSize":{"type":"fixed","width":300,"height":300},"modalOptions":{"opacity":0.65,"background-color":"#000"},"closeImage":"\u003Cimg typeof=\u0022foaf:Image\u0022 src=\u0022https:\/\/www.nuodb.com\/sites\/all\/modules\/custom\/nuodb_modal_forms\/src\/btn-close.png\u0022 alt=\u0022Close window\u0022 title=\u0022Close window\u0022 \/\u003E","loadingText":"","closeText":""},"ws_fs":{"type":"button_count","app_id":"150123828484431","css":""},"ws_lsb":{"countmode":""},"eu_cookie_compliance":{"popup_enabled":1,"popup_agreed_enabled":0,"popup_hide_agreed":0,"popup_clicking_confirmation":1,"popup_scrolling_confirmation":0,"popup_html_info":"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Ch2\u003EWe use cookies on this site to enhance your user experience\u003C\/h2\u003E\u003Cp\u003EWe use cookies to ensure that we give you the best experience on our website and to improve the relevance of our communications with you. If you continue without changing your settings, we will assume that you are happy to receive all cookies on the NuoDB website.\u0026nbsp;However, if you would like to, you can change your cookie settings at any time. You can find detailed information about how cookies are used on this website in our \u003Ca href=\u0022\/privacy-policy\u0022\u003EPrivacy Policy\u003C\/a\u003E.\u003C\/p\u003E\n          \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-default-button\u0022\u003EOK, I agree\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","use_mobile_message":false,"mobile_popup_html_info":"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \n          \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-default-button\u0022\u003EOK, I agree\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E\n","mobile_breakpoint":"768","popup_html_agreed":"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content agreed\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Ch2\u003EThank you for accepting cookies\u003C\/h2\u003E\u003Cp\u003EYou can now hide this message or find out more about cookies.\u003C\/p\u003E\n    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022hide-popup-button eu-cookie-compliance-hide-button\u0022\u003EHide\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","popup_use_bare_css":1,"popup_height":"auto","popup_width":0,"popup_delay":1000,"popup_link":"\/privacy-policy","popup_link_new_window":1,"popup_position":null,"popup_language":"en","store_consent":false,"better_support_for_screen_readers":0,"reload_page":0,"domain":"","popup_eu_only_js":0,"cookie_lifetime":"100","cookie_session":false,"disagree_do_not_show_popup":0,"method":"default","whitelisted_cookies":"","withdraw_markup":"\u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-tab\u0022\u003EPrivacy settings\u003C\/button\u003E\n\u003Cdiv class=\u0022eu-cookie-withdraw-banner\u0022\u003E\n  \u003Cdiv class=\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Cp\u003E\u0026lt;h2\u0026gt;We use cookies on this site to enhance your user experience\u0026lt;\/h2\u0026gt;\u0026lt;p\u0026gt;You have given your consent for us to set cookies.\u0026lt;\/p\u0026gt;\u003C\/p\u003E\n    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-button\u0022\u003EWithdraw consent\u003C\/button\u003E\n    \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E\n","withdraw_enabled":false},"marketo_ma":{"track":true,"key":"139-YPK-485","library":"\/\/munchkin.marketo.net\/munchkin.js","initParams":[]},"urlIsAjaxTrusted":{"\/techblog\/what-do-we-mean-database-scalability":true,"\/system\/ajax":true,"\/comment\/reply\/7613":true},"superfish":{"1":{"id":"1","sf":{"animation":{"opacity":"show","height":"show"},"speed":"\u0027fast\u0027","autoArrows":false,"dropShadows":false,"disableHI":false},"plugins":{"supposition":false,"bgiframe":false,"supersubs":{"minWidth":"12","maxWidth":"27","extraWidth":1}}}},"nuodb_ckeditor":{"include_path":"\/sites\/all\/modules\/custom\/nuodb_ckeditor\/ckeditor-plugins"},"ckeditor_geshi":{"languages":{"bash":"Bash","c":"C","cpp":"C++","drupal5":"Drupal 5","drupal6":"Drupal 6","java":"Java","javascript":"Javascript","php":"PHP","python":"Python","ruby":"Ruby","sql":"SQL"},"tag_open":"\u003C","tag_close":"\u003E"},"ckeditor":{"input_formats":{"filtered_html":{"customConfig":"\/sites\/all\/modules\/custom\/ckeditor_geshi\/plugins\/ckeditor.config.js","defaultLanguage":"en","toolbar":"[\n    [\u0027Source\u0027],\n    [\u0027Cut\u0027,\u0027Copy\u0027,\u0027Paste\u0027,\u0027PasteText\u0027,\u0027PasteFromWord\u0027,\u0027-\u0027,\u0027SpellChecker\u0027, \u0027Scayt\u0027],\n    [\u0027Undo\u0027,\u0027Redo\u0027,\u0027Find\u0027,\u0027Replace\u0027,\u0027-\u0027,\u0027SelectAll\u0027],\n    [\u0027Image\u0027,\u0027Media\u0027,\u0027Flash\u0027,\u0027Table\u0027,\u0027HorizontalRule\u0027,\u0027Smiley\u0027,\u0027SpecialChar\u0027],\n    [\u0027Maximize\u0027, \u0027ShowBlocks\u0027],\n    \u0027\/\u0027,\n    [\u0027Format\u0027],\n    [\u0027Bold\u0027,\u0027Italic\u0027,\u0027Underline\u0027,\u0027Strike\u0027,\u0027-\u0027,\u0027Subscript\u0027,\u0027Superscript\u0027,\u0027-\u0027,\u0027RemoveFormat\u0027],\n    [\u0027NumberedList\u0027,\u0027BulletedList\u0027,\u0027-\u0027,\u0027Outdent\u0027,\u0027Indent\u0027,\u0027Blockquote\u0027],\n    [\u0027JustifyLeft\u0027,\u0027JustifyCenter\u0027,\u0027JustifyRight\u0027,\u0027JustifyBlock\u0027,\u0027-\u0027,\u0027BidiLtr\u0027,\u0027BidiRtl\u0027],\n    [\u0027Link\u0027,\u0027Unlink\u0027,\u0027Anchor\u0027,\u0027Linkit\u0027]\n]\n    ","enterMode":1,"shiftEnterMode":2,"toolbarStartupExpanded":true,"width":"100%","skin":"moono","format_tags":"p;div;pre;address;h1;h2;h3;h4;h5;h6","show_toggle":"t","default":"t","ss":"2","loadPlugins":{"drupalbreaks":{"name":"drupalbreaks","desc":"Plugin for inserting Drupal teaser and page breaks.","path":"\/sites\/all\/modules\/contrib\/ckeditor\/plugins\/drupalbreaks\/","buttons":{"DrupalBreak":{"label":"DrupalBreak","icon":"images\/drupalbreak.png"}},"default":"t"},"tableresize":{"name":"tableresize","desc":"Table Resize plugin. See \u003Ca href=\u0022http:\/\/ckeditor.com\/addon\/tableresize\u0022\u003Eaddon page\u003C\/a\u003E for more details.","path":"\/\/cdn.ckeditor.com\/4.4.3\/full-all\/plugins\/tableresize\/","buttons":false,"default":"t"}},"entities":false,"entities_greek":false,"entities_latin":false,"scayt_autoStartup":false,"filebrowserBrowseUrl":"\/imce?app=ckeditor%7Csendto%40ckeditor_imceSendTo%7C","stylesCombo_stylesSet":"drupal:\/sites\/all\/modules\/contrib\/ckeditor\/ckeditor.styles.js","contentsCss":["\/sites\/all\/modules\/contrib\/ckeditor\/css\/ckeditor.css?pnhfh1","\/\/cdn.ckeditor.com\/4.4.3\/full-all\/contents.css?pnhfh1"]},"full_html":{"customConfig":"\/sites\/all\/modules\/custom\/ckeditor_geshi\/plugins\/ckeditor.config.js","defaultLanguage":"en","toolbar":"[\n    [\u0027Styles\u0027,\u0027TextColor\u0027],\n    [\u0027Undo\u0027,\u0027Redo\u0027],\n    [\u0027Bold\u0027,\u0027Italic\u0027,\u0027Link\u0027,\u0027Unlink\u0027,\u0027Anchor\u0027,\u0027RemoveFormat\u0027,\u0027JustifyLeft\u0027,\u0027JustifyCenter\u0027,\u0027JustifyRight\u0027,\u0027Blockquote\u0027],\n    [\u0027NumberedList\u0027,\u0027BulletedList\u0027],\n    [\u0027Outdent\u0027,\u0027Indent\u0027],\n    [\u0027SpellChecker\u0027,\u0027Scayt\u0027],\n    [\u0027Table\u0027,\u0027HorizontalRule\u0027,\u0027Image\u0027,\u0027MediaEmbed\u0027,\u0027SpecialChar\u0027,\u0027geshi\u0027,\u0027CreateDiv\u0027,\u0027ShowBlocks\u0027,\u0027Source\u0027],\n    [\u0027Maximize\u0027]\n]","enterMode":1,"shiftEnterMode":2,"toolbarStartupExpanded":true,"width":"100%","skin":"moono","format_tags":"p;div;h1;h2;h3;h4;h5;h6","show_toggle":"f","default":"t","allowedContent":true,"ss":"2","loadPlugins":{"ckeditor_link":{"name":"drupal_path","desc":"CKEditor Link - A plugin to easily create links to Drupal internal paths","path":"\/sites\/all\/modules\/contrib\/ckeditor_link\/plugins\/link\/","buttons":false},"drupalbreaks":{"name":"drupalbreaks","desc":"Plugin for inserting Drupal teaser and page breaks.","path":"\/sites\/all\/modules\/contrib\/ckeditor\/plugins\/drupalbreaks\/","buttons":{"DrupalBreak":{"label":"DrupalBreak","icon":"images\/drupalbreak.png"}},"default":"t"},"geshi":{"name":"geshi","desc":"Provides GeSHi code highlighting.","path":"\/sites\/all\/modules\/custom\/ckeditor_geshi\/plugins\/","buttons":{"geshi":{"icon":"ckeditor_geshi.png","label":"GeSHi"}}},"tableresize":{"name":"tableresize","desc":"Table Resize plugin. See \u003Ca href=\u0022http:\/\/ckeditor.com\/addon\/tableresize\u0022\u003Eaddon page\u003C\/a\u003E for more details.","path":"\/\/cdn.ckeditor.com\/4.4.3\/full-all\/plugins\/tableresize\/","buttons":false,"default":"t"}},"entities":false,"entities_greek":false,"entities_latin":false,"scayt_autoStartup":false,"forcePasteAsPlainText":true,"filebrowserBrowseUrl":"\/imce?app=ckeditor%7Csendto%40ckeditor_imceSendTo%7C","js_conf":{"allowedContent":true,"colorButton_colors":"\u0027282828,404040,7f7f7f,b0b0b0,f4f4f4,ffffff,d54945,f59231,c1cd23,36af75,29abe3,566f7b,98a0ad\u0027"},"stylesCombo_stylesSet":"drupal:\/sites\/all\/themes\/nuodb\/\/js\/ckeditor.styles.js","contentsCss":["\/sites\/all\/themes\/nuodb\/dist\/css\/style.css?pnhfh1","\/sites\/all\/modules\/contrib\/ckeditor\/css\/ckeditor.css?pnhfh1"]}},"plugins":[],"textarea_default_format":{"edit-comment-body-und-0-value":"plain_text"}},"ajax":{"edit-ajax-comments-reply-form-7613-0-0":{"callback":"ajax_comments_submit_js","wrapper":"ajax-comments-reply-form-7613-0-0","method":"replaceWith","effect":"fade","event":"mousedown","keypress":true,"prevent":"click","url":"\/system\/ajax","submit":{"_triggering_element_name":"op","_triggering_element_value":"Submit"}},"preview-ajax-comments-reply-form-7613-0-0":{"callback":"ajax_comments_preview_js","wrapper":"ajax-comments-reply-form-7613-0-0","method":"replaceWith","effect":"fade","event":"mousedown","keypress":true,"prevent":"click","url":"\/system\/ajax","submit":{"_triggering_element_name":"op","_triggering_element_value":"Preview"}}}});</script>
+      <!--[if lt IE 9]>
+    <script src="/sites/all/themes/zen/js/html5-respond.js"></script>
+    <![endif]-->
+    <script type="text/javascript" language="javascript">
+    window.onload = function(){
+      if (document.body.scrollTop > 130 || document.documentElement.scrollTop > 130) {
+        document.querySelector('header').className += " scrolledHeader";
+      }else{
+        document.querySelector('header').className += " notScrolledHeader";
+      }
+    }
+  </script>
+<link id="mktoForms2BaseStyle" rel="stylesheet" type="text/css" href="./What do we mean by Database Scalability_ _ NuoDB_files/forms2.css"><link id="mktoForms2ThemeStyle" rel="stylesheet" type="text/css" href="./What do we mean by Database Scalability_ _ NuoDB_files/forms2-theme-simple.css"><link id="mktoFontUrl" rel="stylesheet" type="text/css" href="./What do we mean by Database Scalability_ _ NuoDB_files/css"><style>/* Add your custom CSS below */
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
+  background:#c1cd23 !important;
+  border:1px solid #c1cd23 !important;
+  font-size:12px !important; 
+  font-family:ubuntu;
+}
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:hover {
+  color:#000000;
+  background:none !important;
+  border:1px solid #000000 !important;
+}
+
+.mktoButtonWrap {
+  margin-left:0 !important;
+}
+
+.mktoForm .mktoOffset {
+    float: left;
+    height:0 !important;
+    width:0px;
+}
+
+/* columns */</style><script type="text/javascript" src="./What do we mean by Database Scalability_ _ NuoDB_files/ei_track_all_packed.js"></script></head>
+<body class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-7613 node-type-blog section-techblog tech-blog marketo-processed eu-cookie-compliance-processed" data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N2KJQB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0];var j=d.createElement(s);var dl=l!='dataLayer'?'&l='+l:'';j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;j.type='text/javascript';j.async=true;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-N2KJQB');</script>
+<!-- End Google Tag Manager -->
+      <p id="skip-link">
+      <a href="http://www.nuodb.com/techblog/what-do-we-mean-database-scalability#main-menu" class="element-invisible element-focusable">Jump to navigation</a>
+    </p>
+      <div id="page" class="clearfix">
+  
+  <div id="navigation">
+    <div class="wrapper">
+      <div class="navigation-content">
+                      </div><!-- /#navigation-content -->
+    </div><!-- /.wrapper -->
+  </div><!-- /#navigation -->
+  <!-- /#social-sharing -->
+  <div id="skrollr-body">
+    <div id="hero">
+      <div class="wrapper">
+                <div id="hero-overlay" class="light">
+                      <h1 class="title" id="page-title">What do we mean by Database Scalability?</h1>
+                            </div>
+      </div><!-- /.wrapper -->
+      <div id="scroll-to-content"><a href="http://www.nuodb.com/techblog/what-do-we-mean-database-scalability#main">Scroll to content</a></div>
+    </div><!-- /#hero -->
+  <div id="main">
+    <div class="wrapper">
+      <div id="main-content">
+        <div id="banner">
+                    </div>
+        <div id="content" class="column" role="main" style="min-height: 884px;">
+			<div class="wrapper">
+          <div class="utilities">
+            <h4 class="element-invisible">You are here</h4><div class="breadcrumb"><a href="http://www.nuodb.com/">Home</a> » <a href="http://www.nuodb.com/dev-center">Dev Center</a> » <a href="http://www.nuodb.com/dev-center/techblog">TechBlog</a></div>      	          	              </div>
+          <a id="main-content"></a>
+                                <div id="page-title-wrapper"><h1 class="title" id="page-title">What do we mean by Database Scalability?</h1></div>
+                                                    <section class="region region-content">
+      
+
+<div about="/techblog/what-do-we-mean-database-scalability" typeof="sioc:Item foaf:Document" class="ds-1col node node-blog view-mode-full tech-blog-post clearfix">
+
+  
+  <div class="field field-name-post-date">Feb 9 2018</div><div class="field field-name-author-first-last"><a href="http://www.nuodb.com/users/craigmullins">Craig S. Mullins, president &amp; principal consultant, Mullins Consulting, Inc.</a></div><div class="field field-name-techblog-date-alert"><div class="messages--error messages error techblogmsg">
+              <h2 class="element-invisible">Error message</h2>
+              Note: This blog was published over a year ago. Content may be out of date.
+              <div class="bt-close-message"></div><div class="bt-close-message"></div></div></div><div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><h2>Defining Scalability and Elasticity</h2>
+
+<p>At a high level, both <a href="http://www.nuodb.com/elastic-scalability">scalability and elasticity</a> help to improve <a href="http://www.nuodb.com/database-built-continuous-availability">availability</a> and performance when demand is changing, especially when changes are unpredictable. If the data is not available, applications cannot run. If applications cannot run or run slowly, the company loses business. Therefore, it is important to be able to ensure that databases are kept online and operational.</p>
+
+<p><em>So how do scalability and elasticity help to improve availability and performance? </em></p>
+
+<p style="margin-left: 40px;"><strong><span class="figure  left" style="max-width: 60px;"><img alt="scalabiity" src="./What do we mean by Database Scalability_ _ NuoDB_files/scalability.png" style="width: 100%;float: none;height: auto;margin-right: 20px;margin-top: 10px;margin-bottom: 10px;" class=""></span>Scalability </strong>refers to the capability of a system to handle a growing amount of work, or its potential to perform more total work in the same elapsed time when processing power is expanded to accommodate growth. A system is said to be scalable if it can increase its workload and throughput when additional resources are added.</p>
+
+<p style="margin-left: 40px;">A related aspect of scalability is availability and the ability of the DBMS to undergo administration (e.g. schema changes) and servicing (e.g. upgrades and maintenance) without impacting applications and end user accessibility. A scalable system can be changed to adapt to changing workloads without impacting its accessibility, thereby assuring continuing availability even as modifications are made.</p>
+
+<p style="margin-left: 40px;">A scalable system can react to evolving needs with adjustable resources to serve a changing workload without requiring <a href="http://www.nuodb.com/content-library/white-papers/continuous-availability-nuodb">downtime</a>.</p>
+
+<p style="margin-left: 40px;"><br><span class="figure  left" style="max-width: 60px;"><img alt="scalabiity" src="./What do we mean by Database Scalability_ _ NuoDB_files/elastic-scale (1).png" style="width: 100%;float: none;height: auto;margin-right: 20px;margin-top: 10px;margin-bottom: 10px;" class=""></span><strong>Elasticity</strong> is the degree to which a system can adapt to workload changes by provisioning and deprovisioning resources in an on-demand manner, such that at each point in time the available resources match the current demand as closely as possible.</p>
+
+<p style="margin-left: 40px;">The goal of elasticity is to match the amount of resources allocated to a service with the amount of resources it actually requires. This means that both over-provisioning and under-provisioning can be avoided. Over-provisioning occurs when more resources are allocated than required, and it should be avoided in a cloud model because the service provider must pay for all allocated resources, which can increase the cost to cloud customers. With under-provisioning fewer resources are allocated than required, and this is to be avoided because it typically results in performance problems; severe cases can look like downtime to the end user, resulting in customers abandoning the application, which has <a href="http://www.nuodb.com/resources/content-library/ISV-financial-impact">a financial impact</a>.</p>
+
+<p style="margin-left: 40px;">From a database perspective, elasticity infers a flexible data model and clustering capabilities. The greater the number of changes that can be tolerated, and the ease with which clustering can be managed, the more elastic the DBMS.</p>
+
+<h2>&nbsp;</h2>
+
+<h2>Types of Database Scalability</h2>
+
+<p>First, let’s look at the ways that databases can be scaled and examine the benefits and drawbacks of each method. There are two broad categories for scaling database systems: vertical scaling and horizontal scaling.</p>
+
+<p style="margin-left: 40px;"><strong><span class="figure  left" style="max-width: 50px;"><img alt="vertical scaling" src="./What do we mean by Database Scalability_ _ NuoDB_files/vert-scaling.png" style="width: 100%;height: auto;float: none;margin-right: 30px;" class=""></span>Vertical scaling,</strong> also known as scaling up, is the process of adding resources, such as memory or more powerful CPUs to an existing server. Removing memory or changing to a less powerful CPU is known as scaling down.</p>
+
+<p style="margin-left: 40px;">Adding or replacing resources to a system typically results in performance gains, but realizing such gains often requires reconfiguration and downtime. Furthermore, there are limitations to the amount of additional resources that can be applied to a single system, as well as to the software that uses the system.</p>
+
+<p style="margin-left: 40px;">Vertical scaling has been a standard method of scaling for traditional RDBMSs that are architected on a single-server type model. Nevertheless, every piece of hardware has limitations that, when met, cause further vertical scaling to be impossible. For example, if your system only supports 256 GB of memory, when you need more memory you must migrate to a bigger box, which is a costly and risky procedure requiring database and application downtime.<br>
+&nbsp;</p>
+
+<p style="margin-left: 40px;"><span class="figure  left" style="max-width: 150px;"><img alt="horizontal scaling" src="./What do we mean by Database Scalability_ _ NuoDB_files/hor-scaling.png" style="width: 100%;height: auto;float: none;margin: 20px 20px 20px 0px;" class=""></span><strong>Horizontal scaling,</strong> sometimes referred to as scaling out, is the process of adding more hardware to a system. This typically means adding nodes (new servers) to an existing system. Doing the opposite, that is removing hardware, is known as scaling in.</p>
+
+<p style="margin-left: 40px;">With the cost of hardware declining, it makes more sense to adopt horizontal scaling using low-cost "commodity" systems for tasks that previously required larger computers, such as mainframes. Of course, horizontal scaling can be limited by the capability of software to exploit networked computer resources and other technology constraints. And keep in mind that traditional database servers cannot run on more than a few machines. In such cases, scaling is limited, in that you are scaling to several machines, not to 100x or more.</p>
+
+<p>Horizontal and vertical scaling can be combined, with resources added to existing servers to scale vertically and additional servers added to scale horizontally when required. It is wise to consider the tradeoffs between horizontal and vertical scaling as you consider each approach.</p>
+
+<p>Horizontal scaling results in more computers networked together and that will cause increased management complexity. It can also result in latency between nodes and complicate programming efforts if not properly managed by either the database system or the application. That said, depending on your database system’s hardware requirements, you can often buy several commodity boxes for the price of a single, expensive, and often custom-built server that vertical scaling requires.</p>
+
+<p>On the other hand, depending on your requirements, vertical scaling actually can be <a href="http://www.nuodb.com/product/pricing-editions">less costly </a>if you’ve already invested in the hardware; it typically costs less to reconfigure existing hardware than to procure and configure new hardware. Of course, vertical scaling can lead to over-provisioning which can be quite costly. At any rate, virtualization perhaps can help to alleviate the costs of scaling.</p>
+
+<p>Next week on our&nbsp;TechBlog, Craig will describe the traditional database scalability methods including shared-desk, shared-nothing, database sharding, and replication.</p>
+
+<p><em>Editor’s Note: This is an excerpt of a larger white paper written by <a href="http://www.nuodb.com/users/craigmullins">Craig Mullins</a> that explores database scaling options. <a href="http://www.nuodb.com/resources/white-paper/database-scaling-options">Download the database scaling white paper now</a>.</em></p>
+
+<p>---</p>
+
+<p><em><span class="figure  left" style="max-width: 95px;"><img alt="Craig Mullins" src="./What do we mean by Database Scalability_ _ NuoDB_files/craig-mullins-sq.jpg" style="width: 100%;height: auto;float: none;margin-left: 5px;margin-right: 5px;" class=""></span>Craig is president &amp; principal consultant of <a href="http://www.mullinsconsulting.com/" target="_blank">Mullins Consulting, Inc.,</a> a consultant for&nbsp;<a href="https://www.datavail.com/" target="_blank">datAvail</a>, and the publisher/editor of&nbsp;<a href="http://www.thedatabasesite.com/" target="_blank">The Database Site</a>. His experience spans multiple industries (banking, utilities, software dev, research and consulting).</em></p>
+
+<p><em>Craig writes for many computer/IT publications, having authored articles for popular IT and database journals and web sites including&nbsp;<a href="http://www.dbta.com/" target="_blank">Database Trends and Applications</a>, <a href="http://tdan.com/" target="_blank">TDAN</a>,&nbsp;<a href="http://searchdatamanagement.techtarget.com/" target="_blank">TechTarget&nbsp;</a>and others.</em></p>
+
+<p><br>
+&nbsp;</p>
+</div></div></div><div class="field field-name-field-tags"><a href="http://www.nuodb.com/tags/database" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">database</a><a href="http://www.nuodb.com/tags/scalability" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">scalability</a><a href="http://www.nuodb.com/tags/elasticity" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">elasticity</a><a href="http://www.nuodb.com/tags/database-scalability" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">database scalability</a><a href="http://www.nuodb.com/tags/database-scaling" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">database scaling</a><a href="http://www.nuodb.com/tags/craig-mullins" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">craig mullins</a><a href="http://www.nuodb.com/tags/horizontal-scaling" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">Horizontal Scaling</a><a href="http://www.nuodb.com/tags/vertical-scaling" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">vertical scaling</a><a href="http://www.nuodb.com/tags/elastic-scale" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">elastic scale</a></div><section id="comments" class="comments comment-wrapper comment-wrapper-nid-7613">
+      
+  
+      <h2 class="comments__form-title title comment-form">Add new comment</h2>
+    <form class="comment-form user-info-from-cookie ajax-comments-reply-form-7613-0-0 ajax-comments-form-add" id="ajax-comments-reply-form-7613-0-0" action="http://www.nuodb.com/comment/reply/7613" method="post" accept-charset="UTF-8" __bizdiag="42432281" __biza="WJ__"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Your name <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="30" maxlength="60" class="form-text required">
+</div>
+<div class="form-item form-type-textfield form-item-mail">
+  <label for="edit-mail">E-mail <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-mail" name="mail" value="" size="30" maxlength="64" class="form-text required">
+<div class="description">The content of this field is kept private and will not be shown publicly.</div>
+</div>
+<div class="form-item form-type-textfield form-item-homepage">
+  <label for="edit-homepage">Homepage </label>
+ <input type="text" id="edit-homepage" name="homepage" value="" size="30" maxlength="255" class="form-text">
+</div>
+<div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body"><div id="comment-body-add-more-wrapper"><div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
+  <label for="edit-comment-body-und-0-value">Comment <span class="form-required" title="This field is required.">*</span></label>
+ <div class="form-textarea-wrapper resizable textarea-processed resizable-textarea"><textarea class="text-full form-textarea required" id="edit-comment-body-und-0-value" name="comment_body[und][0][value]" cols="60" rows="5"></textarea><div class="grippie"></div></div>
+</div>
+<div class="filter-wrapper form-wrapper" id="edit-comment-body-und-0-format"></div></div>
+</div></div><input type="hidden" name="form_build_id" value="form-zQKVcp4nOJu49SZx0c4RkT_dxAufB0FjF9gKiIgD5Xk">
+<input type="hidden" name="form_id" value="comment_node_blog_form">
+<input type="hidden" name="honeypot_time" value="1553787569|Lm8wkuIvMMK4Wu8vhSirQ7uao5uiS73CDhg4UemCoD4">
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-ajax-comments-reply-form-7613-0-0" name="op" value="Submit" class="form-submit ajax-processed"><input type="submit" id="preview-ajax-comments-reply-form-7613-0-0" name="op" value="Preview" class="form-submit ajax-processed"></div><div class="phone-textfield"><div class="form-item form-type-textfield form-item-phone">
+  <label for="edit-phone">Leave this field blank </label>
+ <input autocomplete="off" type="text" id="edit-phone" name="phone" value="" size="20" maxlength="128" class="form-text">
+</div>
+</div></div></form>  </section>
+</div>
+
+  </section>
+          
+                	</div>
+		</div><!-- /#content -->
+                          <aside class="sidebars">
+                          <section class="region region-sidebar-second column sidebar">
+	<div class="region-wrapper">
+      <div id="block-bean-6270" class="block block-bean round first odd">
+
+            
+    <div class="content">
+    <div about="/block/techblog-rss" typeof="" class="ds-1col entity entity-bean bean-background-image view-mode-default clearfix">
+
+  
+  <div class="field field-name-bg-image-as-bg"><div class="bg-image" style="background: url(/sites/default/files/initial-uploads/white-keyboard_0.png) no-repeat scroll center center; background-size:cover"></div></div><div class="field field-name-field-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><h2><span style="color:#c1cd23;"><strong>Subscribe to<br>
+our RSS feeds!</strong></span></h2>
+
+<ul style="list-style-type: square;color:#c1cd23;"><li class="small"><span style="font-size: 1.125em; color: rgb(54, 175, 117);"><a href="http://www.nuodb.com/techblog/rss" style="font-size: 1.125em;" target="_blank">Tech Blog</a></span></li>
+	<li class="small"><span style="font-size: 1.125em; color: rgb(54, 175, 117);"><a href="http://www.nuodb.com/techblog/rss" style="font-size: 1.125em;" target="_blank">​​</a><strong><a href="http://www.nuodb.com/blog/all/rss" target="_blank"><span style="color:#36af75;">Corporate AND Tech Blog</span></a>&nbsp;</strong></span></li>
+</ul>
+</div></div></div></div>
+
+    </div>
+  </div><!-- /.block -->
+  <div id="block-bean-6459" class="block block-bean rounded-rectangle last even" style="background-color: #46bdbc">
+
+            
+    <div class="content">
+    <div about="/block/scalability-blog-sidebar-cta" typeof="" class="ds-1col entity entity-bean bean-background-image view-mode-default clearfix">
+
+  
+  <div class="field field-name-field-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><div class="html-cta">
+<h2 class="largeh2"><span style="color:#ffffff;">Ask an<strong> expert!</strong></span></h2>
+
+<p><span style="color:#ffffff;">Have questions about NuoDB? Chat with one of our experts to get the answers.</span></p>
+
+<div class="html-cta-form"><script src="./What do we mean by Database Scalability_ _ NuoDB_files/forms2.min(1).js"></script><form id="mktoForm_576" __bizdiag="-1656229998" __biza="WJ__" novalidate="novalidate" class="mktoForm mktoHasWidth mktoLayoutAbove" style="font-family: Ubuntu; font-size: 11px; color: rgb(51, 51, 51); width: 328px;">&nbsp;<style type="text/css">.mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
+color:#fff;
+border:1px solid #75ae4c;
+padding:0.4em 1em;
+font-size:1em;
+background-color:#99c47c;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#99c47c), to(#75ae4c));
+background-image: -webkit-linear-gradient(top, #99c47c, #75ae4c);
+background-image: -moz-linear-gradient(top, #99c47c, #75ae4c);
+background-image: linear-gradient(to bottom, #99c47c, #75ae4c);
+}
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:hover {
+border:1px solid #447f19;
+}
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:focus {
+outline:none;
+border:1px solid #447f19;
+}
+.mktoForm .mktoButtonWrap.mktoSimple .mktoButton:active{
+background-color:#75ae4c;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#75ae4c), to(#99c47c));
+background-image: -webkit-linear-gradient(top, #75ae4c, #99c47c);
+background-image: -moz-linear-gradient(top, #75ae4c, #99c47c);
+background-image: linear-gradient(to bottom, #75ae4c, #99c47c);
+}
+
+.mktoForm .mktoButtonWrap.mktoSimple button.mktoButton {background:#c1cd23;}
+</style><div class="mktoFormRow"><div class="mktoFieldDescriptor mktoFormCol" style="margin-bottom: 10px;"><div class="mktoOffset" style="width: 10px;"></div><div class="mktoFieldWrap mktoRequiredField"><label for="FirstName" class="mktoLabel mktoHasWidth" style="width: 100px;"><div class="mktoAsterix">*</div>First Name:</label><div class="mktoGutter mktoHasWidth" style="width: 10px;"></div><input id="FirstName" name="FirstName" maxlength="255" type="text" class="mktoField mktoTextField mktoHasWidth mktoRequired" style="width: 150px;"><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoFieldDescriptor mktoFormCol" style="margin-bottom: 10px;"><div class="mktoOffset" style="width: 10px;"></div><div class="mktoFieldWrap mktoRequiredField"><label for="LastName" class="mktoLabel mktoHasWidth" style="width: 100px;"><div class="mktoAsterix">*</div>Last Name:</label><div class="mktoGutter mktoHasWidth" style="width: 10px;"></div><input id="LastName" name="LastName" maxlength="255" type="text" class="mktoField mktoTextField mktoHasWidth mktoRequired" style="width: 150px;"><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoFormRow"><div class="mktoFieldDescriptor mktoFormCol" style="margin-bottom: 10px;"><div class="mktoOffset" style="width: 10px;"></div><div class="mktoFieldWrap mktoRequiredField"><label for="Company" class="mktoLabel mktoHasWidth" style="width: 100px;"><div class="mktoAsterix">*</div>Company:</label><div class="mktoGutter mktoHasWidth" style="width: 10px;"></div><input id="Company" name="Company" maxlength="255" type="text" class="mktoField mktoTextField mktoHasWidth mktoRequired" style="width: 150px;"><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoFieldDescriptor mktoFormCol" style="margin-bottom: 10px;"><div class="mktoOffset" style="width: 10px;"></div><div class="mktoFieldWrap mktoRequiredField"><label for="Email" class="mktoLabel mktoHasWidth" style="width: 100px;"><div class="mktoAsterix">*</div>Corporate Email:</label><div class="mktoGutter mktoHasWidth" style="width: 10px;"></div><input id="Email" name="Email" maxlength="255" type="email" class="mktoField mktoEmailField mktoHasWidth mktoRequired" style="width: 150px;"><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoFormRow"><div class="mktoFieldDescriptor mktoFormCol" style="margin-bottom: 10px;"><div class="mktoOffset" style="width: 10px;"></div><div class="mktoFieldWrap mktoRequiredField"><label for="GDPR_Country__c" class="mktoLabel mktoHasWidth" style="width: 100px;"><div class="mktoAsterix">*</div>Country:</label><div class="mktoGutter mktoHasWidth" style="width: 10px;"></div><select id="GDPR_Country__c" name="GDPR_Country__c" class="mktoField mktoHasWidth mktoRequired" style="width: 150px;"><option value="">Select...</option><option value="Andorra">Andorra</option><option value="United Arab Emirates">United Arab Emirates</option><option value="Afghanistan">Afghanistan</option><option value="Antigua and Barbuda">Antigua and Barbuda</option><option value="Anguilla">Anguilla</option><option value="Albania">Albania</option><option value="Armenia">Armenia</option><option value="Angola">Angola</option><option value="Antarctica">Antarctica</option><option value="Argentina">Argentina</option><option value="Austria">Austria</option><option value="Australia">Australia</option><option value="Aruba">Aruba</option><option value="Aland Islands">Aland Islands</option><option value="Azerbaijan">Azerbaijan</option><option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option><option value="Barbados">Barbados</option><option value="Bangladesh">Bangladesh</option><option value="Belgium">Belgium</option><option value="Burkina Faso">Burkina Faso</option><option value="Bulgaria">Bulgaria</option><option value="Bahrain">Bahrain</option><option value="Burundi">Burundi</option><option value="Benin">Benin</option><option value="Saint Barthélemy">Saint Barthélemy</option><option value="Bermuda">Bermuda</option><option value="Brunei Darussalam">Brunei Darussalam</option><option value="Bolivia, Plurinational State of">Bolivia, Plurinational State of</option><option value="Bonaire, Sint Eustatius and Saba">Bonaire, Sint Eustatius and Saba</option><option value="Brazil">Brazil</option><option value="Bahamas">Bahamas</option><option value="Bhutan">Bhutan</option><option value="Bouvet Island">Bouvet Island</option><option value="Botswana">Botswana</option><option value="Belarus">Belarus</option><option value="Belize">Belize</option><option value="Canada">Canada</option><option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option><option value="Congo, the Democratic Republic of the">Congo, the Democratic Republic of the</option><option value="Central African Republic">Central African Republic</option><option value="Congo">Congo</option><option value="Switzerland">Switzerland</option><option value="Cote d’Ivoire">Cote d’Ivoire</option><option value="Cook Islands">Cook Islands</option><option value="Chile">Chile</option><option value="Cameroon">Cameroon</option><option value="China">China</option><option value="Colombia">Colombia</option><option value="Costa Rica">Costa Rica</option><option value="Cuba">Cuba</option><option value="Cape Verde">Cape Verde</option><option value="Curaçao">Curaçao</option><option value="Christmas Island">Christmas Island</option><option value="Cyprus">Cyprus</option><option value="Czech Republic">Czech Republic</option><option value="Germany">Germany</option><option value="Djibouti">Djibouti</option><option value="Denmark">Denmark</option><option value="Dominica">Dominica</option><option value="Dominican Republic">Dominican Republic</option><option value="Algeria">Algeria</option><option value="Ecuador">Ecuador</option><option value="Estonia">Estonia</option><option value="Egypt">Egypt</option><option value="Western Sahara">Western Sahara</option><option value="Eritrea">Eritrea</option><option value="Spain">Spain</option><option value="Ethiopia">Ethiopia</option><option value="Finland">Finland</option><option value="Fiji">Fiji</option><option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option><option value="Faroe Islands">Faroe Islands</option><option value="France">France</option><option value="Gabon">Gabon</option><option value="United Kingdom">United Kingdom</option><option value="Grenada">Grenada</option><option value="Georgia">Georgia</option><option value="French Guiana">French Guiana</option><option value="Guernsey">Guernsey</option><option value="Ghana">Ghana</option><option value="Gibraltar">Gibraltar</option><option value="Greenland">Greenland</option><option value="Gambia">Gambia</option><option value="Guinea">Guinea</option><option value="Guadeloupe">Guadeloupe</option><option value="Equatorial Guinea">Equatorial Guinea</option><option value="Greece">Greece</option><option value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands</option><option value="Guatemala">Guatemala</option><option value="Guinea-Bissau">Guinea-Bissau</option><option value="Guyana">Guyana</option><option value="Heard Island and McDonald Islands">Heard Island and McDonald Islands</option><option value="Honduras">Honduras</option><option value="Croatia">Croatia</option><option value="Haiti">Haiti</option><option value="Hungary">Hungary</option><option value="Indonesia">Indonesia</option><option value="Ireland">Ireland</option><option value="Israel">Israel</option><option value="Isle of Man">Isle of Man</option><option value="India">India</option><option value="British Indian Ocean Territory">British Indian Ocean Territory</option><option value="Iraq">Iraq</option><option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option><option value="Iceland">Iceland</option><option value="Italy">Italy</option><option value="Jersey">Jersey</option><option value="Jamaica">Jamaica</option><option value="Jordan">Jordan</option><option value="Japan">Japan</option><option value="Kenya">Kenya</option><option value="Kyrgyzstan">Kyrgyzstan</option><option value="Cambodia">Cambodia</option><option value="Kiribati">Kiribati</option><option value="Comoros">Comoros</option><option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option><option value="Korea, Democratic People’s Republic of">Korea, Democratic People’s Republic of</option><option value="Korea, Republic of">Korea, Republic of</option><option value="Kuwait">Kuwait</option><option value="Cayman Islands">Cayman Islands</option><option value="Kazakhstan">Kazakhstan</option><option value="Lao People’s Democratic Republic">Lao People’s Democratic Republic</option><option value="Lebanon">Lebanon</option><option value="Saint Lucia">Saint Lucia</option><option value="Liechtenstein">Liechtenstein</option><option value="Sri Lanka">Sri Lanka</option><option value="Liberia">Liberia</option><option value="Lesotho">Lesotho</option><option value="Lithuania">Lithuania</option><option value="Luxembourg">Luxembourg</option><option value="Latvia">Latvia</option><option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option><option value="Morocco">Morocco</option><option value="Monaco">Monaco</option><option value="Moldova, Republic of">Moldova, Republic of</option><option value="Montenegro">Montenegro</option><option value="Saint Martin (French part)">Saint Martin (French part)</option><option value="Madagascar">Madagascar</option><option value="Macedonia, the former Yugoslav Republic of">Macedonia, the former Yugoslav Republic of</option><option value="Mali">Mali</option><option value="Myanmar">Myanmar</option><option value="Mongolia">Mongolia</option><option value="Macao">Macao</option><option value="Martinique">Martinique</option><option value="Mauritania">Mauritania</option><option value="Montserrat">Montserrat</option><option value="Malta">Malta</option><option value="Mauritius">Mauritius</option><option value="Maldives">Maldives</option><option value="Malawi">Malawi</option><option value="Mexico">Mexico</option><option value="Malaysia">Malaysia</option><option value="Mozambique">Mozambique</option><option value="Namibia">Namibia</option><option value="New Caledonia">New Caledonia</option><option value="Niger">Niger</option><option value="Norfolk Island">Norfolk Island</option><option value="Nigeria">Nigeria</option><option value="Nicaragua">Nicaragua</option><option value="Netherlands">Netherlands</option><option value="Norway">Norway</option><option value="Nepal">Nepal</option><option value="Nauru">Nauru</option><option value="Niue">Niue</option><option value="New Zealand">New Zealand</option><option value="Oman">Oman</option><option value="Panama">Panama</option><option value="Peru">Peru</option><option value="French Polynesia">French Polynesia</option><option value="Papua New Guinea">Papua New Guinea</option><option value="Philippines">Philippines</option><option value="Pakistan">Pakistan</option><option value="Poland">Poland</option><option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option><option value="Pitcairn">Pitcairn</option><option value="Palestine">Palestine</option><option value="Portugal">Portugal</option><option value="Paraguay">Paraguay</option><option value="Qatar">Qatar</option><option value="Reunion">Reunion</option><option value="Romania">Romania</option><option value="Serbia">Serbia</option><option value="Russian Federation">Russian Federation</option><option value="Rwanda">Rwanda</option><option value="Saudi Arabia">Saudi Arabia</option><option value="Solomon Islands">Solomon Islands</option><option value="Seychelles">Seychelles</option><option value="Sudan">Sudan</option><option value="Sweden">Sweden</option><option value="Singapore">Singapore</option><option value="Saint Helena, Ascension and Tristan da Cunha">Saint Helena, Ascension and Tristan da Cunha</option><option value="Slovenia">Slovenia</option><option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option><option value="Slovakia">Slovakia</option><option value="Sierra Leone">Sierra Leone</option><option value="San Marino">San Marino</option><option value="Senegal">Senegal</option><option value="Somalia">Somalia</option><option value="Suriname">Suriname</option><option value="South Sudan">South Sudan</option><option value="Sao Tome and Principe">Sao Tome and Principe</option><option value="El Salvador">El Salvador</option><option value="Sint Maarten (Dutch part)">Sint Maarten (Dutch part)</option><option value="Syrian Arab Republic">Syrian Arab Republic</option><option value="Swaziland">Swaziland</option><option value="Turks and Caicos Islands">Turks and Caicos Islands</option><option value="Chad">Chad</option><option value="French Southern Territories">French Southern Territories</option><option value="Togo">Togo</option><option value="Thailand">Thailand</option><option value="Tajikistan">Tajikistan</option><option value="Tokelau">Tokelau</option><option value="Timor-Leste">Timor-Leste</option><option value="Turkmenistan">Turkmenistan</option><option value="Tunisia">Tunisia</option><option value="Tonga">Tonga</option><option value="Turkey">Turkey</option><option value="Trinidad and Tobago">Trinidad and Tobago</option><option value="Tuvalu">Tuvalu</option><option value="Taiwan">Taiwan</option><option value="Tanzania, United Republic of">Tanzania, United Republic of</option><option value="Ukraine">Ukraine</option><option value="Uganda">Uganda</option><option value="United States">United States</option><option value="Uruguay">Uruguay</option><option value="Uzbekistan">Uzbekistan</option><option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option><option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option><option value="Venezuela, Bolivarian Republic of">Venezuela, Bolivarian Republic of</option><option value="Virgin Islands, British">Virgin Islands, British</option><option value="Vietnam">Vietnam</option><option value="Vanuatu">Vanuatu</option><option value="Wallis and Futuna">Wallis and Futuna</option><option value="Samoa">Samoa</option><option value="Yemen">Yemen</option><option value="Mayotte">Mayotte</option><option value="South Africa">South Africa</option><option value="Zambia">Zambia</option><option value="Zimbabwe">Zimbabwe</option></select><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoPlaceholder mktoPlaceholderGDPR_Consent__c"></div><div class="mktoClear"></div></div><div class="mktoFormRow"><div class="mktoFieldDescriptor mktoFormCol" style="margin-bottom: 10px;"><div class="mktoOffset" style="width: 10px;"></div><div class="mktoFieldWrap"><label for="Contact_Sales_Comments__c" class="mktoLabel mktoHasWidth" style="width: 100px;"><div class="mktoAsterix">*</div>Question(s):</label><div class="mktoGutter mktoHasWidth" style="width: 10px;"></div><textarea id="Contact_Sales_Comments__c" name="Contact_Sales_Comments__c" rows="2" class="mktoField mktoHasWidth" maxlength="32000" style="width: 312px;"></textarea><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoFormRow"><div class="mktoFormCol" style="margin-bottom: 10px;"><div class="mktoOffset mktoHasWidth" style="width: 10px;"></div><div class="mktoFieldWrap"><div class="mktoHtmlText mktoHasWidth" style="width: 300px;"><p style="font-size: 10px; line-height: 1.5;"><span style="color: #333333;">By submitting this form, I understand and agree to the NuoDB <a href="https://www.nuodb.com/privacy-policy" target="_blank" id="" style="color: #333333;">Privacy Policy</a>.</span></p></div><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoClear"></div></div><div class="mktoButtonRow"><span class="mktoButtonWrap mktoSimple" style="margin-left: 12px;"><button type="submit" class="mktoButton">Submit</button></span></div><input type="hidden" name="formid" class="mktoField mktoFieldDescriptor" value="576"><input type="hidden" name="munchkinId" class="mktoField mktoFieldDescriptor" value="139-YPK-485"></form>
+<span style="color:#282828;"><script>
+<!--//--><![CDATA[// ><!--
+MktoForms2.loadForm("//app-sjp.marketo.com", "139-YPK-485", 576);
+//--><!]]>
+</script></span> <script src="./What do we mean by Database Scalability_ _ NuoDB_files/forms2.js"></script><script>
+<!--//--><![CDATA[// ><!--
+MktoForms2.whenReady(function (form){
+  //Add an onSuccess handler
+   form.onSuccess(function(values, followUpUrl){
+    //get the form's jQuery element and hide it
+    form.getFormElem().hide();
+    document.getElementById('confirmform').style.visibility = 'visible';
+    //return false to prevent the submission handler from taking the lead to the follow up url.
+    return false;
+  });
+});
+
+//--><!]]>
+</script><div id="confirmform" style="visibility:hidden;">
+<p style="color:#ffffff;">Thank you.We will follow up via email about your request shortly!</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+<!--/*--><![CDATA[/* ><!--*/
+.html-cta {width:100%;height:auto;}
+
+@media (max-width: 470px) {
+.html-cta-text {width: 100%;clear:both;}
+.html-cta-form {width: 100%;clear:both;}
+	}
+
+/*--><!]]>*/
+</style>
+</div></div></div></div>
+
+    </div>
+  </div><!-- /.block -->
+	</div>
+  </section>
+          </aside><!-- /.sidebars -->
+              </div><!-- /#main-content -->
+    </div><!-- /.wrapper -->        
+  </div><!-- /#main -->
+      <footer id="footer">
+      <div class="back-top-button" title="Back to the top" style="visibility: visible;"><a href="http://www.nuodb.com/techblog/what-do-we-mean-database-scalability#top">Top</a></div>
+      <div class="wrapper">
+          <div class="region region-footer-content">
+      <div id="block-menu-block-1" class="block block-menu-block plain first last odd" role="navigation">
+
+            
+    <div class="content">
+    <div class="menu-block-wrapper menu-block-1 menu-name-main-menu parent-mlid-0 menu-level-1">
+  <ul class="menu"><li class="menu__item is-expanded first expanded menu-mlid-5020" style="height: 239px;"><a href="http://www.nuodb.com/product-overview" class="menu__link sf-depth-1 menuparent">Product</a><ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-7028"><a href="http://www.nuodb.com/product-overview" class="menu__link sf-depth-2">Product Overview</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7674"><a href="http://www.nuodb.com/digging-distributed-sql" class="menu__link sf-depth-2">Distributed SQL</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-6058"><a href="http://www.nuodb.com/product/durable-distributed-cache" class="menu__link sf-depth-2">Under the Hood</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7642"><a href="http://www.nuodb.com/product/database-comparison" class="menu__link sf-depth-2">Database Comparison</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7650"><a href="http://www.nuodb.com/product/database-roi" class="menu__link sf-depth-2">Database ROI</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7653"><a href="http://www.nuodb.com/product/pricing-editions" class="menu__link sf-depth-2">Pricing / Editions</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-7643"><a href="http://www.nuodb.com/product/evaluate-nuodb" class="menu__link sf-depth-2">Evaluate NuoDB</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded menu-mlid-5033" style="height: 239px;"><a href="http://www.nuodb.com/nuodb-use-cases" class="menu__link sf-depth-1 menuparent">Use Cases</a><ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-7027"><a href="http://www.nuodb.com/nuodb-use-cases" class="menu__link sf-depth-2">NuoDB Use Cases</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7085"><a href="http://www.nuodb.com/application-migration-cloud" class="menu__link sf-depth-2">Migrate Applications to the Cloud</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7617"><a href="http://www.nuodb.com/develop-new-cloud-applications" class="menu__link sf-depth-2">Develop New Cloud Applications</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7616"><a href="http://www.nuodb.com/modernizing-cloud-applications" class="menu__link sf-depth-2">Modernize Cloud Applications</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7105"><a href="http://www.nuodb.com/elastic-scalability" class="menu__link sf-depth-2">Elastic Scalability</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7736"><a href="http://www.nuodb.com/container-native-database" class="menu__link sf-depth-2">Container-Native Database</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7106"><a href="http://www.nuodb.com/database-built-continuous-availability" class="menu__link sf-depth-2">Continuous Availability</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7649"><a href="http://www.nuodb.com/active-active-database" class="menu__link sf-depth-2">Active-Active Database</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-7112"><a href="http://www.nuodb.com/hybrid-workloads-and-htap" class="menu__link sf-depth-2">Hybrid Workloads &amp; HTAP</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded menu-mlid-4001" style="height: 239px;"><a href="http://www.nuodb.com/resources/content-library" class="menu__link sf-depth-1 menuparent">Resources</a><ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-4003"><a href="http://www.nuodb.com/resources/content-library" class="menu__link sf-depth-2">Content Library</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-4002"><a href="http://www.nuodb.com/resources/videos" class="menu__link sf-depth-2">Videos</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-4004"><a href="http://www.nuodb.com/resources/events-and-webinars" class="menu__link sf-depth-2">Events/Webinars</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7030"><a href="http://www.nuodb.com/resources/professional-database-services" class="menu__link sf-depth-2">Professional Services</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-7296"><a href="http://www.nuodb.com/resources/technical-support-services" class="menu__link sf-depth-2">Technical Support</a></li>
+</ul></li>
+<li class="menu__item is-expanded expanded menu-mlid-5034" style="height: 239px;"><a href="http://www.nuodb.com/company" class="menu__link sf-depth-1 menuparent">Company</a><ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-7020"><a href="http://www.nuodb.com/company" class="menu__link sf-depth-2">About Us</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7002"><a href="http://www.nuodb.com/company/leadership-team" class="menu__link sf-depth-2">Leadership Team</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7026"><a href="http://www.nuodb.com/company/our-investors" class="menu__link sf-depth-2">Our Investors</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7730"><a href="http://www.nuodb.com/company/our-partners" class="menu__link sf-depth-2">Our Partners</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-4005"><a href="http://www.nuodb.com/company/press-releases" class="menu__link sf-depth-2">Press Releases</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-4006"><a href="http://www.nuodb.com/company/news" class="menu__link sf-depth-2">Media Coverage</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-5001"><a href="http://www.nuodb.com/blog" class="menu__link sf-depth-2">Blog</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7021"><a href="http://www.nuodb.com/company/careers" class="menu__link sf-depth-2">Careers</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-5040"><a href="http://www.nuodb.com/company/contact-us" class="menu__link sf-depth-2">Contact Us</a></li>
+</ul></li>
+<li class="menu__item is-active-trail is-expanded expanded active-trail menu-mlid-7262" style="height: 239px;"><a href="http://www.nuodb.com/dev-center" class="menu__link is-active-trail sf-depth-1 menuparent active-trail">Dev Center</a><ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-7682"><a href="https://www.nuodb.com/dev-center" class="menu__link">Dev Center Home</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-5037"><a href="http://doc.nuodb.com/Latest/Default.htm" class="menu__link">Documentation</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7023"><a href="http://support.nuodb.com/hc/en-us" class="menu__link">Online Support</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-7681"><a href="https://support.nuodb.com/hc/en-us/community/topics" class="menu__link">Community Forum</a></li>
+<li class="menu__item is-active-trail is-expanded last expanded active-trail menu-mlid-7263"><a href="http://www.nuodb.com/dev-center/techblog" class="menu__link is-active-trail sf-depth-2 menuparent active-trail">TechBlog</a><ul class="menu"><li class="menu__item is-active is-active-trail is-leaf first last leaf active-trail active menu-mlid-7266"><a href="http://www.nuodb.com/techblog/what-do-we-mean-database-scalability" class="menu__link is-active-trail menu-position-link active-trail active">What do we mean by Database Scalability?</a></li>
+</ul></li>
+</ul></li>
+<li class="menu__item is-leaf leaf menu-mlid-7647" style="height: 239px;"><a href="http://www.nuodb.com/dev-center/community-edition-download" class="menu__link sf-depth-1">Download</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-7114" style="height: 239px;"><a href="http://go.nuodb.com/request-technical-overview.html" target="_blank" class="menu__link">Watch the Demo ❯</a></li>
+</ul></div>
+    </div>
+  </div><!-- /.block -->
+  </div>
+        <div id="bottom-content">
+            <div class="region region-bottom">
+      <div id="block-bean-6063" class="block block-bean plain first odd">
+
+            
+    <div class="content">
+    <div about="/block/copyright" typeof="" class="ds-1col entity entity-bean bean-background-image view-mode-default clearfix">
+
+  
+  <div class="field field-name-field-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>©&nbsp;2019&nbsp;NuoDB, Inc. All rights reserved.</p>
+</div></div></div></div>
+
+    </div>
+  </div><!-- /.block -->
+  <div id="block-menu-menu-tertiary-menu" class="block block-menu plain even" role="navigation">
+
+            
+    <div class="content">
+    <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://www.nuodb.com/privacy-policy" class="menu__link">Privacy Policy</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://www.nuodb.com/terms-use" class="menu__link">Terms of Use</a></li>
+<li class="menu__item is-leaf last leaf"><a href="http://www.nuodb.com/sitemap" class="menu__link">Site Map</a></li>
+</ul>    </div>
+  </div><!-- /.block -->
+  <div id="block-menu-menu-social-links" class="block block-menu plain last odd" role="navigation">
+
+            
+    <div class="content">
+    <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://twitter.com/nuodb" class="menu__link twitter icon">Twitter</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://www.linkedin.com/company/nuodb" class="menu__link linkedin icon">Linked In</a></li>
+<li class="menu__item is-leaf leaf"><a href="https://www.facebook.com/NUODB" class="menu__link facebook icon">Facebook</a></li>
+<li class="menu__item is-leaf last leaf"><a href="https://www.youtube.com/channel/UCWOlI6x_O6F8X6Iof6GN7Ug" class="menu__link youtube icon">YouTube</a></li>
+</ul>    </div>
+  </div><!-- /.block -->
+  </div>
+        </div><!-- /#bottom-content -->
+      </div><!-- /.wrapper -->
+      <div class="dlcredit"><a href="http://www.digital-loom.com/" title="Website by Digital Loom">Website by Digital Loom</a></div>
+    </footer>
+  </div><!-- /#skrollr-body -->
+</div><!-- /#page -->
+  <script>function euCookieComplianceLoadScripts() {}</script>
+<script>var eu_cookie_compliance_cookie_name = "";</script>
+<script src="./What do we mean by Database Scalability_ _ NuoDB_files/js_4MRGjqSerJEQxet46pdKTifSYprPwyhoaSNKNoRsFw4.js"></script>
+
+    <script type="text/javascript" language="javascript">
+    var sf14gv = 21099;
+    (function() {
+      var sf14g = document.createElement('script'); sf14g.type = 'text/javascript'; sf14g.async = true;
+      sf14g.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 't.sf14g.com/sf14g.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf14g, s);
+    })();
+  </script>
+  
+  <script> !function() { var t; if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], t.factory = function(e) { return function() { var n; return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t; }; }, t.methods.forEach(function(e) { t[e] = t.factory(e); }), t.load = function(t) { var e, n, o, i; e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"), o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js", n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n); }); }(); drift.SNIPPET_VERSION = '0.3.1'; drift.load('wm4h5aya5w5t'); </script>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"3f7b270661","applicationID":"54971395","transactionName":"blADN0AHVhJQVENeXFcaIABGD1cPHllYU1ZmRQAEVzlOCFRA","queueTime":0,"applicationTime":216,"atts":"QhcAQQgdRRw=","errorBeacon":"bam.nr-data.net","agent":""}</script>
+
+<div id="mktoStyleLoaded" style="display: none; border-top-color: rgb(18, 52, 86);"></div><script type="text/javascript" id="" src="./What do we mean by Database Scalability_ _ NuoDB_files/bizible.js"></script><script type="text/javascript" id="" charset="utf-8">var _eiq=_eiq||[],_engagio_settings={accountId:"515a41ae336aba2f957bb3625cccd75e6331fe6f"};(function(){var a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"==document.location.protocol?"https://":"http://")+"web-analytics.engagio.com/js/ei.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();</script><img src="./What do we mean by Database Scalability_ _ NuoDB_files/ipv" style="display: none;"><div id="drift-widget-container" style="position: absolute; z-index: 2147483647;"><iframe id="drift-widget" src="./What do we mean by Database Scalability_ _ NuoDB_files/index.html" title="Drift Messenger" role="complementary" style="border: none; display: block; height: 0px !important; width: 0px !important; position: fixed; top: auto; left: auto; bottom: 0px; right: 0px; visibility: hidden; z-index: 2147483647; max-height: 100vh; max-width: 100vw; transition: none 0s ease 0s; background: none transparent; opacity: 1;" class="drift-widget-hidden"></iframe></div><script src="./What do we mean by Database Scalability_ _ NuoDB_files/saved_resource" type="text/javascript"></script><form __bizdiag="413403287" __biza="WJ__" novalidate="novalidate" class="mktoForm mktoHasWidth mktoLayoutAbove" style="font-family: Ubuntu; font-size: 11px; color: rgb(51, 51, 51); visibility: hidden; position: absolute; top: -500px; left: -1000px; width: 1440px;"></form><iframe name="mktoFormsXDIframe0.9473897340145585" id="MktoForms2XDIframe" src="./What do we mean by Database Scalability_ _ NuoDB_files/XDFrame.html" style="display: none;"></iframe></body></html>

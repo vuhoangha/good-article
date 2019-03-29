@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)https://goroutines.com/10m -->
+<html class="gr__goroutines_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>10M - goroutines</title>
+<style>
+/* http://jmblog.github.io/color-themes-for-google-code-prettify/github/ */
+
+.pln { color: #333333; }
+.str { color: #dd1144; }
+.kwd { color: #333333; }
+.com { color: #999988; }
+.typ { color: #445588; }
+.lit { color: #445588; }
+.pun { color: #333333; }
+.opn { color: #333333; }
+.clo { color: #333333; }
+.tag { color: navy; }
+.atn { color: teal; }
+.atv { color: #dd1144; }
+.dec { color: #333333; }
+.var { color: teal; }
+.fun { color: #990000; }
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	font-size: 18px;
+  border-top: 6px #E0EBF5 solid;
+	color: #444444;
+	background-color: #FFFFFF;
+}
+
+li {
+  margin-left: 30px;
+}
+
+a {
+	color: #375EAB;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th {
+	font-weight: bold;
+}
+
+th, td {
+  padding: 12px 15px;
+	border-bottom: 1px solid #E1E1E1;
+}
+
+</style>
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://goroutines.com/feed.xml">
+<link rel="icon" type="image/png" href="https://goroutines.com/icon.png">
+</head>
+<body data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+<div style="width: 800px; margin: 0 auto;">
+<a href="https://goroutines.com/"><img style="width: 100px; height: 100px; display: block; margin: 10px auto 10px auto;" src="data:image/png;base64,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"></a><div style="font-size:60px;font-weight:bold;text-align:center;"><a href="https://goroutines.com/10m">10M</a></div><div style="color:#5c677f;font-size:20px;margin:8px;text-align:center;">10M Concurrent Websockets</div><div style="color:#5c677f;font-family:Georgia, serif;font-size:25px;font-style:italic;margin:10px 0 30px 0;text-align:center;"><div>March 9<sup style="font-size:10px;margin-left:1px;margin-right:-10px;">th</sup>, 2016</div></div>
+
+<div style="margin: 15px 0; line-height: 1.5;">The <a href="http://c10m.robertgraham.com/p/manifesto.html">C10M Problem</a> is about how on a modern server, you should be able to easily handle 10M concurrent connections with solid throughput and low jitter.  Handling that level of traffic generally requires a more specialized approach than is offered by a stock Linux kernel.</div>
+
+<div style="margin: 15px 0; line-height: 1.5;">Using a stock debian-8 image and a Go server you can handle 10M concurrent connections with low throughput and moderate jitter if the connections are mostly idle.  The server design for this example is just about the simplest websocket server that is useful for anything.  It is similar to a push notification server like the iOS Apple Push Notification Service, but without the ability to store messages if the client is offline.</div>
+
+<div style="margin: 15px 0; line-height: 1.5;">The server accepts websocket connections ports 10000-11000 (to avoid exhaustion of ephemeral ports on the clients during testing) and in the url the client specifies a channel to connect to, such as:</div>
+
+<div><pre class="prettyprint" style="background-color:#EFEFEF;border-radius:6px;font-family:Monaco, Consolas, Menlo, Courier, monospace;font-size:14px;margin:6px 0;padding:10px;tab-size:4;word-break:break-all;word-wrap:break-word;"><span class="pln">ws</span><span class="pun">:</span><span class="com">//&lt;server&gt;:10000/&lt;channel&gt;</span></pre></div>
+
+<div style="margin: 15px 0; line-height: 1.5;">After the websocket connection has been setup, the server never reads any data from the connection, it only writes messages to the client.  Publishing to the channel is handled by redis, using the PUBLISH/PSUBSCRIBE commands.  This is unnecessary for a single server machine, but is nice when you have multiple servers and you need some sort of central place to handle message routing.</div>
+
+<div style="margin: 15px 0; line-height: 1.5;">Whenever a message is published on a channel, the server will send a message to each connected client subscribed to that channel.  To make sure clients are still connected, the server will also send a ping message every 5 minutes.  The client can use a missing ping message to detect if it has been disconnected.</div>
+
+<div><a href="https://goroutines.com/zip/10m-server.zip" style="float:right;padding-right:14px;padding-top:10px;">download</a></div><div><pre class="prettyprint" style="background-color:#EFEFEF;border-radius:6px;font-family:Monaco, Consolas, Menlo, Courier, monospace;font-size:14px;margin:6px 0;padding:10px;tab-size:4;word-break:break-all;word-wrap:break-word;"><span class="kwd">func</span> <span class="pln">handleConnection</span><span class="pun">(</span><span class="pln">ws</span> <span class="pun">*</span><span class="pln">websocket</span><span class="pun">.</span><span class="typ">Conn</span><span class="pun">,</span> <span class="pln">channel</span> <span class="pln">string</span><span class="pun">)</span> <span class="pun">{</span>
+	<span class="kwd">sub</span> <span class="pun">:</span><span class="pun">=</span> <span class="pln">subscribe</span><span class="pun">(</span><span class="pln">channel</span><span class="pun">)</span>
+	<span class="pln">t</span> <span class="pun">:</span><span class="pun">=</span> <span class="pln">time</span><span class="pun">.</span><span class="typ">NewTicker</span><span class="pun">(</span><span class="pln">pingPeriod</span><span class="pun">)</span>
+
+	<span class="kwd">var</span> <span class="pln">message</span> <span class="pun">[</span><span class="pun">]</span><span class="kwd">byte</span>
+
+	<span class="kwd">for</span> <span class="pun">{</span>
+		<span class="pln">select</span> <span class="pun">{</span>
+		<span class="kwd">case</span> <span class="pun">&lt;</span><span class="pun">-</span><span class="pln">t</span><span class="pun">.</span><span class="typ">C</span><span class="pun">:</span>
+			<span class="pln">message</span> <span class="pun">=</span> <span class="kwd">nil</span>
+		<span class="kwd">case</span> <span class="pln">message</span> <span class="pun">=</span> <span class="pun">&lt;</span><span class="pun">-</span><span class="kwd">sub</span><span class="pun">:</span>
+		<span class="pun">}</span>
+
+		<span class="pln">ws</span><span class="pun">.</span><span class="typ">SetWriteDeadline</span><span class="pun">(</span><span class="pln">time</span><span class="pun">.</span><span class="typ">Now</span><span class="pun">(</span><span class="pun">)</span><span class="pun">.</span><span class="typ">Add</span><span class="pun">(</span><span class="dec">30</span> <span class="pun">*</span> <span class="pln">time</span><span class="pun">.</span><span class="typ">Second</span><span class="pun">)</span><span class="pun">)</span>
+		<span class="pln">err</span> <span class="pun">:</span><span class="pun">=</span> <span class="pln">ws</span><span class="pun">.</span><span class="typ">WriteMessage</span><span class="pun">(</span><span class="pln">websocket</span><span class="pun">.</span><span class="typ">TextMessage</span><span class="pun">,</span> <span class="pln">message</span><span class="pun">)</span>
+		<span class="kwd">if</span> <span class="pln">err</span> <span class="pun">!</span><span class="pun">=</span> <span class="kwd">nil</span> <span class="pun">{</span>
+			<span class="kwd">break</span>
+		<span class="pun">}</span>
+	<span class="pun">}</span>
+
+	<span class="pln">t</span><span class="pun">.</span><span class="typ">Stop</span><span class="pun">(</span><span class="pun">)</span>
+	<span class="pln">ws</span><span class="pun">.</span><span class="typ">Close</span><span class="pun">(</span><span class="pun">)</span>
+	<span class="pln">unsubscribe</span><span class="pun">(</span><span class="pln">channel</span><span class="pun">,</span> <span class="kwd">sub</span><span class="pun">)</span>
+<span class="pun">}</span></pre></div><div style="background-color:#DBDBDB;border-radius:0 0 6px 6px;margin:6px 0;padding:10px;position:relative;top:-10px;"><div style="font-family:Monaco, monospace;font-size:16px;">go get goroutines.com/10m-server</div></div>
+
+
+<div style="margin: 15px 0; line-height: 1.5;">You can run the server like this:</div>
+
+<div><pre class="prettyprint" style="background-color:#EFEFEF;border-radius:6px;font-family:Monaco, Consolas, Menlo, Courier, monospace;font-size:14px;margin:6px 0;padding:10px;tab-size:4;word-break:break-all;word-wrap:break-word;"><span class="pln">apt</span><span class="pun">-</span><span class="kwd">get</span> <span class="pln">update</span>
+<span class="pln">apt</span><span class="pun">-</span><span class="kwd">get</span> <span class="pln">install</span> <span class="pun">-</span><span class="pln">y</span> <span class="pln">redis</span><span class="pun">-</span><span class="pln">server</span>
+<span class="pln">echo</span> <span class="str">"bind *"</span> <span class="pun">&gt;</span><span class="pun">&gt;</span> <span class="pun">/</span><span class="pln">etc</span><span class="pun">/</span><span class="pln">redis</span><span class="pun">/</span><span class="pln">redis</span><span class="pun">.</span><span class="pln">conf</span>
+<span class="pln">systemctl</span> <span class="pln">restart</span> <span class="pln">redis</span><span class="pun">-</span><span class="pln">server</span>
+<span class="pln">sysctl</span> <span class="pun">-</span><span class="pln">w</span> <span class="pln">fs</span><span class="pun">.</span><span class="pln">file</span><span class="pun">-</span><span class="pln">max</span><span class="pun">=</span><span class="dec">11000000</span>
+<span class="pln">sysctl</span> <span class="pun">-</span><span class="pln">w</span> <span class="pln">fs</span><span class="pun">.</span><span class="pln">nr_open</span><span class="pun">=</span><span class="dec">11000000</span>
+<span class="pln">ulimit</span> <span class="pun">-</span><span class="pln">n</span> <span class="dec">11000000</span>
+<span class="pln">sysctl</span> <span class="pun">-</span><span class="pln">w</span> <span class="pln">net</span><span class="pun">.</span><span class="pln">ipv4</span><span class="pun">.</span><span class="pln">tcp_mem</span><span class="pun">=</span><span class="str">"100000000 100000000 100000000"</span>
+<span class="pln">sysctl</span> <span class="pun">-</span><span class="pln">w</span> <span class="pln">net</span><span class="pun">.</span><span class="pln">core</span><span class="pun">.</span><span class="pln">somaxconn</span><span class="pun">=</span><span class="dec">10000</span>
+<span class="pln">sysctl</span> <span class="pun">-</span><span class="pln">w</span> <span class="pln">net</span><span class="pun">.</span><span class="pln">ipv4</span><span class="pun">.</span><span class="pln">tcp_max_syn_backlog</span><span class="pun">=</span><span class="dec">10000</span>
+<span class="dec">10</span><span class="pln">m</span><span class="pun">-</span><span class="pln">server</span></pre></div>
+
+<div style="margin: 15px 0; line-height: 1.5;">The client connects to a server specified on the command line and makes a number of connections also specified on the command line.  It starts on port 10000 and increments the port for every 50k connections.</div>
+
+<div><a href="https://goroutines.com/zip/10m-client.zip" style="float:right;padding-right:14px;padding-top:10px;">download</a></div><div><pre class="prettyprint" style="background-color:#EFEFEF;border-radius:6px;font-family:Monaco, Consolas, Menlo, Courier, monospace;font-size:14px;margin:6px 0;padding:10px;tab-size:4;word-break:break-all;word-wrap:break-word;"><span class="kwd">func</span> <span class="pln">createConnection</span><span class="pun">(</span><span class="pln">url</span> <span class="pln">string</span><span class="pun">)</span> <span class="pun">{</span>
+	<span class="pln">ws</span><span class="pun">,</span> <span class="pln">_</span><span class="pun">,</span> <span class="pln">err</span> <span class="pun">:</span><span class="pun">=</span> <span class="pln">dialer</span><span class="pun">.</span><span class="typ">Dial</span><span class="pun">(</span><span class="pln">url</span><span class="pun">,</span> <span class="kwd">nil</span><span class="pun">)</span>
+	<span class="kwd">if</span> <span class="pln">err</span> <span class="pun">!</span><span class="pun">=</span> <span class="kwd">nil</span> <span class="pun">{</span>
+		<span class="kwd">return</span>
+	<span class="pun">}</span>
+
+	<span class="pln">ws</span><span class="pun">.</span><span class="typ">SetReadLimit</span><span class="pun">(</span><span class="pln">maxMessageSize</span><span class="pun">)</span>
+
+	<span class="kwd">for</span> <span class="pun">{</span>
+		<span class="pln">ws</span><span class="pun">.</span><span class="typ">SetReadDeadline</span><span class="pun">(</span><span class="pln">time</span><span class="pun">.</span><span class="typ">Now</span><span class="pun">(</span><span class="pun">)</span><span class="pun">.</span><span class="typ">Add</span><span class="pun">(</span><span class="pln">idleTimeout</span><span class="pun">)</span><span class="pun">)</span>
+		<span class="pln">_</span><span class="pun">,</span> <span class="pln">message</span><span class="pun">,</span> <span class="pln">err</span> <span class="pun">:</span><span class="pun">=</span> <span class="pln">ws</span><span class="pun">.</span><span class="typ">ReadMessage</span><span class="pun">(</span><span class="pun">)</span>
+		<span class="kwd">if</span> <span class="pln">err</span> <span class="pun">!</span><span class="pun">=</span> <span class="kwd">nil</span> <span class="pun">{</span>
+			<span class="kwd">break</span>
+		<span class="pun">}</span>
+		<span class="kwd">if</span> <span class="pln">len</span><span class="pun">(</span><span class="pln">message</span><span class="pun">)</span> <span class="pun">&gt;</span> <span class="dec">0</span> <span class="pun">{</span>
+			<span class="pln">fmt</span><span class="pun">.</span><span class="typ">Println</span><span class="pun">(</span><span class="str">"received message"</span><span class="pun">,</span> <span class="pln">url</span><span class="pun">,</span> <span class="pln">string</span><span class="pun">(</span><span class="pln">message</span><span class="pun">)</span><span class="pun">)</span>
+		<span class="pun">}</span>
+	<span class="pun">}</span>
+
+	<span class="pln">ws</span><span class="pun">.</span><span class="typ">Close</span><span class="pun">(</span><span class="pun">)</span>
+<span class="pun">}</span></pre></div><div style="background-color:#DBDBDB;border-radius:0 0 6px 6px;margin:6px 0;padding:10px;position:relative;top:-10px;"><div style="font-family:Monaco, monospace;font-size:16px;">go get goroutines.com/10m-client</div></div>
+
+
+<div style="margin: 15px 0; line-height: 1.5;">You can run the client like this:</div>
+
+<div><pre class="prettyprint" style="background-color:#EFEFEF;border-radius:6px;font-family:Monaco, Consolas, Menlo, Courier, monospace;font-size:14px;margin:6px 0;padding:10px;tab-size:4;word-break:break-all;word-wrap:break-word;"><span class="pln">sysctl</span> <span class="pun">-</span><span class="pln">w</span> <span class="pln">fs</span><span class="pun">.</span><span class="pln">file</span><span class="pun">-</span><span class="pln">max</span><span class="pun">=</span><span class="dec">11000000</span>
+<span class="pln">sysctl</span> <span class="pun">-</span><span class="pln">w</span> <span class="pln">fs</span><span class="pun">.</span><span class="pln">nr_open</span><span class="pun">=</span><span class="dec">11000000</span>
+<span class="pln">ulimit</span> <span class="pun">-</span><span class="pln">n</span> <span class="dec">11000000</span>
+<span class="pln">sysctl</span> <span class="pun">-</span><span class="pln">w</span> <span class="pln">net</span><span class="pun">.</span><span class="pln">ipv4</span><span class="pun">.</span><span class="pln">ip_local_port_range</span><span class="pun">=</span><span class="str">"1025 65535"</span>
+<span class="pln">sysctl</span> <span class="pun">-</span><span class="pln">w</span> <span class="pln">net</span><span class="pun">.</span><span class="pln">ipv4</span><span class="pun">.</span><span class="pln">tcp_mem</span><span class="pun">=</span><span class="str">"100000000 100000000 100000000"</span>
+<span class="dec">10</span><span class="pln">m</span><span class="pun">-</span><span class="pln">client</span> <span class="pun">&lt;</span><span class="pln">ip</span> <span class="pln">address</span><span class="pun">&gt;</span> <span class="pun">&lt;</span><span class="pln">number</span> <span class="pln">of</span> <span class="pln">connections</span><span class="pun">&gt;</span></pre></div>
+
+<div style="margin: 15px 0; line-height: 1.5;">This server was run on an <span style="background-color:rgba(0, 0, 0, 0.1);border-radius:5px;font-family:Monaco, monospace;font-size:14px;padding:3px 6px;white-space:nowrap;">n1-highmem-32</span> instance on GCE.  This is a 32-core machine with 208GB of memory.  Sending a ping every 5 minutes at 10M connections was roughly the limit of what the server could handle.  This ends up being only about 30k pings per second, which is not a terribly high number.  It seems to be limited by the kernel or network settings, as using 8 4-core machines (the same number of cores) could handle at least 5x the pings per second that a single 32-core machine could.  Since the connections are mostly idle, the channel message traffic is assumed to be insignificant compared to the pings.</div>
+
+<div style="margin: 15px 0; line-height: 1.5;">At the full 10M connections, the server's CPUs are only at 10% load and memory is only half used with the default <span style="background-color:rgba(0, 0, 0, 0.1);border-radius:5px;font-family:Monaco, monospace;font-size:14px;padding:3px 6px;white-space:nowrap;">GOGC=100</span>, so it's likely that the hardware could handle 20M connections and a much higher ping rate without any fancy optimizations to the server code.  The garbage collector is surprisingly performant, even with 100GB of memory allocated to the process.</div>
+
+<div style="margin: 15px 0; line-height: 1.5;">By using smaller instances, such as <span style="background-color:rgba(0, 0, 0, 0.1);border-radius:5px;font-family:Monaco, monospace;font-size:14px;padding:3px 6px;white-space:nowrap;">n1-highmem-4</span> instances, with 1.3M connections each and putting them behind Google's excellent <a href="https://cloud.google.com/compute/docs/load-balancing/network/">layer-3 load balancer</a> you can more easily scale to whatever the maximum number of connections allowed for the load balancer is, if it's limited at all.</div>
+
+<div style="margin: 15px 0; line-height: 1.5;">It's likely a larger number of concurrent connections could be handled using a user space tcp stack such as <a href="http://shader.kaist.edu/mtcp/">mTCP</a> or a direct interface to the network card like <a href="http://dpdk.org/">DPDK</a> though it's unclear how hard those would be to integrate with Go since they may require pinning threads to specific cores, for instance.</div>
+
+</div><div style="background-color:rgba(0, 0, 0, 0.2);height:1px;margin:10px auto 10px auto;width:400px;"></div><div style="margin:30px auto 30px auto;text-align:center;"><b>goroutines</b> is a series of articles related somehow to the Go programming language</div><div style="margin:30px auto 30px auto;text-align:center;">all code samples on this site are in the public domain</div><div style="height:50px;margin:10px auto 50px auto;position:relative;width:500px;"><a href="https://goroutines.com/feed.xml" style="left:0;position:absolute;top:0;"><img style="width: 50px; height: 50px;" src="data:image/png;base64,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"></a><form action="https://tinyletter.com/goroutines" method="post" onsubmit="window.open(&#39;https://tinyletter.com/goroutines&#39;, &#39;popupwindow&#39;, &#39;scrollbars=yes,width=800,height=600&#39;);return true" style="left:100px;position:absolute;top:5px;" target="popupwindow"><label for="tlemail" style="display:none;">Enter your email address</label><input id="tlemail" name="email" placeholder="Your email address" style="font-size:20px;padding:6px;width:250px;" type="text"><input name="embed" type="hidden" value="1"><input style="background:#E0EBF5;border:0 none;border-radius:5px;cursor:pointer;font-size:20px;margin-left:8px;padding:8px 15px;" type="submit" value="Subscribe"></form></div>
+  
+  
+
+</body></html>

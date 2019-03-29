@@ -1,0 +1,68 @@
+/*
+Theme Name:     Newspaper 7 Child theme
+Theme URI: 		http://themeforest.net/user/tagDiv/portfolio
+Description:    Child theme made by tagDiv
+Author:         tagDiv
+Author URI: 	http://themeforest.net/user/tagDiv/portfolio
+Template:       Newspaper                             
+Version:        7.2c
+*/
+
+
+/*  ----------------------------------------------------------------------------
+    This file will load automatically when the child theme is active. You can use it
+    for custom CSS.
+*/
+
+.td-main-menu-logo a {
+  line-height: 46px;
+}
+@media (max-width: 1140px) {
+  .td-main-menu-logo img {
+    max-width: 138px;
+  }
+}
+.td-a-rec img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.td-header-wrap .td-affix .td-main-menu-logo a {
+    line-height: 46px !important;
+  }
+.td-header-style-1 .td-header-sp-logo {
+  width: 284px;
+  position: relative;
+  height: 90px;
+  margin: 28px 28px 9px 0px;
+  /* responsive landscape tablet */
+  /* responsive portrait tablet */
+  /* responsive portrait phone */
+}
+.td_module_8 .entry-title{
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 3px;
+    font-weight: 500;
+}
+.td-scroll-up {
+  display: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 4px;
+  right: 5px;
+  width: 40px;
+  height: 40px;
+  background-color: #4db2ec;
+  z-index: 9999;
+  transform: translate3d(0, 70px, 0);
+  -webkit-transform: translate3d(0, 70px, 0);
+  -moz-transform: translate3d(0, 70px, 0);
+  -ms-transform: translate3d(0, 70px, 0);
+  -o-transform: translate3d(0, 70px, 0);
+  -webkit-transition: transform 0.4s cubic-bezier(0.55, 0, 0.1, 1) 0s;
+  -moz-transition: transform 0.4s cubic-bezier(0.55, 0, 0.1, 1) 0s;
+  -o-transition: transform 0.4s cubic-bezier(0.55, 0, 0.1, 1) 0s;
+  transition: transform 0.4s cubic-bezier(0.55, 0, 0.1, 1) 0s;
+  /* responsive phone */
+}

@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)https://www.marklogic.com/blog/relational-databases-scale/ -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#" style="" class="js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths gr__marklogic_com" slick-uniqueid="3"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/tracker.js" async=""></script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/munchkin.js"></script><script async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/fbevents.js"></script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/f.txt"></script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/hotjar-954691.js"></script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/uwt.js"></script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/insight.min.js"></script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/f.txt"></script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/analytics.js"></script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/munchkin.js"></script>
+	<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Relational Databases Are Not Designed For Scale - MarkLogic</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://www.marklogic.com/xmlrpc.php">
+	<!-- Begin: Favicons -->
+	<link rel="apple-touch-icon" sizes="180x180" href="https://www.marklogic.com/wp-content/themes/marklogic-bs4/resources/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://www.marklogic.com/wp-content/themes/marklogic-bs4/resources/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://www.marklogic.com/wp-content/themes/marklogic-bs4/resources/favicons/favicon-16x16.png">
+	<link rel="manifest" href="https://www.marklogic.com/wp-content/themes/marklogic-bs4/resources/favicons/manifest.json">
+	<link rel="mask-icon" href="https://www.marklogic.com/wp-content/themes/marklogic-bs4/resources/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="https://www.marklogic.com/wp-content/themes/marklogic-bs4/resources/favicons/favicon.ico">
+	<meta name="msapplication-config" content="/wp-content/themes/marklogic-bs4/resources/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+	<!-- End: Favicons -->
+					
+<!-- Google Tag Manager for WordPress by gtm4wp.com -->
+<script async="" type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/rtp.js"></script><script async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/gtm.js"></script><script data-cfasync="false" type="text/javascript">//<![CDATA[
+	var gtm4wp_datalayer_name = "dataLayer";
+	var dataLayer = dataLayer || [];
+//]]>
+</script>
+<!-- End Google Tag Manager for WordPress by gtm4wp.com -->
+<!-- This site is optimized with the Yoast SEO plugin v9.7 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Achieving scale is a huge challenge for RDBMS. They were designed in a period when data could be kept small, neat, and orderly. That’s just not true today.">
+<link rel="canonical" href="https://www.marklogic.com/blog/relational-databases-scale/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Relational Databases Are Not Designed For Scale - MarkLogic">
+<meta property="og:description" content="Achieving scale is a huge challenge for RDBMS. They were designed in a period when data could be kept small, neat, and orderly. That’s just not true today.">
+<meta property="og:url" content="https://www.marklogic.com/blog/relational-databases-scale/">
+<meta property="og:site_name" content="MarkLogic">
+<meta property="article:publisher" content="https://www.facebook.com/marklogic">
+<meta property="article:section" content="Relational Databases">
+<meta property="article:published_time" content="2015-11-09T06:00:00+00:00">
+<meta property="article:modified_time" content="2018-04-05T22:42:08+00:00">
+<meta property="og:updated_time" content="2018-04-05T22:42:08+00:00">
+<meta property="og:image" content="https://cdn1.marklogic.com/wp-content/uploads/2018/01/relational-databases-are-not-designed-for-scale-social.jpg">
+<meta property="og:image:secure_url" content="https://cdn1.marklogic.com/wp-content/uploads/2018/01/relational-databases-are-not-designed-for-scale-social.jpg">
+<meta property="og:image:width" content="683">
+<meta property="og:image:height" content="1024">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Achieving scale is a huge challenge for RDBMS. They were designed in a period when data could be kept small, neat, and orderly. That’s just not true today.">
+<meta name="twitter:title" content="Relational Databases Are Not Designed For Scale - MarkLogic">
+<meta name="twitter:site" content="@marklogic">
+<meta name="twitter:image" content="https://cdn1.marklogic.com/wp-content/uploads/2018/01/relational-databases-are-not-designed-for-scale-social.jpg">
+<meta name="twitter:creator" content="@heymattallen">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","url":"https://www.marklogic.com/","sameAs":["https://www.facebook.com/marklogic","https://www.instagram.com/marklogicdb/","https://www.linkedin.com/company/marklogic","https://www.youtube.com/user/MarkLogic","https://twitter.com/marklogic"],"@id":"https://www.marklogic.com/#organization","name":"MarkLogic Corporation","logo":"https://cdn1.marklogic.com/wp-content/uploads/2017/12/marklogic-logo-header.svg"}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="https://app-sjn.marketo.com/">
+<link rel="dns-prefetch" href="https://s0.wp.com/">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net/">
+<link rel="dns-prefetch" href="https://fast.fonts.net/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.marklogic.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.10"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="bodhi-svgs-attachment-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/svgs-attachment.css" type="text/css" media="all">
+<link rel="stylesheet" id="marklogic-bs4-font-awesome-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/font-awesome.min.css" type="text/css" media="">
+<link rel="stylesheet" id="marklogic-bs4-fontsdotcom-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/4866745b-daa2-47de-8df7-fb5f6e4c10da.css" type="text/css" media="all">
+<link rel="stylesheet" id="marklogic-bs4-layout-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/layout.css" type="text/css" media="all">
+<link rel="stylesheet" id="marklogic-bs4-header-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/header.css" type="text/css" media="all">
+<link rel="stylesheet" id="marklogic-bs4-footer-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/footer.css" type="text/css" media="all">
+<link rel="stylesheet" id="marklogic-bs4-marketo-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/marketo.css" type="text/css" media="all">
+<link rel="stylesheet" id="marklogic-bs4-style-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="enlighter-local-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/EnlighterJS.min.css" type="text/css" media="all">
+<!-- `sharedaddy` is included in the concatenated jetpack.css -->
+<link rel="stylesheet" id="social-logos-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/social-logos.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/jquery.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/modernizr.min.js"></script>
+<link rel="https://api.w.org/" href="https://www.marklogic.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.marklogic.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://cdn1.marklogic.com/wp-includes/wlwmanifest.xml"> 
+<link rel="shortlink" href="https://www.marklogic.com/?p=10400">
+<link rel="alternate" type="application/json+oembed" href="https://www.marklogic.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.marklogic.com%2Fblog%2Frelational-databases-scale%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://www.marklogic.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.marklogic.com%2Fblog%2Frelational-databases-scale%2F&amp;format=xml">
+<meta http-equiv="Content-Language" content="en-US">
+<!-- Google Tag Manager for WordPress by gtm4wp.com -->
+<script data-cfasync="false" type="text/javascript">//<![CDATA[
+	dataLayer.push({"pagePostType":"post","pagePostType2":"single-post","pageCategory":["relational-databases"],"pagePostAuthor":"Matt Allen"});//]]>
+</script>
+<script data-cfasync="false">//<![CDATA[
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.'+'js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-S7BZ');//]]>
+</script>
+<!-- End Google Tag Manager -->
+<!-- End Google Tag Manager for WordPress by gtm4wp.com -->
+<link rel="dns-prefetch" href="https://jetpack.wordpress.com/">
+<link rel="dns-prefetch" href="https://s0.wp.com/">
+<link rel="dns-prefetch" href="https://s1.wp.com/">
+<link rel="dns-prefetch" href="https://s2.wp.com/">
+<link rel="dns-prefetch" href="https://public-api.wordpress.com/">
+<link rel="dns-prefetch" href="https://0.gravatar.com/">
+<link rel="dns-prefetch" href="https://1.gravatar.com/">
+<link rel="dns-prefetch" href="https://2.gravatar.com/">
+<style type="text/css">img#wpstats{display:none}</style>	<script type="text/javascript">
+		(function () {
+			var didInit = false;
+
+			function initMunchkin() {
+				if (didInit === false) {
+					didInit = true;
+					Munchkin.init('371-XVQ-609');
+				}
+			}
+
+			var s = document.createElement('script');
+			s.type = 'text/javascript';
+			s.async = true;
+			s.src = '//munchkin.marketo.net/munchkin.js';
+			s.onreadystatechange = function () {
+				if (this.readyState == 'complete' || this.readyState == 'loaded') {
+					initMunchkin();
+				}
+			};
+			s.onload = initMunchkin;
+			document.getElementsByTagName('head')[0].appendChild(s);
+		})();
+	</script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/munchkin(1).js"></script>
+	<!-- Marketo Personalization -->
+	<script type="text/javascript">
+		(function (c, h, a, f, i, e) {
+			c[a] = c[a] || function () {
+					(c[a].q = c[a].q || []).push(arguments)
+				};
+			c[a].a = i;
+			c[a].e = e;
+			var g = h.createElement("script");
+			g.async = true;
+			g.type = "text/javascript";
+			g.src = f + '?aid=' + i;
+			var b = h.getElementsByTagName("script")[0];
+			b.parentNode.insertBefore(g, b);
+		})(window, document, "rtp", "//sjrtp5-cdn.marketo.com/rtp-api/v1/rtp.js", "marklogic");
+		rtp('send', 'view');
+		rtp('get', 'campaign', true);
+	</script>
+<script async="" type="text/javascript" src="https://marklogicprod.disqus.com/count.js"></script><script type="text/javascript" async="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/munchkin(1).js"></script><script src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/f(1).txt"></script><script src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/f(2).txt"></script><link type="text/css" href="./Relational Databases Are Not Designed For Scale - MarkLogic_files/jquery-ui-insightera-custom-1.9.6.css" rel="stylesheet"><script charset="utf-8" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/modules.22c666f8c6a8d824877d.js"></script><style type="text/css">iframe#_hjRemoteVarsFrame {display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;}</style></head>
+<body class="post-template-default single single-post postid-10400 single-format-standard marklogic-iso-en xl" data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+	
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-S7BZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) --><div id="skip">
+	<a href="https://www.marklogic.com/blog/relational-databases-scale/#content">Skip to Content</a>
+</div><!-- /#skip -->
+<header id="header">
+			<!-- BEGIN_JSON_CUT_HEADER -->
+		<div id="mlbs4-megamenu">
+	<div class="mlbs4-row">
+		<div class="mlbs4-col megamenu--logo">
+										<a href="https://www.marklogic.com/"><img src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/marklogic-logo-header.svg" alt="MarkLogic Logo" scale="0"></a>
+					</div><!-- /.col -->
+		<div class="mlbs4-col megamenu--menu">
+			<ul id="menu-primary-menu" class="menu"><li id="menu-item-8665" class="mmpt-product author-force-active-trail post-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8665 current-menu-ancestor forced-active dropdown"><a href="https://www.marklogic.com/product/">Product</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li id="menu-item-14651" class="d-none hide-children bulletin-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-14651"><a href="https://www.marklogic.com/bulletins/">Bulletins</a></li>
+	<li id="menu-item-14681" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14681 dropdown"><a href="https://www.marklogic.com/product/marklogic-database-overview/">MarkLogic Database Overview</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-8704" class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8704 dropdown"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/">Database Features</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-8705" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8705"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/advanced-security/">Advanced Security</a></li>
+			<li id="menu-item-8706" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8706"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/data-hub-framework/">Data Hub Framework</a></li>
+			<li id="menu-item-8707" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8707"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/flexible-replication/">Flexible Replication</a></li>
+			<li id="menu-item-17342" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17342"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/containers/">Containers</a></li>
+			<li id="menu-item-8708" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8708"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/geospatial/">Geospatial</a></li>
+			<li id="menu-item-8709" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8709"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/multi-model-database/">Multi-Model Database</a></li>
+			<li id="menu-item-8710" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8710"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/semantics/">Semantics</a></li>
+			<li id="menu-item-16632" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16632"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/smart-mastering/">Smart Mastering</a></li>
+			<li id="menu-item-8711" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8711"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/tiered-storage/">Tiered Storage</a></li>
+			<li id="menu-item-8712" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8712"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/xa-transactions/">XA Transactions</a></li>
+			<li id="menu-item-13707" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13707"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/built-in-search/">Built In Search</a></li>
+			<li id="menu-item-13708" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13708"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/certified-security/">Certified Security</a></li>
+			<li id="menu-item-13857" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13857"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/product-features-flexible-data-model/">Flexible Data Model</a></li>
+			<li id="menu-item-13859" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13859"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/high-availability-disaster-recovery/">High Availability and Disaster Recovery</a></li>
+			<li id="menu-item-13860" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13860"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/flexible-deployment/">Flexible Deployment</a></li>
+			<li id="menu-item-13883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13883"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/features-ops-director/">Ops Director</a></li>
+			<li id="menu-item-13947" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13947"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/acid-transactions/">ACID Transactions</a></li>
+			<li id="menu-item-15896" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15896"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/apache-nifi/">Apache NiFi</a></li>
+		</ul>
+</li>
+		<li id="menu-item-8703" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8703"><a href="https://www.marklogic.com/product/getting-started/">Getting Started</a></li>
+		<li id="menu-item-8666" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8666"><a href="https://www.marklogic.com/product/pricing-licensing/">Pricing &amp; Licensing</a></li>
+		<li id="menu-item-17555" class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-17555"><a href="https://www.marklogic.com/product/marklogic-database-overview/data-hub-service/">Data Hub Service</a></li>
+		<li id="menu-item-15904" class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-15904"><a href="https://www.marklogic.com/product/marklogic-database-overview/query-service/">MarkLogic Query Service</a></li>
+	</ul>
+</li>
+	<li id="menu-item-8690" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8690 dropdown"><a href="https://www.marklogic.com/product/consulting-services/">Consulting Services</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-8694" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8694"><a href="https://www.marklogic.com/product/consulting-services/quick-start-service/">Quick Start Service</a></li>
+		<li id="menu-item-8699" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8699"><a href="https://www.marklogic.com/product/consulting-services/co-implementation-support/">Co-Implementation Support</a></li>
+		<li id="menu-item-8692" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8692"><a href="https://www.marklogic.com/product/consulting-services/center-excellence/">Center of Excellence</a></li>
+		<li id="menu-item-8697" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8697"><a href="https://www.marklogic.com/product/consulting-services/delivery-methodology/">Delivery Methodology</a></li>
+		<li id="menu-item-8696" class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8696 dropdown"><a href="https://www.marklogic.com/product/consulting-services/what-we-offer/">What We Offer</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-18294" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18294"><a href="https://www.marklogic.com/product/consulting-services/what-we-offer/managed-services/">Managed Services</a></li>
+		</ul>
+</li>
+		<li id="menu-item-8698" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8698"><a href="https://www.marklogic.com/product/consulting-services/common-problems/">Common Problems</a></li>
+		<li id="menu-item-13596" class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-13596"><a href="https://www.marklogic.com/product/consulting-services/full-service-application-development-support/">Full Service App Development</a></li>
+	</ul>
+</li>
+	<li id="menu-item-18423" class="author-force-active-trail business-force-active-trail technical-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-18423 current-menu-ancestor forced-active dropdown"><a href="https://www.marklogic.com/blog/">MarkLogic Blogs</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-16849" class="author-force-active-trail business-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-16849 current-menu-ancestor forced-active"><a href="https://www.marklogic.com/blog/?fwp_blog_type=business">Business</a></li>
+		<li id="menu-item-9297" class="author-force-active-trail technical-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-9297"><a href="https://www.marklogic.com/blog/?fwp_blog_type=technical">Technical</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-8667" class="mmpt-solutions menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8667 dropdown"><a href="https://www.marklogic.com/solutions/">Solutions</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li id="menu-item-8743" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8743 dropdown"><a href="https://www.marklogic.com/solutions/enterprise/">Enterprise Solutions</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-8981" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8981"><a href="https://www.marklogic.com/solutions/enterprise/digital-transformation/">Digital Transformation</a></li>
+		<li id="menu-item-8765" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8765"><a href="https://www.marklogic.com/solutions/enterprise/mainframe-to-nosql/">Mainframe to NoSQL</a></li>
+		<li id="menu-item-8768" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8768"><a href="https://www.marklogic.com/solutions/enterprise/operational-data-hub/">Operational Data Hub</a></li>
+		<li id="menu-item-8764" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8764 dropdown"><a href="https://www.marklogic.com/solutions/enterprise/regulatory-compliance-grc/">Regulatory Compliance / GRC</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-14508" class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-14508"><a href="https://www.marklogic.com/solutions/enterprise/gdpr/">GDPR</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li id="menu-item-8742" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8742 dropdown"><a href="https://www.marklogic.com/solutions/industry/">Industry Solutions</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-8749" class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8749 dropdown"><a href="https://www.marklogic.com/solutions/industry/financial-services/">Financial Services</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-13706" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13706"><a href="https://www.marklogic.com/solutions/industry/mifid-ii/">MiFID II</a></li>
+			<li id="menu-item-18178" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18178"><a href="https://www.marklogic.com/solutions/industry/financial-services/post-trade-processing-reporting/">Improve Trade Transaction and Reporting</a></li>
+		</ul>
+</li>
+		<li id="menu-item-8752" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8752"><a href="https://www.marklogic.com/solutions/industry/healthcare/">Healthcare</a></li>
+		<li id="menu-item-8753" class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8753 dropdown"><a href="https://www.marklogic.com/solutions/industry/insurance/">Insurance</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-18177" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18177"><a href="https://www.marklogic.com/solutions/industry/insurance/customer-360/">Power Better Customer Experiences With a 360° View</a></li>
+		</ul>
+</li>
+		<li id="menu-item-8755" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8755 dropdown"><a href="https://www.marklogic.com/solutions/industry/life-sciences/">Life Sciences</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-13604" class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-13604"><a href="https://www.marklogic.com/solutions/industry/real-world-evidence-rwe/">Real-World Evidence (RWE)</a></li>
+			<li id="menu-item-18244" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18244"><a href="https://www.marklogic.com/solutions/industry/life-sciences/pharma-accelerate-drug-discovery/">Accelerate Pharmaceutical Drug Discovery</a></li>
+		</ul>
+</li>
+		<li id="menu-item-18166" class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-18166 dropdown"><a href="https://www.marklogic.com/solutions/industry/manufacturing/">Manufacturing</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-18270" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18270"><a href="https://www.marklogic.com/solutions/industry/manufacturing/industry-4-0/">Industry 4.0: The Future of Manufacturing</a></li>
+		</ul>
+</li>
+		<li id="menu-item-8756" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8756"><a href="https://www.marklogic.com/solutions/industry/media/">Media</a></li>
+		<li id="menu-item-8761" class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8761 dropdown"><a href="https://www.marklogic.com/solutions/industry/public-sector/">Public Sector</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-13379" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13379"><a href="https://www.marklogic.com/solutions/industry/national-security/">National Security</a></li>
+			<li id="menu-item-18229" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18229"><a href="https://www.marklogic.com/solutions/industry/public-sector/leverage-data-as-a-weapon/">Leverage Data as a Weapon to Make Better Decisions</a></li>
+		</ul>
+</li>
+		<li id="menu-item-13554" class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-13554 dropdown"><a href="https://www.marklogic.com/solutions/industry/more-industries/">More Industries</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-13549" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13549"><a href="https://www.marklogic.com/solutions/industry/consumer-packaged-goods/">Consumer Packaged Goods</a></li>
+			<li id="menu-item-13550" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13550"><a href="https://www.marklogic.com/solutions/industry/education/">Education</a></li>
+			<li id="menu-item-13551" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13551"><a href="https://www.marklogic.com/solutions/industry/energy/">Energy</a></li>
+			<li id="menu-item-13552" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13552"><a href="https://www.marklogic.com/solutions/industry/legal/">Legal</a></li>
+			<li id="menu-item-13553" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13553"><a href="https://www.marklogic.com/solutions/industry/retail/">Retail</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-8668" class="mmpt-learn resource-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8668 dropdown"><a href="https://www.marklogic.com/learn/">Learn</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li id="menu-item-11899" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11899 dropdown"><a href="https://www.marklogic.com/learn/university/">Free Training</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-8680" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8680"><a href="https://www.marklogic.com/learn/university/administrator-track/">Administrator Track</a></li>
+		<li id="menu-item-8681" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8681"><a href="https://www.marklogic.com/learn/university/business-user-track/">Business User Track</a></li>
+		<li id="menu-item-8682" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8682"><a href="https://www.marklogic.com/learn/university/data-architect-track/">Data Architect Track</a></li>
+		<li id="menu-item-8683" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8683"><a href="https://www.marklogic.com/learn/university/developer-track/">Developer Track</a></li>
+		<li id="menu-item-13125" class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-13125 dropdown"><a href="https://www.marklogic.com/learn/courses/">Courses</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-13941" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13941"><a href="https://www.marklogic.com/learn/courses/marklogic-fundamentals/">MarkLogic Fundamentals</a></li>
+			<li id="menu-item-13126" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13126"><a href="https://www.marklogic.com/learn/courses/marklogic-business-users/">MarkLogic for Business Users</a></li>
+			<li id="menu-item-18230" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18230"><a href="https://www.marklogic.com/learn/courses/data-services/">Data Services</a></li>
+			<li id="menu-item-13927" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13927"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-java/">Developing MarkLogic Apps I – Java</a></li>
+			<li id="menu-item-13931" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13931"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-xquery/">Developing MarkLogic Apps I – XQuery</a></li>
+			<li id="menu-item-13932" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13932"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-node-js/">Developing MarkLogic Apps I – Node JS</a></li>
+			<li id="menu-item-13929" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13929"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-ii-xquery/">Developing MarkLogic Apps II – XQuery</a></li>
+			<li id="menu-item-13925" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13925"><a href="https://www.marklogic.com/learn/courses/marklogic-security-workshop/">MarkLogic Security</a></li>
+			<li id="menu-item-13926" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13926"><a href="https://www.marklogic.com/learn/courses/marklogic-data-integration/">MarkLogic Data Integration</a></li>
+			<li id="menu-item-13933" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13933"><a href="https://www.marklogic.com/learn/courses/whats-new-marklogic-9/">What’s New in MarkLogic 9</a></li>
+			<li id="menu-item-13935" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13935"><a href="https://www.marklogic.com/learn/courses/developer-cross-training/">Developer Cross Training</a></li>
+			<li id="menu-item-13936" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13936"><a href="https://www.marklogic.com/learn/courses/performance-workshop/">Performance</a></li>
+			<li id="menu-item-13939" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13939"><a href="https://www.marklogic.com/learn/courses/using-marklogic-data-hub/">Using the MarkLogic Data Hub</a></li>
+			<li id="menu-item-13940" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13940"><a href="https://www.marklogic.com/learn/courses/administering-marklogic-server/">Administering MarkLogic Server</a></li>
+			<li id="menu-item-13942" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13942"><a href="https://www.marklogic.com/learn/courses/using-marklogic-semantics/">Using MarkLogic Semantics</a></li>
+			<li id="menu-item-17880" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17880"><a href="https://www.marklogic.com/learn/courses/data-hub-flight-school/">Data Hub Flight School</a></li>
+		</ul>
+</li>
+		<li id="menu-item-8716" class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8716 dropdown"><a href="https://www.marklogic.com/learn/university/professional-certification/">Professional Certification</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-14356" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14356"><a href="https://www.marklogic.com/learn/terms-and-conditions/">Terms and Conditions</a></li>
+			<li id="menu-item-14357" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14357"><a href="https://www.marklogic.com/learn/trademark-usage-guidelines/">Trademark Usage Guidelines</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li id="menu-item-11903" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11903"><a href="https://www.marklogic.com/product/marklogic-blogs/">MarkLogic Blogs</a></li>
+	<li id="menu-item-15443" class="resource-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-resource menu-item-has-children menu-item-15443 dropdown"><a href="https://www.marklogic.com/resources/">Resources</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-8725" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8725"><a href="https://www.marklogic.com/on-demand-webinars/">On-Demand Webinars</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-8688" class="mmpt-community event-force-active-trail partner-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8688 dropdown"><a href="https://www.marklogic.com/community/">Community</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li id="menu-item-12392" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-12392 dropdown"><a href="https://help.marklogic.com/">Support</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-12372" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12372"><a href="https://help.marklogic.com/Knowledgebase/List">Knowledgebase</a></li>
+		<li id="menu-item-12373" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12373"><a href="https://help.marklogic.com/Bugtrack/List">Bug Fix Report</a></li>
+	</ul>
+</li>
+	<li id="menu-item-11802" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-11802 dropdown"><a href="https://developer.marklogic.com/">Developer</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-14793" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793"><a href="https://developer.marklogic.com/products">Downloads</a></li>
+		<li id="menu-item-11880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11880"><a href="https://docs.marklogic.com/">Documentation</a></li>
+		<li id="menu-item-11881" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11881"><a href="https://developer.marklogic.com/recipes">Recipes</a></li>
+		<li id="menu-item-11882" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11882"><a href="https://developer.marklogic.com/code">Tools</a></li>
+		<li id="menu-item-11883" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11883"><a href="https://developer.marklogic.com/learn">Tutorials</a></li>
+	</ul>
+</li>
+	<li id="menu-item-15447" class="partner-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-partner menu-item-has-children menu-item-15447 dropdown"><a href="https://www.marklogic.com/partners/">Partners</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-12050" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12050"><a href="https://www.marklogic.com/community/partner-with-us/">Partner With Us</a></li>
+		<li id="menu-item-13924" class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-13924"><a href="https://www.marklogic.com/community/partner-toolbox/">Partner Toolbox</a></li>
+		<li id="menu-item-14072" class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14072"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=featured-partners">Featured Partners</a></li>
+		<li id="menu-item-14073" class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14073"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=oem-partners">OEM Partners</a></li>
+		<li id="menu-item-14074" class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14074"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=resellers">Resellers</a></li>
+		<li id="menu-item-14075" class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14075"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=service-partners">Service Partners</a></li>
+		<li id="menu-item-14076" class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14076"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=technology-partners">Technology Partners</a></li>
+	</ul>
+</li>
+	<li id="menu-item-15445" class="event-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-event menu-item-has-children menu-item-15445 dropdown"><a href="https://www.marklogic.com/events/">Events</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-14547" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14547"><a href="https://www.marklogic.com/world/">MarkLogic World</a></li>
+		<li id="menu-item-14548" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14548"><a href="https://developer.marklogic.com/meet">User Groups</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-8686" class="mmpt-company customer-force-active-trail article-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8686 dropdown"><a href="https://www.marklogic.com/company/">Company</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li id="menu-item-8780" class="article-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8780 dropdown"><a href="https://www.marklogic.com/company/about/">About Us</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-12391" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12391"><a href="https://www.marklogic.com/company/contact/">Contact Us</a></li>
+		<li id="menu-item-8790" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8790"><a href="https://www.marklogic.com/community/company-events/">Events</a></li>
+		<li id="menu-item-15457" class="hide-children menu-item menu-item-type-post_type_archive menu-item-object-bio menu-item-has-children menu-item-15457 dropdown"><a href="https://www.marklogic.com/company/leadership/">Leadership Team</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li id="menu-item-12002" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12002"><a href="https://www.marklogic.com/company/leadership/gary-bloom/">Gary Bloom</a></li>
+			<li id="menu-item-12015" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12015"><a href="https://www.marklogic.com/company/leadership/adrian-carr/">Adrian Carr</a></li>
+			<li id="menu-item-12014" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12014"><a href="https://www.marklogic.com/company/leadership/julie-furt/">Julie Furt</a></li>
+			<li id="menu-item-12013" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12013"><a href="https://www.marklogic.com/company/leadership/david-gorbet/">David Gorbet</a></li>
+			<li id="menu-item-12012" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12012"><a href="https://www.marklogic.com/company/leadership/linda-kato/">Linda Kato</a></li>
+			<li id="menu-item-12011" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12011"><a href="https://www.marklogic.com/company/leadership/christopher-lindblad/">Christopher Lindblad</a></li>
+			<li id="menu-item-12010" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12010"><a href="https://www.marklogic.com/company/leadership/peter-s-norman/">Peter S Norman</a></li>
+			<li id="menu-item-12009" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12009"><a href="https://www.marklogic.com/company/leadership/joe-pasqua/">Joe Pasqua</a></li>
+			<li id="menu-item-12008" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12008"><a href="https://www.marklogic.com/company/leadership/david-ponzini/">David Ponzini</a></li>
+			<li id="menu-item-12003" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12003"><a href="https://www.marklogic.com/company/leadership/elisa-smith/">Elisa Smith</a></li>
+			<li id="menu-item-12007" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12007"><a href="https://www.marklogic.com/company/leadership/tom-banahan/">Tom Banahan</a></li>
+			<li id="menu-item-12006" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12006"><a href="https://www.marklogic.com/company/leadership/pat-grady/">Pat Grady</a></li>
+			<li id="menu-item-12004" class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12004"><a href="https://www.marklogic.com/company/leadership/greg-santora/">Greg Santora</a></li>
+		</ul>
+</li>
+		<li id="menu-item-15456" class="menu-item menu-item-type-post_type_archive menu-item-object-location menu-item-15456"><a href="https://www.marklogic.com/locations/">Locations</a></li>
+		<li id="menu-item-8789" class="article-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-8789"><a href="https://www.marklogic.com/news/">News</a></li>
+	</ul>
+</li>
+	<li id="menu-item-8782" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8782 dropdown"><a href="https://www.marklogic.com/company/careers/">Careers</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li id="menu-item-8783" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8783"><a href="https://www.marklogic.com/company/careers/open-positions/">Open Positions</a></li>
+	</ul>
+</li>
+	<li id="menu-item-12394" class="partner-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-12394"><a href="https://www.marklogic.com/community/company-partners/">Partners</a></li>
+	<li id="menu-item-15450" class="hide-children customer-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-customer menu-item-15450"><a href="https://www.marklogic.com/customers/">Customers</a></li>
+	<li id="menu-item-15365" class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-15365"><a href="https://www.marklogic.com/company/sign-me-up/">Sign Me Up</a></li>
+</ul>
+</li>
+</ul><ul id="menu-button-menu-free-ml" class="menu"><li id="menu-item-7936" class="cta menu-item menu-item-type-custom menu-item-object-custom menu-item-7936"><a href="https://developer.marklogic.com/products">Free MarkLogic</a></li>
+</ul>		</div><!-- /.col -->
+		<!-- BEGIN_ACTIONS_CUT_HEADER -->
+		<div class="mlbs4-col megamenu--actions">
+			<ul id="menu-actions-menu" class="menu"><li id="menu-item-7898" class="language fa fa-circle-thin menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-7898"><a href="https://www.marklogic.com/blog/relational-databases-scale/#">Language</a>
+<ul class="sub-menu">
+	<li id="menu-item-13533" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-13533"><a href="https://www.marklogic.com/">English</a></li>
+	<li id="menu-item-13534" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13534"><a href="https://fr.marklogic.com/">French</a></li>
+	<li id="menu-item-13535" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13535"><a href="https://de.marklogic.com/">German</a></li>
+	<li id="menu-item-13536" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13536"><a href="https://jp.marklogic.com/">Japanese</a></li>
+</ul>
+</li>
+<li id="menu-item-7900" class="search fa fa-search menu-item menu-item-type-custom menu-item-object-custom menu-item-7900"><a href="https://www.marklogic.com/search/">Search</a></li>
+</ul>		</div><!-- /.col -->
+		<!-- END_ACTIONS_CUT_HEADER -->
+	</div><!-- /.row -->
+	<div id="mlbs4-megamenu--panels" class="ninja" data-active-panel="">
+		<div class="mlbs4-container">
+			
+			<div id="mlbs4-megamenu--panel--product" class="megamenu--panel">
+				<div class="megamenu--panel--name">
+					<span>Product</span>
+				</div><!-- /.megamenu--panel--name -->
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-18" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Product DB Overview</h3><div class="menu-database-overview-container"><ul id="menu-database-overview" class="menu"><li id="menu-item-9186" class="purple menu-item menu-item-type-post_type menu-item-object-page menu-item-9186"><a href="https://www.marklogic.com/product/marklogic-database-overview/">MarkLogic Database Overview</a></li>
+<li id="menu-item-9289" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9289"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/">Database Features</a></li>
+<li id="menu-item-9187" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9187"><a href="https://www.marklogic.com/product/getting-started/">Getting Started</a></li>
+<li id="menu-item-9290" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9290"><a href="https://www.marklogic.com/product/pricing-licensing/">Pricing &amp; Licensing</a></li>
+</ul></div></div><div id="nav_menu-32" class="widget-even widget-last widget-2 widget widget_nav_menu"><h3 class="title">Product Blogs</h3><div class="menu-blogs-container"><ul id="menu-blogs" class="menu"><li id="menu-item-16850" class="purple menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-16850"><a href="https://www.marklogic.com/blog/">MarkLogic Blogs</a></li>
+<li id="menu-item-16848" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16848"><a href="https://www.marklogic.com/blog/?fwp_blog_type=business">Business</a></li>
+<li id="menu-item-9292" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9292"><a href="https://www.marklogic.com/blog/?fwp_blog_type=technical">Technical</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-16" class="widget-odd widget-last widget-first widget-1 widget widget_nav_menu"><h3 class="title">Product Services</h3><div class="menu-consulting-services-container"><ul id="menu-consulting-services" class="menu"><li id="menu-item-9164" class="purple menu-item menu-item-type-post_type menu-item-object-page menu-item-9164"><a href="https://www.marklogic.com/product/consulting-services/">Consulting Services</a></li>
+<li id="menu-item-9172" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9172"><a href="https://www.marklogic.com/product/consulting-services/quick-start-service/">Quick Start Service</a></li>
+<li id="menu-item-9167" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9167"><a href="https://www.marklogic.com/product/consulting-services/co-implementation-support/">Co-Implementation Support</a></li>
+<li id="menu-item-9166" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9166"><a href="https://www.marklogic.com/product/consulting-services/center-excellence/">Center of Excellence</a></li>
+<li id="menu-item-9169" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9169"><a href="https://www.marklogic.com/product/consulting-services/delivery-methodology/">Delivery Methodology</a></li>
+<li id="menu-item-9170" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9170"><a href="https://www.marklogic.com/product/consulting-services/what-we-offer/">What We Offer</a></li>
+<li id="menu-item-9168" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9168"><a href="https://www.marklogic.com/product/consulting-services/common-problems/">Common Problems</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-12" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Related Links</h3><div class="menu-product-related-links-container"><ul id="menu-product-related-links" class="menu"><li id="menu-item-12396" class="related menu-item menu-item-type-post_type menu-item-object-page menu-item-12396"><a href="https://www.marklogic.com/learn/university/">MarkLogic University</a></li>
+<li id="menu-item-12397" class="related menu-item menu-item-type-custom menu-item-object-custom menu-item-12397"><a target="_blank" href="https://help.marklogic.com/">24/7 Customer Support</a></li>
+<li id="menu-item-12398" class="related menu-item menu-item-type-custom menu-item-object-custom menu-item-12398"><a href="https://www.marklogic.com/partners/">Our Partners</a></li>
+<li id="menu-item-12399" class="related menu-item menu-item-type-custom menu-item-object-custom menu-item-12399"><a href="https://www.marklogic.com/events/">MarkLogic Events</a></li>
+</ul></div></div><div id="custom_html-7" class="widget_text widget-even widget-last widget-2 widget widget_custom_html"><h3 class="title">MarkLogic Data Hub Service</h3><div class="textwidget custom-html-widget"><p>
+	Fast data integration + improved data governance and security, with no infrastructure to buy or manage.
+</p>
+
+<p>
+	<a class="btn" href="https://www.marklogic.com/product/marklogic-database-overview/data-hub-service/">Learn More</a>
+</p></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+			</div><!-- /.megamenu--panel -->
+					
+			<div id="mlbs4-megamenu--panel--solutions" class="megamenu--panel">
+				<div class="megamenu--panel--name">
+					<span>Solutions</span>
+				</div><!-- /.megamenu--panel--name -->
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-13" class="widget-odd widget-last widget-first widget-1 widget widget_nav_menu"><h3 class="title">Enterprise Solutions</h3><div class="menu-enterprise-solutions-container"><ul id="menu-enterprise-solutions" class="menu"><li id="menu-item-9158" class="purple menu-item menu-item-type-post_type menu-item-object-page menu-item-9158"><a href="https://www.marklogic.com/solutions/enterprise/">Enterprise Solutions</a></li>
+<li id="menu-item-9157" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9157"><a href="https://www.marklogic.com/solutions/enterprise/digital-transformation/">Digital Transformation</a></li>
+<li id="menu-item-9152" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9152"><a href="https://www.marklogic.com/solutions/enterprise/mainframe-to-nosql/">Mainframe to NoSQL</a></li>
+<li id="menu-item-9155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9155"><a href="https://www.marklogic.com/solutions/enterprise/operational-data-hub/">Operational Data Hub</a></li>
+<li id="menu-item-9151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9151"><a href="https://www.marklogic.com/solutions/enterprise/regulatory-compliance-grc/">Regulatory Compliance / GRC</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-14" class="widget-odd widget-last widget-first widget-1 widget widget_nav_menu"><h3 class="title">Industry Solutions</h3><div class="menu-industry-solutions-container"><ul id="menu-industry-solutions" class="menu"><li id="menu-item-8434" class="purple menu-item menu-item-type-post_type menu-item-object-page menu-item-8434"><a href="https://www.marklogic.com/solutions/industry/">Industry Solutions</a></li>
+<li id="menu-item-9133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9133"><a href="https://www.marklogic.com/solutions/industry/financial-services/">Financial Services</a></li>
+<li id="menu-item-9134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9134"><a href="https://www.marklogic.com/solutions/industry/healthcare/">Healthcare</a></li>
+<li id="menu-item-9144" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9144"><a href="https://www.marklogic.com/solutions/industry/insurance/">Insurance</a></li>
+<li id="menu-item-9135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9135"><a href="https://www.marklogic.com/solutions/industry/life-sciences/">Life Sciences</a></li>
+<li id="menu-item-18249" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18249"><a href="https://www.marklogic.com/solutions/industry/manufacturing/">Manufacturing</a></li>
+<li id="menu-item-9136" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9136"><a href="https://www.marklogic.com/solutions/industry/media/">Media</a></li>
+<li id="menu-item-9138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9138"><a href="https://www.marklogic.com/solutions/industry/public-sector/">Public Sector</a></li>
+<li id="menu-item-13548" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13548"><a href="https://www.marklogic.com/solutions/industry/more-industries/">More Industries</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-15" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Related Links</h3><div class="menu-solutions-related-links-container"><ul id="menu-solutions-related-links" class="menu"><li id="menu-item-12400" class="related menu-item menu-item-type-post_type menu-item-object-page menu-item-12400"><a href="https://www.marklogic.com/product/consulting-services/">Consulting Services</a></li>
+<li id="menu-item-15452" class="related menu-item menu-item-type-post_type_archive menu-item-object-customer menu-item-15452"><a href="https://www.marklogic.com/customers/">Meet our Customers</a></li>
+<li id="menu-item-15451" class="related menu-item menu-item-type-post_type_archive menu-item-object-resource menu-item-15451"><a href="https://www.marklogic.com/resources/">View Resources</a></li>
+</ul></div></div><div id="custom_html-3" class="widget_text widget-even widget-last widget-2 widget widget_custom_html"><h3 class="title">MarkLogic Data Hub Service</h3><div class="textwidget custom-html-widget"><p>
+	Fast data integration + improved data governance and security, with no infrastructure to buy or manage.
+</p>
+
+<p>
+	<a class="btn" href="https://www.marklogic.com/product/marklogic-database-overview/data-hub-service/">Learn More</a>
+</p></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+			</div><!-- /.megamenu--panel -->
+					
+			<div id="mlbs4-megamenu--panel--learn" class="megamenu--panel">
+				<div class="megamenu--panel--name">
+					<span>Learn</span>
+				</div><!-- /.megamenu--panel--name -->
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-20" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Free Training</h3><div class="menu-learn-free-training-container"><ul id="menu-learn-free-training" class="menu"><li id="menu-item-11897" class="purple menu-item menu-item-type-post_type menu-item-object-page menu-item-11897"><a href="https://www.marklogic.com/learn/university/">Free Training</a></li>
+<li id="menu-item-11891" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11891"><a href="https://www.marklogic.com/learn/university/administrator-track/">Administrator Track</a></li>
+<li id="menu-item-11892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11892"><a href="https://www.marklogic.com/learn/university/business-user-track/">Business User Track</a></li>
+<li id="menu-item-11893" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11893"><a href="https://www.marklogic.com/learn/university/data-architect-track/">Data Architect Track</a></li>
+<li id="menu-item-11894" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11894"><a href="https://www.marklogic.com/learn/university/developer-track/">Developer Track</a></li>
+<li id="menu-item-13943" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13943"><a href="https://www.marklogic.com/learn/courses/">Courses</a></li>
+<li id="menu-item-11895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11895"><a href="https://www.marklogic.com/learn/university/professional-certification/">Professional Certification</a></li>
+</ul></div></div><div id="nav_menu-33" class="widget-even widget-last widget-2 widget widget_nav_menu"><h3 class="title">Blogs</h3><div class="menu-blogs-container"><ul id="menu-blogs-1" class="menu"><li class="purple menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-16850"><a href="https://www.marklogic.com/blog/">MarkLogic Blogs</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16848"><a href="https://www.marklogic.com/blog/?fwp_blog_type=business">Business</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9292"><a href="https://www.marklogic.com/blog/?fwp_blog_type=technical">Technical</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-21" class="widget-odd widget-last widget-first widget-1 widget widget_nav_menu"><h3 class="title">Learn Resources</h3><div class="menu-learn-resources-container"><ul id="menu-learn-resources" class="menu"><li id="menu-item-15442" class="purple menu-item menu-item-type-post_type_archive menu-item-object-resource menu-item-15442"><a href="https://www.marklogic.com/resources/">Resources</a></li>
+<li id="menu-item-9215" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9215"><a href="https://www.marklogic.com/on-demand-webinars/">On-Demand Webinars</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-23" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Related Links</h3><div class="menu-learn-related-links-container"><ul id="menu-learn-related-links" class="menu"><li id="menu-item-12403" class="related menu-item menu-item-type-post_type menu-item-object-page menu-item-12403"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/">MarkLogic Database Features</a></li>
+<li id="menu-item-9159" class="related menu-item menu-item-type-custom menu-item-object-custom menu-item-9159"><a href="https://docs.marklogic.com/">MarkLogic Documentation</a></li>
+<li id="menu-item-15453" class="related menu-item menu-item-type-post_type_archive menu-item-object-event menu-item-15453"><a href="https://www.marklogic.com/events/">Events</a></li>
+</ul></div></div><div id="custom_html-4" class="widget_text widget-even widget-last widget-2 widget widget_custom_html"><h3 class="title">Stay On Top Of Everything MarkLogic</h3><div class="textwidget custom-html-widget"><p>
+	Be the first to know! News, product information, and events delivered straight to your inbox.
+</p>
+
+<p>
+	<a href="https://www.marklogic.com/company/sign-me-up/" class="ml-marketo-form-cta btn btn-green" data-form-id="2444" data-text="Sign Me Up">Sign Me Up</a>
+</p></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+			</div><!-- /.megamenu--panel -->
+					
+			<div id="mlbs4-megamenu--panel--community" class="megamenu--panel">
+				<div class="megamenu--panel--name">
+					<span>Community</span>
+				</div><!-- /.megamenu--panel--name -->
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-24" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Community Megamenu 1</h3><div class="menu-community-megamenu-1-container"><ul id="menu-community-megamenu-1" class="menu"><li id="menu-item-12393" class="purple menu-item menu-item-type-custom menu-item-object-custom menu-item-12393"><a href="https://help.marklogic.com/">Support</a></li>
+<li id="menu-item-9220" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9220"><a href="https://help.marklogic.com/Knowledgebase/List">Knowledgebase</a></li>
+<li id="menu-item-9221" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9221"><a href="https://help.marklogic.com/Bugtrack/List">Bug Fix Report</a></li>
+</ul></div></div><div id="nav_menu-25" class="widget-even widget-last widget-2 widget widget_nav_menu"><h3 class="title">Community Megamenu 2</h3><div class="menu-community-megamenu-2-container"><ul id="menu-community-megamenu-2" class="menu"><li id="menu-item-9222" class="purple menu-item menu-item-type-custom menu-item-object-custom menu-item-9222"><a href="https://developer.marklogic.com/">Developer</a></li>
+<li id="menu-item-14792" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14792"><a href="https://developer.marklogic.com/products">Downloads</a></li>
+<li id="menu-item-11800" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11800"><a href="https://docs.marklogic.com/">Documentation</a></li>
+<li id="menu-item-9224" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9224"><a href="https://developer.marklogic.com/recipes">Recipes</a></li>
+<li id="menu-item-11852" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11852"><a href="https://developer.marklogic.com/code">Tools</a></li>
+<li id="menu-item-9223" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9223"><a href="https://developer.marklogic.com/learn">Tutorials</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-26" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Community Megamenu 3</h3><div class="menu-community-megamenu-3-container"><ul id="menu-community-megamenu-3" class="menu"><li id="menu-item-15446" class="purple menu-item menu-item-type-post_type_archive menu-item-object-partner menu-item-15446"><a href="https://www.marklogic.com/partners/">Partners</a></li>
+<li id="menu-item-12044" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12044"><a href="https://www.marklogic.com/community/partner-with-us/">Partner With Us</a></li>
+</ul></div></div><div id="nav_menu-27" class="widget-even widget-last widget-2 widget widget_nav_menu"><h3 class="title">Community Megamenu 4</h3><div class="menu-community-megamenu-4-container"><ul id="menu-community-megamenu-4" class="menu"><li id="menu-item-15444" class="purple menu-item menu-item-type-post_type_archive menu-item-object-event menu-item-15444"><a href="https://www.marklogic.com/events/">Events</a></li>
+<li id="menu-item-9241" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9241"><a href="https://www.marklogic.com/world/">MarkLogic World</a></li>
+<li id="menu-item-9242" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9242"><a href="https://developer.marklogic.com/meet">User Groups</a></li>
+<li id="menu-item-9243" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-9243"><a href="https://www.marklogic.com/on-demand-webinars/">On-Demand Webinars</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-28" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Related Links</h3><div class="menu-community-related-links-container"><ul id="menu-community-related-links" class="menu"><li id="menu-item-11853" class="related menu-item menu-item-type-post_type menu-item-object-page menu-item-11853"><a href="https://www.marklogic.com/product/marklogic-database-overview/">MarkLogic Database Overview</a></li>
+<li id="menu-item-11856" class="related menu-item menu-item-type-post_type menu-item-object-page menu-item-11856"><a href="https://www.marklogic.com/learn/university/">MarkLogic University</a></li>
+<li id="menu-item-13381" class="related menu-item menu-item-type-custom menu-item-object-custom menu-item-13381"><a href="https://www.marklogic.com/blog/?fwp_blog_type=technical">Technical Blogs</a></li>
+</ul></div></div><div id="custom_html-6" class="widget_text widget-even widget-last widget-2 widget widget_custom_html"><h3 class="title">MarkLogic World 2019</h3><div class="textwidget custom-html-widget"><p>
+	Learn how to simplify data integration &amp; build innovative applications. Join us in Washington D.C. May 14-15!
+</p>
+
+<p>
+	<a class="btn" href="https://world.marklogic.com/QmDPv?RefId=comm-nav" target="_blank" rel="noopener">Find Out More</a>
+</p></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+			</div><!-- /.megamenu--panel -->
+					
+			<div id="mlbs4-megamenu--panel--company" class="megamenu--panel">
+				<div class="megamenu--panel--name">
+					<span>Company</span>
+				</div><!-- /.megamenu--panel--name -->
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-29" class="widget-odd widget-last widget-first widget-1 widget widget_nav_menu"><h3 class="title">Company Megamenu 1</h3><div class="menu-company-megamenu-1-container"><ul id="menu-company-megamenu-1" class="menu"><li id="menu-item-9245" class="purple menu-item menu-item-type-post_type menu-item-object-page menu-item-9245"><a href="https://www.marklogic.com/company/about/">About Us</a></li>
+<li id="menu-item-12374" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12374"><a href="https://www.marklogic.com/company/contact/">Contact Us</a></li>
+<li id="menu-item-12387" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12387"><a href="https://www.marklogic.com/events/">Events</a></li>
+<li id="menu-item-15455" class="hide-children menu-item menu-item-type-post_type_archive menu-item-object-bio menu-item-15455"><a href="https://www.marklogic.com/company/leadership/">Leadership Team</a></li>
+<li id="menu-item-15454" class="menu-item menu-item-type-post_type_archive menu-item-object-location menu-item-15454"><a href="https://www.marklogic.com/locations/">Locations</a></li>
+<li id="menu-item-12390" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12390"><a href="https://www.marklogic.com/news/">News</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-30" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Company Megamenu 2</h3><div class="menu-company-megamenu-2-container"><ul id="menu-company-megamenu-2" class="menu"><li id="menu-item-12379" class="purple menu-item menu-item-type-post_type menu-item-object-page menu-item-12379"><a href="https://www.marklogic.com/company/careers/">Careers</a></li>
+<li id="menu-item-12380" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12380"><a href="https://www.marklogic.com/company/careers/open-positions/">Open Positions</a></li>
+</ul></div></div><div id="nav_menu-34" class="widget-even widget-last widget-2 widget widget_nav_menu"><h3 class="title">Company Megamenu 3</h3><div class="menu-company-megamenu-3-container"><ul id="menu-company-megamenu-3" class="menu"><li id="menu-item-15448" class="purple menu-item menu-item-type-post_type_archive menu-item-object-customer menu-item-15448"><a href="https://www.marklogic.com/customers/">Customers</a></li>
+<li id="menu-item-15449" class="purple menu-item menu-item-type-post_type_archive menu-item-object-partner menu-item-15449"><a href="https://www.marklogic.com/partners/">Partners</a></li>
+</ul></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+				
+			<div class="megamenu--panel--column">
+				<div id="nav_menu-31" class="widget-odd widget-first widget-1 widget widget_nav_menu"><h3 class="title">Related Links</h3><div class="menu-company-related-links-container"><ul id="menu-company-related-links" class="menu"><li id="menu-item-13384" class="related menu-item menu-item-type-post_type menu-item-object-page menu-item-13384"><a href="https://www.marklogic.com/product/marklogic-database-overview/">MarkLogic Database Overview</a></li>
+<li id="menu-item-13383" class="related menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-13383"><a href="https://www.marklogic.com/blog/">Blog</a></li>
+<li id="menu-item-13385" class="related menu-item menu-item-type-post_type menu-item-object-page menu-item-13385"><a href="https://www.marklogic.com/product/consulting-services/">Consulting Services</a></li>
+<li id="menu-item-13386" class="related menu-item menu-item-type-custom menu-item-object-custom menu-item-13386"><a target="_blank" href="https://help.marklogic.com/">24/7 Customer Support</a></li>
+</ul></div></div><div id="custom_html-5" class="widget_text widget-even widget-last widget-2 widget widget_custom_html"><h3 class="title">Stay On Top Of Everything MarkLogic</h3><div class="textwidget custom-html-widget"><p>
+	Be the first to know! News, product information, and events delivered straight to your inbox.
+</p>
+
+<p>
+	<a href="https://www.marklogic.com/company/sign-me-up/" class="ml-marketo-form-cta btn btn-green" data-form-id="2444" data-text="Sign Me Up">Sign Me Up</a>
+</p></div></div>
+			</div><!-- /megamenu--panel--column -->
+		
+			</div><!-- /.megamenu--panel -->
+				</div><!-- /.mlbs4-container -->
+	</div><!-- /.megamenu--panels -->
+		<div id="mlbs4-megamenu--submenu" class="mlbs4-row submenu--show-depth--2">
+		<div class="mlbs4-col">
+			<div class="menu-primary-menu-container"><ul id="menu-primary-menu-1" class="menu"><li class="mmpt-product author-force-active-trail post-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8665 depth-0 current-menu-ancestor forced-active" data-depth="0" style="display: block;"><a href="https://www.marklogic.com/product/">Product</a>
+<ul role="menu">
+	<li class="d-none hide-children bulletin-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-14651 depth-1" data-depth="1"><a href="https://www.marklogic.com/bulletins/">Bulletins</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14681 depth-1" data-depth="1"><a href="https://www.marklogic.com/product/marklogic-database-overview/">MarkLogic Database Overview</a>
+	<ul role="menu">
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8704 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/">Database Features</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8705 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/advanced-security/">Advanced Security</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8706 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/data-hub-framework/">Data Hub Framework</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8707 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/flexible-replication/">Flexible Replication</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17342 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/containers/">Containers</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8708 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/geospatial/">Geospatial</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8709 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/multi-model-database/">Multi-Model Database</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8710 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/semantics/">Semantics</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16632 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/smart-mastering/">Smart Mastering</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8711 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/tiered-storage/">Tiered Storage</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8712 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/xa-transactions/">XA Transactions</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13707 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/built-in-search/">Built In Search</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13708 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/certified-security/">Certified Security</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13857 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/product-features-flexible-data-model/">Flexible Data Model</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13859 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/high-availability-disaster-recovery/">High Availability and Disaster Recovery</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13860 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/flexible-deployment/">Flexible Deployment</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13883 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/features-ops-director/">Ops Director</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13947 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/acid-transactions/">ACID Transactions</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15896 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/apache-nifi/">Apache NiFi</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8703 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/getting-started/">Getting Started</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8666 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/pricing-licensing/">Pricing &amp; Licensing</a></li>
+		<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-17555 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/marklogic-database-overview/data-hub-service/">Data Hub Service</a></li>
+		<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-15904 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/marklogic-database-overview/query-service/">MarkLogic Query Service</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8690 depth-1" data-depth="1"><a href="https://www.marklogic.com/product/consulting-services/">Consulting Services</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8694 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/consulting-services/quick-start-service/">Quick Start Service</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8699 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/consulting-services/co-implementation-support/">Co-Implementation Support</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8692 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/consulting-services/center-excellence/">Center of Excellence</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8697 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/consulting-services/delivery-methodology/">Delivery Methodology</a></li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8696 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/consulting-services/what-we-offer/">What We Offer</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18294 depth-3" data-depth="3"><a href="https://www.marklogic.com/product/consulting-services/what-we-offer/managed-services/">Managed Services</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8698 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/consulting-services/common-problems/">Common Problems</a></li>
+		<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-13596 depth-2" data-depth="2"><a href="https://www.marklogic.com/product/consulting-services/full-service-application-development-support/">Full Service App Development</a></li>
+	</ul>
+</li>
+	<li class="author-force-active-trail business-force-active-trail technical-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-18423 depth-1 current-menu-ancestor forced-active" data-depth="1" style="display: block;"><a href="https://www.marklogic.com/blog/">MarkLogic Blogs</a>
+	<ul role="menu">
+		<li class="author-force-active-trail business-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-16849 depth-2 current-menu-ancestor forced-active" data-depth="2" style="display: block;"><a href="https://www.marklogic.com/blog/?fwp_blog_type=business">Business</a></li>
+		<li class="author-force-active-trail technical-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-9297 depth-2" data-depth="2"><a href="https://www.marklogic.com/blog/?fwp_blog_type=technical">Technical</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="mmpt-solutions menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8667 depth-0" data-depth="0"><a href="https://www.marklogic.com/solutions/">Solutions</a>
+<ul role="menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8743 depth-1" data-depth="1"><a href="https://www.marklogic.com/solutions/enterprise/">Enterprise Solutions</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8981 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/enterprise/digital-transformation/">Digital Transformation</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8765 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/enterprise/mainframe-to-nosql/">Mainframe to NoSQL</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8768 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/enterprise/operational-data-hub/">Operational Data Hub</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8764 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/enterprise/regulatory-compliance-grc/">Regulatory Compliance / GRC</a>
+		<ul role="menu">
+			<li class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-14508 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/enterprise/gdpr/">GDPR</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8742 depth-1" data-depth="1"><a href="https://www.marklogic.com/solutions/industry/">Industry Solutions</a>
+	<ul role="menu">
+		<li class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8749 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/industry/financial-services/">Financial Services</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13706 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/mifid-ii/">MiFID II</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18178 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/financial-services/post-trade-processing-reporting/">Improve Trade Transaction and Reporting</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8752 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/industry/healthcare/">Healthcare</a></li>
+		<li class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8753 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/industry/insurance/">Insurance</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18177 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/insurance/customer-360/">Power Better Customer Experiences With a 360° View</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8755 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/industry/life-sciences/">Life Sciences</a>
+		<ul role="menu">
+			<li class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-13604 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/real-world-evidence-rwe/">Real-World Evidence (RWE)</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18244 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/life-sciences/pharma-accelerate-drug-discovery/">Accelerate Pharmaceutical Drug Discovery</a></li>
+		</ul>
+</li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-18166 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/industry/manufacturing/">Manufacturing</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18270 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/manufacturing/industry-4-0/">Industry 4.0: The Future of Manufacturing</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8756 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/industry/media/">Media</a></li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8761 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/industry/public-sector/">Public Sector</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13379 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/national-security/">National Security</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18229 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/public-sector/leverage-data-as-a-weapon/">Leverage Data as a Weapon to Make Better Decisions</a></li>
+		</ul>
+</li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-13554 depth-2" data-depth="2"><a href="https://www.marklogic.com/solutions/industry/more-industries/">More Industries</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13549 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/consumer-packaged-goods/">Consumer Packaged Goods</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13550 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/education/">Education</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13551 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/energy/">Energy</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13552 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/legal/">Legal</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13553 depth-3" data-depth="3"><a href="https://www.marklogic.com/solutions/industry/retail/">Retail</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="mmpt-learn resource-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8668 depth-0" data-depth="0"><a href="https://www.marklogic.com/learn/">Learn</a>
+<ul role="menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11899 depth-1" data-depth="1"><a href="https://www.marklogic.com/learn/university/">Free Training</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8680 depth-2" data-depth="2"><a href="https://www.marklogic.com/learn/university/administrator-track/">Administrator Track</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8681 depth-2" data-depth="2"><a href="https://www.marklogic.com/learn/university/business-user-track/">Business User Track</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8682 depth-2" data-depth="2"><a href="https://www.marklogic.com/learn/university/data-architect-track/">Data Architect Track</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8683 depth-2" data-depth="2"><a href="https://www.marklogic.com/learn/university/developer-track/">Developer Track</a></li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-13125 depth-2" data-depth="2"><a href="https://www.marklogic.com/learn/courses/">Courses</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13941 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/marklogic-fundamentals/">MarkLogic Fundamentals</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13126 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/marklogic-business-users/">MarkLogic for Business Users</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18230 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/data-services/">Data Services</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13927 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-java/">Developing MarkLogic Apps I – Java</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13931 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-xquery/">Developing MarkLogic Apps I – XQuery</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13932 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-node-js/">Developing MarkLogic Apps I – Node JS</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13929 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-ii-xquery/">Developing MarkLogic Apps II – XQuery</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13925 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/marklogic-security-workshop/">MarkLogic Security</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13926 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/marklogic-data-integration/">MarkLogic Data Integration</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13933 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/whats-new-marklogic-9/">What's New in MarkLogic 9</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13935 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/developer-cross-training/">Developer Cross Training</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13936 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/performance-workshop/">Performance</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13939 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/using-marklogic-data-hub/">Using the MarkLogic Data Hub</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13940 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/administering-marklogic-server/">Administering MarkLogic Server</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13942 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/using-marklogic-semantics/">Using MarkLogic Semantics</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17880 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/courses/data-hub-flight-school/">Data Hub Flight School</a></li>
+		</ul>
+</li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8716 depth-2" data-depth="2"><a href="https://www.marklogic.com/learn/university/professional-certification/">Professional Certification</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14356 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/terms-and-conditions/">Terms and Conditions</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14357 depth-3" data-depth="3"><a href="https://www.marklogic.com/learn/trademark-usage-guidelines/">Trademark Usage Guidelines</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11903 depth-1" data-depth="1"><a href="https://www.marklogic.com/product/marklogic-blogs/">MarkLogic Blogs</a></li>
+	<li class="resource-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-resource menu-item-has-children menu-item-15443 depth-1" data-depth="1"><a href="https://www.marklogic.com/resources/">Resources</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8725 depth-2" data-depth="2"><a href="https://www.marklogic.com/on-demand-webinars/">On-Demand Webinars</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="mmpt-community event-force-active-trail partner-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8688 depth-0" data-depth="0"><a href="https://www.marklogic.com/community/">Community</a>
+<ul role="menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-12392 depth-1" data-depth="1"><a href="https://help.marklogic.com/">Support</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12372 depth-2" data-depth="2"><a href="https://help.marklogic.com/Knowledgebase/List">Knowledgebase</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12373 depth-2" data-depth="2"><a href="https://help.marklogic.com/Bugtrack/List">Bug Fix Report</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-11802 depth-1" data-depth="1"><a href="https://developer.marklogic.com/">Developer</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793 depth-2" data-depth="2"><a href="https://developer.marklogic.com/products">Downloads</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11880 depth-2" data-depth="2"><a href="https://docs.marklogic.com/">Documentation</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11881 depth-2" data-depth="2"><a href="https://developer.marklogic.com/recipes">Recipes</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11882 depth-2" data-depth="2"><a href="https://developer.marklogic.com/code">Tools</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11883 depth-2" data-depth="2"><a href="https://developer.marklogic.com/learn">Tutorials</a></li>
+	</ul>
+</li>
+	<li class="partner-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-partner menu-item-has-children menu-item-15447 depth-1" data-depth="1"><a href="https://www.marklogic.com/partners/">Partners</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12050 depth-2" data-depth="2"><a href="https://www.marklogic.com/community/partner-with-us/">Partner With Us</a></li>
+		<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-13924 depth-2" data-depth="2"><a href="https://www.marklogic.com/community/partner-toolbox/">Partner Toolbox</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14072 depth-2" data-depth="2"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=featured-partners">Featured Partners</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14073 depth-2" data-depth="2"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=oem-partners">OEM Partners</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14074 depth-2" data-depth="2"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=resellers">Resellers</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14075 depth-2" data-depth="2"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=service-partners">Service Partners</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14076 depth-2" data-depth="2"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=technology-partners">Technology Partners</a></li>
+	</ul>
+</li>
+	<li class="event-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-event menu-item-has-children menu-item-15445 depth-1" data-depth="1"><a href="https://www.marklogic.com/events/">Events</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14547 depth-2" data-depth="2"><a href="https://www.marklogic.com/world/">MarkLogic World</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14548 depth-2" data-depth="2"><a href="https://developer.marklogic.com/meet">User Groups</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="mmpt-company customer-force-active-trail article-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8686 depth-0" data-depth="0"><a href="https://www.marklogic.com/company/">Company</a>
+<ul role="menu">
+	<li class="article-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8780 depth-1" data-depth="1"><a href="https://www.marklogic.com/company/about/">About Us</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12391 depth-2" data-depth="2"><a href="https://www.marklogic.com/company/contact/">Contact Us</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8790 depth-2" data-depth="2"><a href="https://www.marklogic.com/community/company-events/">Events</a></li>
+		<li class="hide-children menu-item menu-item-type-post_type_archive menu-item-object-bio menu-item-has-children menu-item-15457 depth-2" data-depth="2"><a href="https://www.marklogic.com/company/leadership/">Leadership Team</a>
+		<ul role="menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12002 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/gary-bloom/">Gary Bloom</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12015 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/adrian-carr/">Adrian Carr</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12014 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/julie-furt/">Julie Furt</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12013 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/david-gorbet/">David Gorbet</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12012 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/linda-kato/">Linda Kato</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12011 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/christopher-lindblad/">Christopher Lindblad</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12010 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/peter-s-norman/">Peter S Norman</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12009 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/joe-pasqua/">Joe Pasqua</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12008 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/david-ponzini/">David Ponzini</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12003 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/elisa-smith/">Elisa Smith</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12007 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/tom-banahan/">Tom Banahan</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12006 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/pat-grady/">Pat Grady</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12004 depth-3" data-depth="3"><a href="https://www.marklogic.com/company/leadership/greg-santora/">Greg Santora</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type_archive menu-item-object-location menu-item-15456 depth-2" data-depth="2"><a href="https://www.marklogic.com/locations/">Locations</a></li>
+		<li class="article-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-8789 depth-2" data-depth="2"><a href="https://www.marklogic.com/news/">News</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8782 depth-1" data-depth="1"><a href="https://www.marklogic.com/company/careers/">Careers</a>
+	<ul role="menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8783 depth-2" data-depth="2"><a href="https://www.marklogic.com/company/careers/open-positions/">Open Positions</a></li>
+	</ul>
+</li>
+	<li class="partner-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-12394 depth-1" data-depth="1"><a href="https://www.marklogic.com/community/company-partners/">Partners</a></li>
+	<li class="hide-children customer-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-customer menu-item-15450 depth-1" data-depth="1"><a href="https://www.marklogic.com/customers/">Customers</a></li>
+	<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-15365 depth-1" data-depth="1"><a href="https://www.marklogic.com/company/sign-me-up/">Sign Me Up</a></li>
+</ul>
+</li>
+</ul></div>		</div><!-- /.col -->
+	</div><!-- /.row -->
+</div><!-- /#mlbs4-megamenu -->
+		<div id="mlbs4-mobilemenu">
+	<div class="mlbs4-container">
+		<div class="mlbs4-row">
+			<div class="mlbs4-col mobilemenu--logo">
+													<a href="https://www.marklogic.com/"><img src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/marklogic-logo-header.svg" alt="MarkLogic Logo" scale="0"></a>
+							</div>
+			<div class="mlbs4-col mobilemenu--hamburger">
+				<button class="mobilemenu--hamburger--toggle" data-mlbs4-toggle="collapse" data-mlbs4-target=".mobilemenu--flyout--wrapper">
+					<div class="mobilemenu--hamburger--line"></div>
+					<div class="mobilemenu--hamburger--line"></div>
+					<div class="mobilemenu--hamburger--line"></div>
+					<div class="mobilemenu--hamburger--x"></div>
+					<div class="mobilemenu--hamburger--x"></div>
+				</button><!-- /.mobilemenu--hamburger--toggle -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+		<div class="mlbs4-row mlbs4-collapse mobilemenu--flyout--wrapper">
+			<div class="mobilemenu--flyout">
+				<ul id="menu-primary-menu-2" class="menu"><li class="mmpt-product author-force-active-trail post-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8665 current-menu-ancestor forced-active dropdown"><a href="https://www.marklogic.com/product/">Product</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li class="d-none hide-children bulletin-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-14651"><a href="https://www.marklogic.com/bulletins/">Bulletins</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14681 dropdown"><a href="https://www.marklogic.com/product/marklogic-database-overview/">MarkLogic Database Overview</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8704 dropdown"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/">Database Features</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8705"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/advanced-security/">Advanced Security</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8706"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/data-hub-framework/">Data Hub Framework</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8707"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/flexible-replication/">Flexible Replication</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17342"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/containers/">Containers</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8708"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/geospatial/">Geospatial</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8709"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/multi-model-database/">Multi-Model Database</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8710"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/semantics/">Semantics</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16632"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/smart-mastering/">Smart Mastering</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8711"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/tiered-storage/">Tiered Storage</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8712"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/xa-transactions/">XA Transactions</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13707"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/built-in-search/">Built In Search</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13708"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/certified-security/">Certified Security</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13857"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/product-features-flexible-data-model/">Flexible Data Model</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13859"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/high-availability-disaster-recovery/">High Availability and Disaster Recovery</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13860"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/flexible-deployment/">Flexible Deployment</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13883"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/features-ops-director/">Ops Director</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13947"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/acid-transactions/">ACID Transactions</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15896"><a href="https://www.marklogic.com/product/marklogic-database-overview/database-features/apache-nifi/">Apache NiFi</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8703"><a href="https://www.marklogic.com/product/getting-started/">Getting Started</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8666"><a href="https://www.marklogic.com/product/pricing-licensing/">Pricing &amp; Licensing</a></li>
+		<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-17555"><a href="https://www.marklogic.com/product/marklogic-database-overview/data-hub-service/">Data Hub Service</a></li>
+		<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-15904"><a href="https://www.marklogic.com/product/marklogic-database-overview/query-service/">MarkLogic Query Service</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8690 dropdown"><a href="https://www.marklogic.com/product/consulting-services/">Consulting Services</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8694"><a href="https://www.marklogic.com/product/consulting-services/quick-start-service/">Quick Start Service</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8699"><a href="https://www.marklogic.com/product/consulting-services/co-implementation-support/">Co-Implementation Support</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8692"><a href="https://www.marklogic.com/product/consulting-services/center-excellence/">Center of Excellence</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8697"><a href="https://www.marklogic.com/product/consulting-services/delivery-methodology/">Delivery Methodology</a></li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8696 dropdown"><a href="https://www.marklogic.com/product/consulting-services/what-we-offer/">What We Offer</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18294"><a href="https://www.marklogic.com/product/consulting-services/what-we-offer/managed-services/">Managed Services</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8698"><a href="https://www.marklogic.com/product/consulting-services/common-problems/">Common Problems</a></li>
+		<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-13596"><a href="https://www.marklogic.com/product/consulting-services/full-service-application-development-support/">Full Service App Development</a></li>
+	</ul>
+</li>
+	<li class="author-force-active-trail business-force-active-trail technical-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-18423 current-menu-ancestor forced-active dropdown"><a href="https://www.marklogic.com/blog/">MarkLogic Blogs</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="author-force-active-trail business-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-16849 current-menu-ancestor forced-active"><a href="https://www.marklogic.com/blog/?fwp_blog_type=business">Business</a></li>
+		<li class="author-force-active-trail technical-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-9297"><a href="https://www.marklogic.com/blog/?fwp_blog_type=technical">Technical</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="mmpt-solutions menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8667 dropdown"><a href="https://www.marklogic.com/solutions/">Solutions</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8743 dropdown"><a href="https://www.marklogic.com/solutions/enterprise/">Enterprise Solutions</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8981"><a href="https://www.marklogic.com/solutions/enterprise/digital-transformation/">Digital Transformation</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8765"><a href="https://www.marklogic.com/solutions/enterprise/mainframe-to-nosql/">Mainframe to NoSQL</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8768"><a href="https://www.marklogic.com/solutions/enterprise/operational-data-hub/">Operational Data Hub</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8764 dropdown"><a href="https://www.marklogic.com/solutions/enterprise/regulatory-compliance-grc/">Regulatory Compliance / GRC</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-14508"><a href="https://www.marklogic.com/solutions/enterprise/gdpr/">GDPR</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8742 dropdown"><a href="https://www.marklogic.com/solutions/industry/">Industry Solutions</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8749 dropdown"><a href="https://www.marklogic.com/solutions/industry/financial-services/">Financial Services</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13706"><a href="https://www.marklogic.com/solutions/industry/mifid-ii/">MiFID II</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18178"><a href="https://www.marklogic.com/solutions/industry/financial-services/post-trade-processing-reporting/">Improve Trade Transaction and Reporting</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8752"><a href="https://www.marklogic.com/solutions/industry/healthcare/">Healthcare</a></li>
+		<li class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8753 dropdown"><a href="https://www.marklogic.com/solutions/industry/insurance/">Insurance</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18177"><a href="https://www.marklogic.com/solutions/industry/insurance/customer-360/">Power Better Customer Experiences With a 360° View</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8755 dropdown"><a href="https://www.marklogic.com/solutions/industry/life-sciences/">Life Sciences</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="hide-detail menu-item menu-item-type-post_type menu-item-object-page menu-item-13604"><a href="https://www.marklogic.com/solutions/industry/real-world-evidence-rwe/">Real-World Evidence (RWE)</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18244"><a href="https://www.marklogic.com/solutions/industry/life-sciences/pharma-accelerate-drug-discovery/">Accelerate Pharmaceutical Drug Discovery</a></li>
+		</ul>
+</li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-18166 dropdown"><a href="https://www.marklogic.com/solutions/industry/manufacturing/">Manufacturing</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18270"><a href="https://www.marklogic.com/solutions/industry/manufacturing/industry-4-0/">Industry 4.0: The Future of Manufacturing</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8756"><a href="https://www.marklogic.com/solutions/industry/media/">Media</a></li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8761 dropdown"><a href="https://www.marklogic.com/solutions/industry/public-sector/">Public Sector</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13379"><a href="https://www.marklogic.com/solutions/industry/national-security/">National Security</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18229"><a href="https://www.marklogic.com/solutions/industry/public-sector/leverage-data-as-a-weapon/">Leverage Data as a Weapon to Make Better Decisions</a></li>
+		</ul>
+</li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-13554 dropdown"><a href="https://www.marklogic.com/solutions/industry/more-industries/">More Industries</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13549"><a href="https://www.marklogic.com/solutions/industry/consumer-packaged-goods/">Consumer Packaged Goods</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13550"><a href="https://www.marklogic.com/solutions/industry/education/">Education</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13551"><a href="https://www.marklogic.com/solutions/industry/energy/">Energy</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13552"><a href="https://www.marklogic.com/solutions/industry/legal/">Legal</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13553"><a href="https://www.marklogic.com/solutions/industry/retail/">Retail</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="mmpt-learn resource-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8668 dropdown"><a href="https://www.marklogic.com/learn/">Learn</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-11899 dropdown"><a href="https://www.marklogic.com/learn/university/">Free Training</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8680"><a href="https://www.marklogic.com/learn/university/administrator-track/">Administrator Track</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8681"><a href="https://www.marklogic.com/learn/university/business-user-track/">Business User Track</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8682"><a href="https://www.marklogic.com/learn/university/data-architect-track/">Data Architect Track</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8683"><a href="https://www.marklogic.com/learn/university/developer-track/">Developer Track</a></li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-13125 dropdown"><a href="https://www.marklogic.com/learn/courses/">Courses</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13941"><a href="https://www.marklogic.com/learn/courses/marklogic-fundamentals/">MarkLogic Fundamentals</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13126"><a href="https://www.marklogic.com/learn/courses/marklogic-business-users/">MarkLogic for Business Users</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18230"><a href="https://www.marklogic.com/learn/courses/data-services/">Data Services</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13927"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-java/">Developing MarkLogic Apps I – Java</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13931"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-xquery/">Developing MarkLogic Apps I – XQuery</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13932"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-node-js/">Developing MarkLogic Apps I – Node JS</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13929"><a href="https://www.marklogic.com/learn/courses/developing-marklogic-apps-ii-xquery/">Developing MarkLogic Apps II – XQuery</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13925"><a href="https://www.marklogic.com/learn/courses/marklogic-security-workshop/">MarkLogic Security</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13926"><a href="https://www.marklogic.com/learn/courses/marklogic-data-integration/">MarkLogic Data Integration</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13933"><a href="https://www.marklogic.com/learn/courses/whats-new-marklogic-9/">What’s New in MarkLogic 9</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13935"><a href="https://www.marklogic.com/learn/courses/developer-cross-training/">Developer Cross Training</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13936"><a href="https://www.marklogic.com/learn/courses/performance-workshop/">Performance</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13939"><a href="https://www.marklogic.com/learn/courses/using-marklogic-data-hub/">Using the MarkLogic Data Hub</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13940"><a href="https://www.marklogic.com/learn/courses/administering-marklogic-server/">Administering MarkLogic Server</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13942"><a href="https://www.marklogic.com/learn/courses/using-marklogic-semantics/">Using MarkLogic Semantics</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17880"><a href="https://www.marklogic.com/learn/courses/data-hub-flight-school/">Data Hub Flight School</a></li>
+		</ul>
+</li>
+		<li class="hide-children menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8716 dropdown"><a href="https://www.marklogic.com/learn/university/professional-certification/">Professional Certification</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14356"><a href="https://www.marklogic.com/learn/terms-and-conditions/">Terms and Conditions</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14357"><a href="https://www.marklogic.com/learn/trademark-usage-guidelines/">Trademark Usage Guidelines</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11903"><a href="https://www.marklogic.com/product/marklogic-blogs/">MarkLogic Blogs</a></li>
+	<li class="resource-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-resource menu-item-has-children menu-item-15443 dropdown"><a href="https://www.marklogic.com/resources/">Resources</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8725"><a href="https://www.marklogic.com/on-demand-webinars/">On-Demand Webinars</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="mmpt-community event-force-active-trail partner-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8688 dropdown"><a href="https://www.marklogic.com/community/">Community</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-12392 dropdown"><a href="https://help.marklogic.com/">Support</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12372"><a href="https://help.marklogic.com/Knowledgebase/List">Knowledgebase</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12373"><a href="https://help.marklogic.com/Bugtrack/List">Bug Fix Report</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-11802 dropdown"><a href="https://developer.marklogic.com/">Developer</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793"><a href="https://developer.marklogic.com/products">Downloads</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11880"><a href="https://docs.marklogic.com/">Documentation</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11881"><a href="https://developer.marklogic.com/recipes">Recipes</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11882"><a href="https://developer.marklogic.com/code">Tools</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11883"><a href="https://developer.marklogic.com/learn">Tutorials</a></li>
+	</ul>
+</li>
+	<li class="partner-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-partner menu-item-has-children menu-item-15447 dropdown"><a href="https://www.marklogic.com/partners/">Partners</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12050"><a href="https://www.marklogic.com/community/partner-with-us/">Partner With Us</a></li>
+		<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-13924"><a href="https://www.marklogic.com/community/partner-toolbox/">Partner Toolbox</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14072"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=featured-partners">Featured Partners</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14073"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=oem-partners">OEM Partners</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14074"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=resellers">Resellers</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14075"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=service-partners">Service Partners</a></li>
+		<li class="hide-item menu-item menu-item-type-custom menu-item-object-custom menu-item-14076"><a href="https://www.marklogic.com/partners/?fwp_partner_categories=technology-partners">Technology Partners</a></li>
+	</ul>
+</li>
+	<li class="event-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-event menu-item-has-children menu-item-15445 dropdown"><a href="https://www.marklogic.com/events/">Events</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14547"><a href="https://www.marklogic.com/world/">MarkLogic World</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14548"><a href="https://developer.marklogic.com/meet">User Groups</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="mmpt-company customer-force-active-trail article-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8686 dropdown"><a href="https://www.marklogic.com/company/">Company</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li class="article-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8780 dropdown"><a href="https://www.marklogic.com/company/about/">About Us</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12391"><a href="https://www.marklogic.com/company/contact/">Contact Us</a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8790"><a href="https://www.marklogic.com/community/company-events/">Events</a></li>
+		<li class="hide-children menu-item menu-item-type-post_type_archive menu-item-object-bio menu-item-has-children menu-item-15457 dropdown"><a href="https://www.marklogic.com/company/leadership/">Leadership Team</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+		<ul role="menu" class="mlbs4-dropdown-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12002"><a href="https://www.marklogic.com/company/leadership/gary-bloom/">Gary Bloom</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12015"><a href="https://www.marklogic.com/company/leadership/adrian-carr/">Adrian Carr</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12014"><a href="https://www.marklogic.com/company/leadership/julie-furt/">Julie Furt</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12013"><a href="https://www.marklogic.com/company/leadership/david-gorbet/">David Gorbet</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12012"><a href="https://www.marklogic.com/company/leadership/linda-kato/">Linda Kato</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12011"><a href="https://www.marklogic.com/company/leadership/christopher-lindblad/">Christopher Lindblad</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12010"><a href="https://www.marklogic.com/company/leadership/peter-s-norman/">Peter S Norman</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12009"><a href="https://www.marklogic.com/company/leadership/joe-pasqua/">Joe Pasqua</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12008"><a href="https://www.marklogic.com/company/leadership/david-ponzini/">David Ponzini</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12003"><a href="https://www.marklogic.com/company/leadership/elisa-smith/">Elisa Smith</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12007"><a href="https://www.marklogic.com/company/leadership/tom-banahan/">Tom Banahan</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12006"><a href="https://www.marklogic.com/company/leadership/pat-grady/">Pat Grady</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-bio menu-item-12004"><a href="https://www.marklogic.com/company/leadership/greg-santora/">Greg Santora</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-post_type_archive menu-item-object-location menu-item-15456"><a href="https://www.marklogic.com/locations/">Locations</a></li>
+		<li class="article-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-8789"><a href="https://www.marklogic.com/news/">News</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8782 dropdown"><a href="https://www.marklogic.com/company/careers/">Careers</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+	<ul role="menu" class="mlbs4-dropdown-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8783"><a href="https://www.marklogic.com/company/careers/open-positions/">Open Positions</a></li>
+	</ul>
+</li>
+	<li class="partner-force-active-trail menu-item menu-item-type-custom menu-item-object-custom menu-item-12394"><a href="https://www.marklogic.com/community/company-partners/">Partners</a></li>
+	<li class="hide-children customer-force-active-trail menu-item menu-item-type-post_type_archive menu-item-object-customer menu-item-15450"><a href="https://www.marklogic.com/customers/">Customers</a></li>
+	<li class="hide-item menu-item menu-item-type-post_type menu-item-object-page menu-item-15365"><a href="https://www.marklogic.com/company/sign-me-up/">Sign Me Up</a></li>
+</ul>
+</li>
+</ul><ul id="menu-actions-menu-1" class="menu"><li class="language fa fa-circle-thin menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-7898 dropdown"><a href="https://www.marklogic.com/blog/relational-databases-scale/#">Language</a><span class="mlbs4-caret mlbs4-dropdown-toggle" data-toggle="dropdown">&nbsp;</span>
+<ul role="menu" class="mlbs4-dropdown-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-13533"><a href="https://www.marklogic.com/">English</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13534"><a href="https://fr.marklogic.com/">French</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13535"><a href="https://de.marklogic.com/">German</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13536"><a href="https://jp.marklogic.com/">Japanese</a></li>
+</ul>
+</li>
+<li class="search fa fa-search menu-item menu-item-type-custom menu-item-object-custom menu-item-7900"><a href="https://www.marklogic.com/search/">Search</a></li>
+</ul><ul id="menu-button-menu-free-ml-1" class="menu"><li class="cta menu-item menu-item-type-custom menu-item-object-custom menu-item-7936"><a href="https://developer.marklogic.com/products">Free MarkLogic</a></li>
+</ul>			</div><!-- /.mobilemenu--flyout -->
+		</div><!-- /.row -->
+	</div><!-- /.container-fluid -->
+</div><!-- /#mobilemenu -->
+		<!-- END_JSON_CUT_HEADER -->
+										<div class="header-image header-image--blog overlay-dark overlay-opacity-50 has-image" style="background-image: url(&#39;https://cdn1.marklogic.com/wp-content/uploads/2018/01/relational-databases-are-not-designed-for-scale-social-1600x745.jpg&#39;);">
+	<div class="header-image--content">
+		<div class="container-fluid">
+			<div class="row justify-content-sm-center">
+				<div class="col col-sm-6 text-center">
+					<h2 class="subtitle">Blog</h2>
+					<h1 class="title">Relational Databases Are Not Designed For Scale</h1>
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.container-fluid -->
+	</div><!-- /.header-image--content -->
+</div><!-- /#header-image -->
+</header><!-- /#header -->
+<div id="interior" class="hasNoLeftOrRightCols">
+	<div class="container-fluid">
+		<div class="row justify-content-sm-center blog-detail--top">
+			<div class="col-sm-6 col-lg-4 blog-detail--top--meta">
+
+                <a href="https://www.marklogic.com/blog/author/mallen/" title="Posts by Matt Allen" rel="author">Matt Allen</a>
+									&nbsp;
+							</div><!-- /.col.blog-detail--top--meta -->
+			<div class="col-sm-6 col-lg-4 blog-detail--top--sharing text-sm-right">
+				<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><div class="sd-content"><ul><li class="share-linkedin"><a rel="nofollow noopener noreferrer" data-shared="sharing-linkedin-10400" class="share-linkedin sd-button share-icon no-text" href="https://www.marklogic.com/blog/relational-databases-scale/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)</span></a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer" data-shared="sharing-facebook-10400" class="share-facebook sd-button share-icon no-text" href="https://www.marklogic.com/blog/relational-databases-scale/?share=facebook&amp;nb=1" target="_blank" title="Click to share on Facebook"><span><span class="share-count">5</span></span><span class="sharing-screen-reader-text">Click to share on Facebook (Opens in new window)<span class="share-count">5</span></span></a></li><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-10400" class="share-twitter sd-button share-icon no-text" href="https://www.marklogic.com/blog/relational-databases-scale/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div>			</div><!-- /.col.blog-detail--top--sharing -->
+		</div><!-- /.row.blog-detail--top -->
+		<div class="row justify-content-sm-center blog-detail--content">
+			<div id="content" class="col-lg-8">
+									<h4>Relational databases are designed to run on a single server in order to maintain the integrity of the table mappings and avoid the problems of distributed computing.</h4>
+<p>We’re at a tipping point with data volume. In my <a href="https://www.marklogic.com/blog/relational-databases-heterogeneous-data/">last post</a>, I showed the stat from <a href="http://www.emc.com/leadership/digital-universe/index.htm" target="_blank" rel="noopener">EMC</a> about how the digital universe is expected to grow from 4.4 zettabytes in 2013 to 44 zettabytes in 2020 (remember a zettabyte is 1 trillion gigabytes). That’s hockey stick growth, and we’re just at the start of the curve. Organizations have millions of users and petabytes of data. They run their applications in the cloud to deliver dynamic content to millions of desktop, tablet, and mobile devices across various geographical locations.</p>
+<h2>Today, Business Is Digital</h2>
+<p>I see the big change being that paper files are no longer the system of record, databases are—we store everything. I previously did product management at large government organizations where they are all undergoing or have undergone massive “modernization” efforts (i.e. business transformation projects… here is an <a href="https://www.whitehouse.gov/sites/default/files/omb/assets/modernizing_government/ModernizingGovernmentOverview.pdf" target="_blank" rel="noopener">overview</a>) that involve moving from antiquated paper processes in which documents are faxed in, scanned, and stored in a legacy mainframe or relational database to doing everything electronically on-demand. These organizations used to just store a few key items from a document electronically, but with these changes, they now need to store all of the data from each form, letter, regulation, profile, email, phone call, chat, investigation, decision, etc.</p>
+<hr>
+<div class="row">
+<div class="col-md-12 text-center">
+<p><img class="center-block margin-top-1 margin-bottom-2" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/digital-transformation-across-industries.png" alt="digital transformation" width="90%" border="0" scale="0"></p>
+<p class="text-center small">
+</p></div>
+</div>
+<hr>
+<p>This sort of transformation has happened, or is happening, across every industry. Today, businesses run completely different than they did even just a decade ago. We went through a period of change in which paper records were still heavily relied on. But successful business are now running everything digitally. In the book, <a href="https://www.capgemini-consulting.com/leadingdigital" target="_blank" rel="noopener">Leading Digital</a>, the authors discuss a study they did in which organizations that are “digital masters”—having successfully use technology to transform their business—have 26 percent high profit margins than their peers.</p>
+<p>To handle this new reality in which they must run everything about their business online, organizations need scalability (adding capacity for more data and more users) and elasticity (the ease in which the system scales, typically referring to the ability to scale back down when user demand dissipates).</p>
+<h2>Scaling Relational Databases Is Hard</h2>
+<p>Achieving scalability and elasticity is a huge challenge for relational databases. Relational databases were designed in a period when data could be kept small, neat, and orderly. That’s just not true anymore. Yes, all database vendors say they scale big. They have to in order to survive. But, when you take a closer look and see what’s actually working and what’s not, the fundamental problems with relational databases start to become more clear.</p>
+<hr>
+<div class="row">
+<div class="col-md-12 text-center"><img class="center-block margin-top-1 margin-bottom-2" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/scaling-relational-databases.png" alt="digital transformation" width="70%" border="0" scale="0"></div>
+</div>
+<p class="text-center small">Relational databases are designed to scale up on expensive single machines</p>
+<hr>
+<p>Relational databases are designed to run on a single server in order to maintain the integrity of the table mappings and avoid the problems of distributed computing. With this design, if a system needs to scale, customers must buy bigger, more complex, and more expensive proprietary hardware with more processing power, memory, and storage. Upgrades are also a challenge, as the organization must go through a lengthy acquisition process, and then often take the system offline to actually make the change. This is all happening while the number of users continues to increase, causing more and more strain and increased risk on the under-provisioned resources.</p>
+<h2>New Architectural Changes Only Hide the Underlying Problem</h2>
+<p>To handle these concerns, relational database vendors have come out with a whole assortment of improvements. Today, the evolution of relational databases allows them to use more complex architectures, relying on a “master-slave” model in which the “slaves” are additional servers that can handle parallel processing and replicated data, or data that is “sharded” (divided and distributed among multiple servers, or hosts) to ease the workload on the master server.</p>
+<p>Other enhancements to relational databases such as using shared storage, in-memory processing, better use of replicas, distributed caching, and other new and ‘innovative’ architectures have certainly made relational databases more scalable. Under the covers, however, it is not hard to find a single system and a single point-of-failure (For example, Oracle RAC is a “clustered” relational database that uses a cluster-aware file system, but there is still a shared disk subsystem underneath). Often, the <a href="http://flashdba.com/2013/09/18/the-real-cost-of-oracle-rac/" target="_blank" rel="noopener">high costs</a> of these systems is prohibitive as well, as setting up a single data warehouse can easily go over a million dollars.</p>
+<p>The enhancements to relational databases also come with other big trade-offs as well. For example, when data is distributed across a relational database it is typically based on pre-defined queries in order to maintain performance. In other words, flexibility is sacrificed for performance.</p>
+<p>Additionally, relational databases are not designed to scale back down—they are highly inelastic. Once data has been distributed and additional space allocated, it is almost impossible to “undistribute” that data.</p>
+<h2>NoSQL Databases are Designed for Scale</h2>
+<hr>
+<div class="row">
+<div class="col-md-12 text-center">
+<p><img class="center-block margin-top-1 margin-bottom-2" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/scaling-nosql-databases.png" alt="digital transformation" width="70%" border="0" scale="0"></p>
+<p class="text-center small">MarkLogic is designed for <a href="https://www.marklogic.com/what-is-marklogic/features/scalability-elasticity/">scalability and elasticity</a></p>
+</div>
+</div>
+<hr>
+<p>Rather than be constrained by the limits of single-server architectures, NoSQL databases are designed for massive scale on distributed systems (usually hundreds of Terabytes rather than tens of Gigabytes). They can scale-out “horizontally,” meaning that they run on multiple servers that work together, each sharing part of the load.</p>
+<p>Using this approach, a NoSQL database can operate across hundreds of servers, petabytes of data, and billions of documents—and still manage to process tens of thousands of transactions per second. And it can do all of this on inexpensive commodity (i.e. cheaper) hardware operating in any environment (i.e. cloud optimized!). Another benefit is that if one node fails, the others can pick up the workload, thus eliminating a single point of failure.</p>
+<p>Massive scale is impressive, but what is perhaps even more important is elasticity. Not all NoSQL databases are elastic. MarkLogic has a unique architecture that make it possible to quickly and easily add or remove nodes in a cluster so that the database stays in line with performance needs. There is not any complex sharding of data or architectural workarounds—data is automatically rebalanced across a cluster when nodes are added or removed. This also makes administration much easier, making it possible for one DBA to manage for data and with fewer headaches.</p>
+<hr>
+<p style="color: #999;">Read the next blog in this series that discusses why relational databases are not designed for mixed workloads or download the white paper, <a href="https://www.marklogic.com/resources/beyond-relational/">Beyond Relational</a>, which covers all of the reasons why relational databases aren’t working in more depth.</p>
+<p style="color: #999;">All posts in this series:</p>
+<ol style="color: #999;">
+<li><a href="https://www.marklogic.com/blog/relational-databases-change/">RDBMS Are Not Designed To Handle Change</a></li>
+<li><a href="https://www.marklogic.com/blog/relational-databases-heterogeneous-data/">RDBMS Are Not Designed for Heterogeneous Data</a></li>
+<li>RDBMS Are Not Designed For Scale</li>
+<li><a href="https://www.marklogic.com/blog/relational-databases-are-not-designed-for-mixed-workloads/">RDBMS Are Not Designed for Mixed Workloads</a></li>
+<li><a href="https://www.marklogic.com/blog/rdbms-mismatch-modern-app-development/">RDBMS Are A Mismatch for Modern App Development</a></li>
+</ol>
+<hr>
+											</div><!-- /.col -->
+		</div><!-- /.row.blog-detail--content -->
+		<div class="row justify-content-sm-center blog-detail--bottom">
+			<div class="col-lg-8">
+				<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><div class="sd-content"><ul><li class="share-linkedin"><a rel="nofollow noopener noreferrer" data-shared="sharing-linkedin-10400" class="share-linkedin sd-button share-icon no-text" href="https://www.marklogic.com/blog/relational-databases-scale/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)</span></a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer" data-shared="sharing-facebook-10400" class="share-facebook sd-button share-icon no-text" href="https://www.marklogic.com/blog/relational-databases-scale/?share=facebook&amp;nb=1" target="_blank" title="Click to share on Facebook"><span><span class="share-count">5</span></span><span class="sharing-screen-reader-text">Click to share on Facebook (Opens in new window)<span class="share-count">5</span></span></a></li><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-10400" class="share-twitter sd-button share-icon no-text" href="https://www.marklogic.com/blog/relational-databases-scale/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div>			</div><!-- /.col -->
+		</div><!-- /.row.blog-detail--bottom -->
+			</div><!-- /.container-fluid -->
+</div><!-- /#interior -->
+<section id="page-blocks">
+	</section><!-- /#page-blocks -->
+<section id="footer--cta">
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-lg-10 col-xl-8 text-center text-sm-left">
+				<div class="row">
+					<div id="footer--cta--text" class="col-sm-9 footer--cta--text">
+						<h6>Stay on top of everything Marklogic.</h6>
+<p>Be the first to know! News, product information, and events delivered straight to your inbox.</p>
+					</div><!-- /.col -->
+					<div id="footer--cta--button" class="col-sm-3 footer--cta--button">
+						<a href="https://www.marklogic.com/blog/relational-databases-scale/#" class="ml-marketo-form-cta btn btn-green" data-form-id="2444" data-text="Sign Me Up">Sign Me Up</a>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.container-fluid -->
+</section><!-- /#footer--cta -->
+	<!-- BEGIN_JSON_CUT_FOOTER -->
+	<footer id="mlbs4-footer">
+		<div class="mlbs4-container">
+			<div class="mlbs4-row footer--top">
+				<div class="mlbs4-col footer--logo">
+																<a href="https://www.marklogic.com/"><img src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/marklogic-logo-footer.svg" alt="MarkLogic Logo" scale="0"></a>
+									</div><!-- /.col -->
+				<div class="mlbs4-col footer--menu">
+					<ul id="menu-primary-menu-3" class="menu"><li class="mmpt-product author-force-active-trail post-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8665 current-menu-ancestor forced-active"><a href="https://www.marklogic.com/product/">Product</a></li>
+<li class="mmpt-solutions menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8667"><a href="https://www.marklogic.com/solutions/">Solutions</a></li>
+<li class="mmpt-learn resource-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8668"><a href="https://www.marklogic.com/learn/">Learn</a></li>
+<li class="mmpt-community event-force-active-trail partner-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8688"><a href="https://www.marklogic.com/community/">Community</a></li>
+<li class="mmpt-company customer-force-active-trail article-force-active-trail menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-8686"><a href="https://www.marklogic.com/company/">Company</a></li>
+</ul><ul id="menu-button-menu-free-ml-2" class="menu"><li class="cta menu-item menu-item-type-custom menu-item-object-custom menu-item-7936"><a href="https://developer.marklogic.com/products">Free MarkLogic</a></li>
+</ul>				</div><!-- /.footer--menu -->
+			</div><!-- /.footer--top -->
+			<div class="mlbs4-row footer--middle">
+				<div class="mlbs4-col footer--social">
+																<ul>
+															<li>
+									<a href="https://www.linkedin.com/company/marklogic" target="_blank" rel="noopener" aria-label="LinkedIn">
+										<i class="fa fa-linkedin" aria-hidden="true">&nbsp;</i>									</a>
+								</li>
+															<li>
+									<a href="https://www.facebook.com/marklogic" target="_blank" rel="noopener" aria-label="Facebook">
+										<i class="fa fa-facebook" aria-hidden="true">&nbsp;</i>									</a>
+								</li>
+															<li>
+									<a href="https://twitter.com/marklogic" target="_blank" rel="noopener" aria-label="Twitter">
+										<i class="fa fa-twitter" aria-hidden="true">&nbsp;</i>									</a>
+								</li>
+															<li>
+									<a href="https://www.instagram.com/marklogicdb/" target="_blank" rel="noopener" aria-label="Instagram">
+										<i class="fa fa-instagram" aria-hidden="true">&nbsp;</i>									</a>
+								</li>
+															<li>
+									<a href="https://www.youtube.com/user/MarkLogic" target="_blank" rel="noopener" aria-label="YouTube">
+										<i class="fa fa-youtube" aria-hidden="true">&nbsp;</i>									</a>
+								</li>
+															<li>
+									<a href="https://www.flickr.com/photos/marklogicuc/" target="_blank" rel="noopener" aria-label="Flickr">
+										<i class="fa fa-flickr" aria-hidden="true">&nbsp;</i>									</a>
+								</li>
+															<li>
+									<a href="https://github.com/marklogic" target="_blank" rel="noopener" aria-label="Git">
+										<i class="fa fa-github" aria-hidden="true">&nbsp;</i>									</a>
+								</li>
+															<li>
+									<a href="https://www.marklogic.com/feed/" target="_blank" rel="noopener" aria-label="RSS">
+										<i class="fa fa-rss" aria-hidden="true">&nbsp;</i>									</a>
+								</li>
+													</ul>
+									</div><!-- /.footer--social -->
+				<div class="mlbs4-col footer--contact">
+					<ul id="menu-contact-menu" class="menu"><li id="menu-item-15441" class="show-de-DE menu-item menu-item-type-post_type menu-item-object-page menu-item-15441"><a href="https://www.marklogic.com/impressum/">Impressum</a></li>
+<li id="menu-item-11918" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11918"><a href="https://www.marklogic.com/company/careers/">Careers</a></li>
+<li id="menu-item-11922" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11922"><a href="https://www.marklogic.com/company/contact/">Contact Us</a></li>
+<li id="menu-item-11921" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11921"><a href="https://www.marklogic.com/privacy/">Privacy</a></li>
+<li id="menu-item-11920" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11920"><a href="https://www.marklogic.com/terms-of-use/">Terms of Use</a></li>
+</ul>				</div><!-- /.footer--contact -->
+			</div><!-- /.footer--middle -->
+			<div class="mlbs4-row footer--copyright">
+				<div class="mlbs4-col footer--copyright--inner">
+					<div id="footer--copyright--text" class="footer--copyright--text">
+						© 2019 MarkLogic Corporation. MarkLogic and the MarkLogic logo are trademarks of MarkLogic Corporation. All other trademarks are the property of their respective owners.					</div><!-- /.footer--copyright--text -->
+														</div><!-- /.mlbs4-col -->
+			</div><!-- /.mlbs4-row -->
+		</div><!-- /.mlbs4-container -->
+	</footer><!-- /#mlbs4-footer -->
+	<!-- END_JSON_CUT_FOOTER -->
+<div id="search--modal" class="modal ninja">
+	<div class="modal--close"></div>
+	<div class="modal--inner search--modal--inner">
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+				<div class="col-sm-10">
+					<form action="https://www.marklogic.com/" method="GET" class="search-form ml-search" role="search" autocomplete="off">
+						<div class="search-container">
+							<input type="text" name="s" class="form-control" placeholder="Search" value="">
+						</div>
+						<button type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</form>
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.container-fluid -->
+	</div><!-- /.modal--inner -->
+</div><!-- /.modal -->
+	
+		<div id="marklogic-eucl-notice" class="ninja">
+			<div class="container-fluid">
+				<div class="row align-items-center">
+					<div class="col-sm-8">
+						<h6>This website uses cookies.</h6>
+<p>By continuing to use this website you are giving consent to cookies being used in accordance with the <a href="https://www.marklogic.com/privacy/">MarkLogic Privacy Statement</a>.</p>
+
+					</div><!-- /.col -->
+					<div class="col-sm-4 text-right">
+						<p><a href="https://www.marklogic.com/blog/relational-databases-scale/#" class="btn" id="marklogic-eucl-button">I Accept</a></p>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			</div><!-- /.container-fluid -->
+		</div><!-- /#marklogic-eucl-notice -->
+	
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/www.marklogic.com\/blog\/relational-databases-scale\/":10400};
+	</script>
+				<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/forms2.min.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/marklogic-marketo.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/comment-reply.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"marklogicprod"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/comment_count.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/devicepx-jetpack.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var geotarget = {"countryCode":"VN","country":"Viet Nam"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/geotarget.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/BrowserDetect.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/js.cookie.min.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/popper.min.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/bootstrap.min.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/if-b4-breakpoint.min.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/megamenu.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/submenu.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/mobilemenu.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/resources.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/theme.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/jquery.solarBox.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/jquery.carouselHeights.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/mootools-core-yc.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/EnlighterJS.min.js"></script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/wp-embed.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/sharing.min.js"></script>
+<script type="text/javascript">
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-linkedin', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-facebook', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+</script>
+<script type="text/javascript">/* <![CDATA[ */EnlighterJS_Config = {"selector":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"language":"generic","theme":"enlighter","indent":2,"hover":"hoverEnabled","showLinenumbers":true,"rawButton":true,"infoButton":false,"windowButton":true,"rawcodeDoubleclick":false,"grouping":true,"cryptex":{"enabled":false,"email":"mail@example.tld"}};!function(){var a=function(a){var b="Enlighter Error: ";console.error?console.error(b+a):console.log&&console.log(b+a)};return window.addEvent?"undefined"==typeof EnlighterJS?void a("Javascript Resources not loaded yet!"):"undefined"==typeof EnlighterJS_Config?void a("Configuration not loaded yet!"):void window.addEvent("domready",function(){EnlighterJS.Util.Init(EnlighterJS_Config.selector.block,EnlighterJS_Config.selector.inline,EnlighterJS_Config)}):void a("MooTools Framework not loaded yet!")}();;/* ]]> */</script><script type="text/javascript" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/e-201913.js" async="async" defer="defer"></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:7.1.1',blog:'99657168',post:'10400',tz:'-4',srv:'www.marklogic.com'} ]);
+	_stq.push([ 'clickTrackerInit', '99657168', '10400' ]);
+</script>
+
+
+<div style="display:none;" class="breakpoint-check"><span class="xs d-block d-sm-inline"></span><span class="sm d-sm-block d-md-inline"></span><span class="md d-md-block d-lg-inline"></span><span class="lg d-lg-block d-xl-inline"></span><span class="xl d-xl-block"></span></div><script type="text/javascript" id="">(function(){function b(){!1===c&&(c=!0,Munchkin.init("371-XVQ-609"))}var c=!1,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="//munchkin.marketo.net/munchkin.js";a.onreadystatechange=function(){"complete"!=this.readyState&&"loaded"!=this.readyState||b()};a.onload=b;document.getElementsByTagName("head")[0].appendChild(a)})();</script>
+<script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","282551695598751");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=282551695598751&amp;ev=PageView&amp;noscript=1
+https://www.facebook.com/tr?id=282551695598751&amp;ev=PageView&amp;noscript=1
+"></noscript>
+
+<script type="text/javascript" id="" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/analytics.min.js"></script><iframe name="_hjRemoteVarsFrame" title="_hjRemoteVarsFrame" id="_hjRemoteVarsFrame" src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/box-973796ac5e263ab848460163dba62cd0.html" style="display: none !important; width: 1px !important; height: 1px !important; opacity: 0 !important; pointer-events: none !important;"></iframe><div id="ads"></div><script src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/saved_resource" type="text/javascript"></script><script type="text/javascript" id="">(function(f,c,d,e,a,b){a=c.createElement(d);a.src=e;a.async=!0;b=c.getElementsByTagName(d)[0];b.parentNode.insertBefore(a,b)})(window,document,"script","https://tracker.mrpfd.com/tracker.js");</script><img src="./Relational Databases Are Not Designed For Scale - MarkLogic_files/g.gif" alt=":)" width="6" height="5" id="wpstats" scale="0"></body></html>
