@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)https://hoctapit.com/ha-redis-voi-replication-va-sentinel/ -->
+<html lang="vi" class="gr__hoctapit_com td-md-is-os-x td-md-is-chrome"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>HA Redis với Replication và Sentinel | Linux | Network | Services | Security | Thủ thuật</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="pingback" href="https://hoctapit.com/xmlrpc.php">
+<meta property="og:image" content="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/04/redis-php.jpg"><link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Dòng thông tin Linux | Network | Services | Security | Thủ thuật »" href="https://hoctapit.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Dòng phản hồi Linux | Network | Services | Security | Thủ thuật »" href="https://hoctapit.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Linux | Network | Services | Security | Thủ thuật » HA Redis với Replication và Sentinel Dòng phản hồi" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/feed/">
+<script type="text/javascript" async="" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/analytics.js"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/hoctapit.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.0.4"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="crayon-css" href="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/crayon.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-coy-css" href="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/coy.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-ubuntu-mono-css" href="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/ubuntu-mono.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="google-fonts-style-css" href="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="td-theme-css" href="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/style.css" type="text/css" media="all">
+<script type="text/javascript" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/jquery.js"></script>
+<script type="text/javascript" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/jquery-migrate.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/hoctapit.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/crayon.min.js"></script>
+<link rel="https://api.w.org/" href="https://hoctapit.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://hoctapit.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://94c208d85b72d6a.kcdn.vn/wp-includes/wlwmanifest.xml">
+<link rel="prev" title="20 command line Tools để monitor Performance trên Linux" href="https://hoctapit.com/20-command-line-tools-de-monitor-performance-tren-linux/">
+<link rel="next" title="Cấu hình Loadbalancing 1 cụm Redis sentinel với HA Proxy" href="https://hoctapit.com/cau-hinh-loadbalancing-1-cum-redis-sentinel-voi-ha-proxy/">
+<meta name="generator" content="WordPress 5.0.4">
+<link rel="canonical" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/">
+<link rel="shortlink" href="https://hoctapit.com/?p=844">
+<link rel="alternate" type="application/json+oembed" href="https://hoctapit.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fhoctapit.com%2Fha-redis-voi-replication-va-sentinel%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://hoctapit.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fhoctapit.com%2Fha-redis-voi-replication-va-sentinel%2F&amp;format=xml">
+
+<script type="text/javascript">
+				window.tdwGlobal = {"adminUrl":"https:\/\/hoctapit.com\/wp-admin\/","wpRestNonce":"a9167e9641","wpRestUrl":"https:\/\/hoctapit.com\/wp-json\/","permalinkStructure":"\/%postname%\/"};
+			</script>
+<!--[if lt IE 9]><script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<script type="text/javascript">
+    
+    
+
+	    var tdBlocksArray = []; //here we store all the items for the current page
+
+	    //td_block class - each ajax block uses a object of this class for requests
+	    function tdBlock() {
+		    this.id = '';
+		    this.block_type = 1; //block type id (1-234 etc)
+		    this.atts = '';
+		    this.td_column_number = '';
+		    this.td_current_page = 1; //
+		    this.post_count = 0; //from wp
+		    this.found_posts = 0; //from wp
+		    this.max_num_pages = 0; //from wp
+		    this.td_filter_value = ''; //current live filter value
+		    this.is_ajax_running = false;
+		    this.td_user_action = ''; // load more or infinite loader (used by the animation)
+		    this.header_color = '';
+		    this.ajax_pagination_infinite_stop = ''; //show load more at page x
+	    }
+
+
+        // td_js_generator - mini detector
+        (function(){
+            var htmlTag = document.getElementsByTagName("html")[0];
+
+	        if ( navigator.userAgent.indexOf("MSIE 10.0") > -1 ) {
+                htmlTag.className += ' ie10';
+            }
+
+            if ( !!navigator.userAgent.match(/Trident.*rv\:11\./) ) {
+                htmlTag.className += ' ie11';
+            }
+
+	        if ( navigator.userAgent.indexOf("Edge") > -1 ) {
+                htmlTag.className += ' ieEdge';
+            }
+
+            if ( /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ) {
+                htmlTag.className += ' td-md-is-ios';
+            }
+
+            var user_agent = navigator.userAgent.toLowerCase();
+            if ( user_agent.indexOf("android") > -1 ) {
+                htmlTag.className += ' td-md-is-android';
+            }
+
+            if ( -1 !== navigator.userAgent.indexOf('Mac OS X')  ) {
+                htmlTag.className += ' td-md-is-os-x';
+            }
+
+            if ( /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()) ) {
+               htmlTag.className += ' td-md-is-chrome';
+            }
+
+            if ( -1 !== navigator.userAgent.indexOf('Firefox') ) {
+                htmlTag.className += ' td-md-is-firefox';
+            }
+
+            if ( -1 !== navigator.userAgent.indexOf('Safari') && -1 === navigator.userAgent.indexOf('Chrome') ) {
+                htmlTag.className += ' td-md-is-safari';
+            }
+
+            if( -1 !== navigator.userAgent.indexOf('IEMobile') ){
+                htmlTag.className += ' td-md-is-iemobile';
+            }
+
+        })();
+
+
+
+
+        var tdLocalCache = {};
+
+        ( function () {
+            "use strict";
+
+            tdLocalCache = {
+                data: {},
+                remove: function (resource_id) {
+                    delete tdLocalCache.data[resource_id];
+                },
+                exist: function (resource_id) {
+                    return tdLocalCache.data.hasOwnProperty(resource_id) && tdLocalCache.data[resource_id] !== null;
+                },
+                get: function (resource_id) {
+                    return tdLocalCache.data[resource_id];
+                },
+                set: function (resource_id, cachedData) {
+                    tdLocalCache.remove(resource_id);
+                    tdLocalCache.data[resource_id] = cachedData;
+                }
+            };
+        })();
+
+    
+    
+var td_viewport_interval_list=[{"limitBottom":767,"sidebarWidth":228},{"limitBottom":1018,"sidebarWidth":300},{"limitBottom":1140,"sidebarWidth":324}];
+var td_animation_stack_effect="type0";
+var tds_animation_stack=true;
+var td_animation_stack_specific_selectors=".entry-thumb, img";
+var td_animation_stack_general_selectors=".td-animation-stack img, .td-animation-stack .entry-thumb, .post img";
+var td_ajax_url="https:\/\/hoctapit.com\/wp-admin\/admin-ajax.php?td_theme_name=Newspaper&v=8.7.2";
+var td_get_template_directory_uri="https:\/\/hoctapit.com\/wp-content\/themes\/Newspaper";
+var tds_snap_menu="smart_snap_always";
+var tds_logo_on_sticky="show_header_logo";
+var tds_header_style="";
+var td_please_wait="Please wait...";
+var td_email_user_pass_incorrect="User or password incorrect!";
+var td_email_user_incorrect="Email or username incorrect!";
+var td_email_incorrect="Email incorrect!";
+var tds_more_articles_on_post_enable="";
+var tds_more_articles_on_post_time_to_wait="";
+var tds_more_articles_on_post_pages_distance_from_top=0;
+var tds_theme_color_site_wide="#4db2ec";
+var tds_smart_sidebar="enabled";
+var tdThemeName="Newspaper";
+var td_magnific_popup_translation_tPrev="Previous (Left arrow key)";
+var td_magnific_popup_translation_tNext="Next (Right arrow key)";
+var td_magnific_popup_translation_tCounter="%curr% of %total%";
+var td_magnific_popup_translation_ajax_tError="The content from %url% could not be loaded.";
+var td_magnific_popup_translation_image_tError="The image #%curr% could not be loaded.";
+var tdDateNamesI18n={"month_names":["Th\u00e1ng M\u1ed9t","Th\u00e1ng Hai","Th\u00e1ng Ba","Th\u00e1ng T\u01b0","Th\u00e1ng N\u0103m","Th\u00e1ng S\u00e1u","Th\u00e1ng B\u1ea3y","Th\u00e1ng T\u00e1m","Th\u00e1ng Ch\u00edn","Th\u00e1ng M\u01b0\u1eddi","Th\u00e1ng M\u01b0\u1eddi M\u1ed9t","Th\u00e1ng M\u01b0\u1eddi Hai"],"month_names_short":["Th1","Th2","Th3","Th4","Th5","Th6","Th7","Th8","Th9","Th10","Th11","Th12"],"day_names":["Ch\u1ee7 Nh\u1eadt","Th\u1ee9 Hai","Th\u1ee9 Ba","Th\u1ee9 T\u01b0","Th\u1ee9 N\u0103m","Th\u1ee9 S\u00e1u","Th\u1ee9 B\u1ea3y"],"day_names_short":["CN","T2","T3","T4","T5","T6","T7"]};
+var td_ad_background_click_link="";
+var td_ad_background_click_target="";
+</script>
+
+<style>
+    
+.block-title > span,
+    .block-title > span > a,
+    .block-title > a,
+    .block-title > label,
+    .widgettitle,
+    .widgettitle:after,
+    .td-trending-now-title,
+    .td-trending-now-wrapper:hover .td-trending-now-title,
+    .wpb_tabs li.ui-tabs-active a,
+    .wpb_tabs li:hover a,
+    .vc_tta-container .vc_tta-color-grey.vc_tta-tabs-position-top.vc_tta-style-classic .vc_tta-tabs-container .vc_tta-tab.vc_active > a,
+    .vc_tta-container .vc_tta-color-grey.vc_tta-tabs-position-top.vc_tta-style-classic .vc_tta-tabs-container .vc_tta-tab:hover > a,
+    .td_block_template_1 .td-related-title .td-cur-simple-item,
+    .woocommerce .product .products h2:not(.woocommerce-loop-product__title),
+    .td-subcat-filter .td-subcat-dropdown:hover .td-subcat-more,
+    .td-weather-information:before,
+    .td-weather-week:before,
+    .td_block_exchange .td-exchange-header:before,
+    .td-theme-wrap .td_block_template_3 .td-block-title > *,
+    .td-theme-wrap .td_block_template_4 .td-block-title > *,
+    .td-theme-wrap .td_block_template_7 .td-block-title > *,
+    .td-theme-wrap .td_block_template_9 .td-block-title:after,
+    .td-theme-wrap .td_block_template_10 .td-block-title::before,
+    .td-theme-wrap .td_block_template_11 .td-block-title::before,
+    .td-theme-wrap .td_block_template_11 .td-block-title::after,
+    .td-theme-wrap .td_block_template_14 .td-block-title,
+    .td-theme-wrap .td_block_template_15 .td-block-title:before,
+    .td-theme-wrap .td_block_template_17 .td-block-title:before {
+        background-color: #222222;
+    }
+
+    .woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+    	background-color: #222222 !important;
+    }
+
+    .block-title,
+    .td_block_template_1 .td-related-title,
+    .wpb_tabs .wpb_tabs_nav,
+    .vc_tta-container .vc_tta-color-grey.vc_tta-tabs-position-top.vc_tta-style-classic .vc_tta-tabs-container,
+    .woocommerce div.product .woocommerce-tabs ul.tabs:before,
+    .td-theme-wrap .td_block_template_5 .td-block-title > *,
+    .td-theme-wrap .td_block_template_17 .td-block-title,
+    .td-theme-wrap .td_block_template_17 .td-block-title::before {
+        border-color: #222222;
+    }
+
+    .td-theme-wrap .td_block_template_4 .td-block-title > *:before,
+    .td-theme-wrap .td_block_template_17 .td-block-title::after {
+        border-color: #222222 transparent transparent transparent;
+    }
+
+    
+    .td-header-wrap .td-header-top-menu-full,
+    .td-header-wrap .top-header-menu .sub-menu {
+        background-color: #5e1e2f;
+    }
+    .td-header-style-8 .td-header-top-menu-full {
+        background-color: transparent;
+    }
+    .td-header-style-8 .td-header-top-menu-full .td-header-top-menu {
+        background-color: #5e1e2f;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .td-header-wrap .td-header-top-menu-full .td-header-top-menu,
+    .td-header-wrap .td-header-top-menu-full {
+        border-bottom: none;
+    }
+
+
+    
+    .td-footer-wrapper,
+    .td-footer-wrapper .td_block_template_7 .td-block-title > *,
+    .td-footer-wrapper .td_block_template_17 .td-block-title,
+    .td-footer-wrapper .td-block-title-wrap .td-wrapper-pulldown-filter {
+        background-color: #111111;
+    }
+
+    
+    .td-footer-wrapper::before {
+        background-image: url('https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/8.jpg');
+    }
+
+    
+    .td-footer-wrapper::before {
+        background-size: cover;
+    }
+
+    
+    .td-footer-wrapper::before {
+        background-position: center center;
+    }
+
+    
+    .td-footer-wrapper::before {
+        opacity: 0.1;
+    }
+
+
+
+    
+    .td-menu-background,
+    .td-search-background {
+        background-image: url('https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/8.jpg');
+    }
+
+    
+    .white-popup-block:before {
+        background-image: url('https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/8.jpg');
+    }
+
+    
+    .block-title > span,
+    .block-title > a,
+    .widgettitle,
+    .td-trending-now-title,
+    .wpb_tabs li a,
+    .vc_tta-container .vc_tta-color-grey.vc_tta-tabs-position-top.vc_tta-style-classic .vc_tta-tabs-container .vc_tta-tab > a,
+    .td-theme-wrap .td-related-title a,
+    .woocommerce div.product .woocommerce-tabs ul.tabs li a,
+    .woocommerce .product .products h2:not(.woocommerce-loop-product__title),
+    .td-theme-wrap .td-block-title {
+        font-weight:500;
+	
+    }
+    
+    .td-post-template-default .td-post-header .entry-title {
+        font-size:26px;
+	font-weight:600;
+	
+    }
+    
+    .td-post-content p,
+    .td-post-content {
+        font-family:Verdana, Geneva, sans-serif;
+	
+    }
+</style>
+
+<script async="" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/js" type="text/javascript"></script>
+<script type="text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-77710019-1');
+</script>
+<script type="application/ld+json">
+                        {
+                            "@context": "http://schema.org",
+                            "@type": "BreadcrumbList",
+                            "itemListElement": [{
+                            "@type": "ListItem",
+                            "position": 1,
+                                "item": {
+                                "@type": "WebSite",
+                                "@id": "https://hoctapit.com/",
+                                "name": "Home"                                               
+                            }
+                        },{
+                            "@type": "ListItem",
+                            "position": 2,
+                                "item": {
+                                "@type": "WebPage",
+                                "@id": "https://hoctapit.com/category/linux/",
+                                "name": "Linux"
+                            }
+                        },{
+                            "@type": "ListItem",
+                            "position": 3,
+                                "item": {
+                                "@type": "WebPage",
+                                "@id": "https://hoctapit.com/ha-redis-voi-replication-va-sentinel/",
+                                "name": "HA Redis với Replication và Sentinel"                                
+                            }
+                        }    ]
+                        }
+                       </script><link rel="icon" href="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2015/07/cropped-logo1-32x32.png" sizes="32x32">
+<link rel="icon" href="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2015/07/cropped-logo1-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon-precomposed" href="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2015/07/cropped-logo1-180x180.png">
+<meta name="msapplication-TileImage" content="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2015/07/cropped-logo1-270x270.png">
+<style id="tdw-css-placeholder"></style><script src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/wp-emoji-release.min.js" type="text/javascript" defer=""></script></head>
+<body class="post-template-default single single-post postid-844 single-format-standard ha-redis-voi-replication-va-sentinel global-block-template-1 single_template_5 td-animation-stack-type0 td-full-layout td-js-loaded body-td-affix" itemscope="itemscope" itemtype="https://schema.org/WebPage" data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+<div class="td-scroll-up td-scroll-up-visible"><i class="td-icon-menu-up"></i></div>
+<div class="td-menu-background"></div>
+<div id="td-mobile-nav" style="min-height: 719px;">
+<div class="td-mobile-container">
+
+<div class="td-menu-socials-wrap">
+
+<div class="td-menu-socials">
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://facebook.com/dangkiena3" title="Facebook">
+<i class="td-icon-font td-icon-facebook"></i>
+</a>
+</span>
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" title="Twitter">
+<i class="td-icon-font td-icon-twitter"></i>
+</a>
+</span>
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" title="Vimeo">
+<i class="td-icon-font td-icon-vimeo"></i>
+</a>
+</span>
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" title="VKontakte">
+<i class="td-icon-font td-icon-vk"></i>
+</a>
+</span>
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" title="Youtube">
+<i class="td-icon-font td-icon-youtube"></i>
+</a>
+</span> </div>
+
+<div class="td-mobile-close">
+<a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#"><i class="td-icon-close-mobile"></i></a>
+</div>
+</div>
+
+
+<div class="td-mobile-content">
+<div class="menu-menu-container"><ul id="menu-menu" class="td-mobile-main-menu"><li id="menu-item-91" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-first menu-item-91"><a href="https://hoctapit.com/index.php">Trang chủ</a></li>
+<li id="menu-item-30" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-has-children menu-item-30 td_mobile_elem_with_submenu_0"><a href="https://hoctapit.com/category/linux/" class="td-link-element-after">Linux<i class="td-icon-menu-right td-element-after"></i></a>
+<ul class="sub-menu">
+<li id="menu-item-0" class="menu-item-0"><a href="https://hoctapit.com/category/linux/bao-mat/">Bảo mật</a></li>
+<li class="menu-item-0"><a href="https://hoctapit.com/category/linux/elk-stack/">ELK stack</a></li>
+<li class="menu-item-0"><a href="https://hoctapit.com/category/linux/nodejs/">Nodejs</a></li>
+<li class="menu-item-0"><a href="https://hoctapit.com/category/linux/redis/">Redis</a></li>
+<li class="menu-item-0"><a href="https://hoctapit.com/category/linux/ssl/">SSL</a></li>
+<li id="menu-item-272" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-272"><a href="https://hoctapit.com/category/linux/elk-stack/">ELK stack</a></li>
+<li id="menu-item-776" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-776"><a href="https://hoctapit.com/category/linux/bao-mat/">Bảo mật</a></li>
+<li id="menu-item-824" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-824"><a href="https://hoctapit.com/category/linux/ssl/">SSL</a></li>
+<li id="menu-item-825" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-825"><a href="https://hoctapit.com/category/linux/elk-stack/">ELK stack</a></li>
+</ul>
+</li>
+<li id="menu-item-34" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-34"><a href="https://hoctapit.com/category/windows/">Windows</a></li>
+<li id="menu-item-31" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-31 td_mobile_elem_with_submenu_1"><a href="https://hoctapit.com/category/thu-thuat/" class="td-link-element-after">Thủ thuật<i class="td-icon-menu-right td-element-after"></i></a>
+<ul class="sub-menu">
+<li id="menu-item-32" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32"><a href="https://hoctapit.com/category/thu-thuat/hosting-domain/">Hosting – Domain</a></li>
+<li id="menu-item-33" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33"><a href="https://hoctapit.com/category/thu-thuat/thu-thuat-may-tinh-phan-mem/">Máy tính, phần mềm</a></li>
+</ul>
+</li>
+<li id="menu-item-29" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-29"><a href="https://hoctapit.com/category/ao-hoa/">Ảo hóa</a></li>
+<li id="menu-item-165" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-165"><a href="https://hoctapit.com/category/dockercontainer/">Docker/Container</a></li>
+<li id="menu-item-884" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-884"><a href="https://hoctapit.com/category/cloud/">Cloud</a></li>
+</ul></div> </div>
+</div>
+
+</div> <div class="td-search-background"></div>
+<div class="td-search-wrap-mob">
+<div class="td-drop-down-search" aria-labelledby="td-header-search-button">
+<form method="get" class="td-search-form" action="https://hoctapit.com/">
+
+<div class="td-search-close">
+<a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#"><i class="td-icon-close-mobile"></i></a>
+</div>
+<div role="search" class="td-search-input">
+<span>Search</span>
+<input id="td-header-search-mob" type="text" value="" name="s" autocomplete="off">
+</div>
+</form>
+<div id="td-aj-search-mob"></div>
+</div>
+</div>
+<div id="td-outer-wrap" class="td-theme-wrap">
+
+<div class="td-header-wrap td-header-style-1 ">
+<div class="td-header-top-menu-full td-container-wrap ">
+<div class="td-container td-header-row td-header-top-menu">
+<div class="top-bar-style-1">
+<div class="td-header-sp-top-menu">
+<div class="td_data_time">
+<div>
+Thứ Hai, Tháng Tư 1, 2019
+</div>
+</div>
+</div>
+<div class="td-header-sp-top-widget">
+</div> </div>
+
+</div>
+</div>
+<div class="td-banner-wrap-full td-logo-wrap-full td-container-wrap ">
+<div class="td-container td-header-row td-header-header">
+<div class="td-header-sp-logo">
+<a class="td-main-logo" href="https://hoctapit.com/">
+<img class="td-retina-data td-retina-version" data-retina="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/logo-300x116.png" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/logo-300x116.png" alt="">
+<span class="td-visual-hidden">Linux | Network | Services | Security | Thủ thuật</span>
+</a>
+</div>
+<div class="td-header-sp-recs">
+<div class="td-header-rec-wrap">
+<div class="td-a-rec td-a-rec-id-header  td-rec-hide-on-p td_uid_1_5ca10735c5d62_rand td_block_template_1"><div class="td-all-devices"><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" target="_blank"><img src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/newspaper-rec728-1.jpg"></a></div></div>
+</div> </div>
+</div>
+</div>
+<div class="td-header-menu-wrap-full td-container-wrap " style="height: 48px;">
+<div class="td-header-menu-wrap td-header-gradient td-affix" style="transform: translate3d(0px, -48px, 0px);">
+<div class="td-container td-header-row td-header-main-menu">
+<div id="td-header-menu" role="navigation">
+<div id="td-top-mobile-toggle"><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#"><i class="td-icon-font td-icon-mobile"></i></a></div>
+<div class="td-main-menu-logo td-logo-in-header td-logo-sticky">
+<a class="td-mobile-logo td-sticky-header" href="https://hoctapit.com/">
+<img class="td-retina-data td-retina-version" data-retina="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/logo-300x116.png" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/logo-300x116.png" alt="">
+</a>
+<a class="td-header-logo td-sticky-header" href="https://hoctapit.com/">
+<img class="td-retina-data td-retina-version" data-retina="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/logo-300x116.png" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/logo-300x116.png" alt="">
+</a>
+</div>
+<div class="menu-menu-container"><ul id="menu-menu-1" class="sf-menu sf-js-enabled"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-first td-menu-item td-normal-menu menu-item-91"><a href="https://hoctapit.com/index.php">Trang chủ</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children td-menu-item td-mega-menu menu-item-30"><a href="https://hoctapit.com/category/linux/" class="sf-with-ul">Linux<i class="td-icon-menu-down"></i></a>
+<ul class="sub-menu" style="display: none; float: none; width: 20em;">
+<li class="menu-item-0" style="white-space: normal; float: left; width: 100%;"><div class="td-container-border"><div class="td-mega-grid"><div class="td_block_wrap td_block_mega_menu td_uid_2_5ca10735c701a_rand td_with_ajax_pagination td-pb-border-top td_block_template_1" data-td-block-uid="td_uid_2_5ca10735c701a"><script type="text/javascript">var block_td_uid_2_5ca10735c701a = new tdBlock();
+block_td_uid_2_5ca10735c701a.id = "td_uid_2_5ca10735c701a";
+block_td_uid_2_5ca10735c701a.atts = '{"limit":4,"td_column_number":3,"ajax_pagination":"next_prev","category_id":"4","show_child_cat":30,"td_ajax_filter_type":"td_category_ids_filter","td_ajax_preloading":"","block_template_id":"","header_color":"","ajax_pagination_infinite_stop":"","offset":"","td_filter_default_txt":"","td_ajax_filter_ids":"","el_class":"","color_preset":"","border_top":"","css":"","tdc_css":"","class":"td_uid_2_5ca10735c701a_rand","tdc_css_class":"td_uid_2_5ca10735c701a_rand","tdc_css_class_style":"td_uid_2_5ca10735c701a_rand_style"}';
+block_td_uid_2_5ca10735c701a.td_column_number = "3";
+block_td_uid_2_5ca10735c701a.block_type = "td_block_mega_menu";
+block_td_uid_2_5ca10735c701a.post_count = "4";
+block_td_uid_2_5ca10735c701a.found_posts = "41";
+block_td_uid_2_5ca10735c701a.header_color = "";
+block_td_uid_2_5ca10735c701a.ajax_pagination_infinite_stop = "";
+block_td_uid_2_5ca10735c701a.max_num_pages = "11";
+tdBlocksArray.push(block_td_uid_2_5ca10735c701a);
+</script><div class="td_mega_menu_sub_cats"><div class="block-mega-child-cats"><a class="cur-sub-cat mega-menu-sub-cat-td_uid_2_5ca10735c701a" id="td_uid_3_5ca10735c91cb" data-td_block_id="td_uid_2_5ca10735c701a" data-td_filter_value="" href="https://hoctapit.com/category/linux/">All</a><a class="mega-menu-sub-cat-td_uid_2_5ca10735c701a" id="td_uid_4_5ca10735c9205" data-td_block_id="td_uid_2_5ca10735c701a" data-td_filter_value="64" href="https://hoctapit.com/category/linux/bao-mat/">Bảo mật</a><a class="mega-menu-sub-cat-td_uid_2_5ca10735c701a" id="td_uid_5_5ca10735c922d" data-td_block_id="td_uid_2_5ca10735c701a" data-td_filter_value="51" href="https://hoctapit.com/category/linux/elk-stack/">ELK stack</a><a class="mega-menu-sub-cat-td_uid_2_5ca10735c701a" id="td_uid_6_5ca10735c9250" data-td_block_id="td_uid_2_5ca10735c701a" data-td_filter_value="59" href="https://hoctapit.com/category/linux/nodejs/">Nodejs</a><a class="mega-menu-sub-cat-td_uid_2_5ca10735c701a" id="td_uid_7_5ca10735c9270" data-td_block_id="td_uid_2_5ca10735c701a" data-td_filter_value="98" href="https://hoctapit.com/category/linux/redis/">Redis</a><a class="mega-menu-sub-cat-td_uid_2_5ca10735c701a" id="td_uid_8_5ca10735c928f" data-td_block_id="td_uid_2_5ca10735c701a" data-td_filter_value="100" href="https://hoctapit.com/category/linux/ssl/">SSL</a></div></div><div id="td_uid_2_5ca10735c701a" class="td_block_inner"><div class="td-mega-row"><div class="td-mega-span">
+<div class="td_module_mega_menu td_mod_mega_menu">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/limit-ssh-access-to-specific-client-by-ip-with-hosts-allow/" rel="bookmark" class="td-image-wrap" title="Limit SSH access to specific client by IP with hosts.allow"><img width="218" height="150" class="entry-thumb" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/ssh-big-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2019/02/ssh-big-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2019/02/ssh-big-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Limit SSH access to specific client by IP with hosts.allow"></a></div> <a href="https://hoctapit.com/category/linux/bao-mat/" class="td-post-category">Bảo mật</a> </div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/limit-ssh-access-to-specific-client-by-ip-with-hosts-allow/" rel="bookmark" title="Limit SSH access to specific client by IP with hosts.allow">Limit SSH access to specific client by IP with hosts.allow</a></h3> </div>
+</div>
+</div><div class="td-mega-span">
+<div class="td_module_mega_menu td_mod_mega_menu">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/cai-dat-elk-6-x-logs-stack-de-day-log/" rel="bookmark" class="td-image-wrap" title="Cài đặt ELK 6.x logs stack để đẩy log"><img width="218" height="150" class="entry-thumb" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/tải-xuống-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/12/tải-xuống-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/12/tải-xuống-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Cài đặt ELK 6.x logs stack để đẩy log"></a></div> <a href="https://hoctapit.com/category/linux/" class="td-post-category">Linux</a> </div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/cai-dat-elk-6-x-logs-stack-de-day-log/" rel="bookmark" title="Cài đặt ELK 6.x logs stack để đẩy log">Cài đặt ELK 6.x logs stack để đẩy log</a></h3> </div>
+</div>
+</div><div class="td-mega-span">
+<div class="td_module_mega_menu td_mod_mega_menu">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/huong-dan-cai-dat-osticket-cau-hinh-email-dang-nhap-bang-gmail-oauth2/" rel="bookmark" class="td-image-wrap" title="Hướng dẫn Cài đặt OSTicket, cấu hình email, đăng nhập bằng Gmail oAuth2…"><img width="218" height="150" class="entry-thumb" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/img_banner3-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/12/img_banner3-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/12/img_banner3-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Hướng dẫn Cài đặt OSTicket, cấu hình email, đăng nhập bằng Gmail oAuth2…"></a></div> <a href="https://hoctapit.com/category/linux/" class="td-post-category">Linux</a> </div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/huong-dan-cai-dat-osticket-cau-hinh-email-dang-nhap-bang-gmail-oauth2/" rel="bookmark" title="Hướng dẫn Cài đặt OSTicket, cấu hình email, đăng nhập bằng Gmail oAuth2…">Hướng dẫn Cài đặt OSTicket, cấu hình email, đăng nhập bằng…</a></h3> </div>
+</div>
+</div><div class="td-mega-span">
+<div class="td_module_mega_menu td_mod_mega_menu">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/thu-thuat-config-nginx-ssl-tls-toi-uu-do-tre-ttfb/" rel="bookmark" class="td-image-wrap" title="Thủ thật config Nginx SSL/TLS tối ưu độ trễ/TTFB"><img width="218" height="150" class="entry-thumb" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/nginx-security-1200x385-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/10/nginx-security-1200x385-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/10/nginx-security-1200x385-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Thủ thật config Nginx SSL/TLS tối ưu độ trễ/TTFB"></a></div> <a href="https://hoctapit.com/category/linux/bao-mat/" class="td-post-category">Bảo mật</a> </div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/thu-thuat-config-nginx-ssl-tls-toi-uu-do-tre-ttfb/" rel="bookmark" title="Thủ thật config Nginx SSL/TLS tối ưu độ trễ/TTFB">Thủ thật config Nginx SSL/TLS tối ưu độ trễ/TTFB</a></h3> </div>
+</div>
+</div></div></div><div class="td-next-prev-wrap"><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" class="td-ajax-prev-page ajax-page-disabled" id="prev-page-td_uid_2_5ca10735c701a" data-td_block_id="td_uid_2_5ca10735c701a"><i class="td-icon-font td-icon-menu-left"></i></a><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" class="td-ajax-next-page" id="next-page-td_uid_2_5ca10735c701a" data-td_block_id="td_uid_2_5ca10735c701a"><i class="td-icon-font td-icon-menu-right"></i></a></div><div class="clearfix"></div></div> </div></div></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-272" style="white-space: normal; float: left; width: 100%;"><a href="https://hoctapit.com/category/linux/elk-stack/" style="float: none; width: auto;">ELK stack</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-776" style="white-space: normal; float: left; width: 100%;"><a href="https://hoctapit.com/category/linux/bao-mat/" style="float: none; width: auto;">Bảo mật</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-824" style="white-space: normal; float: left; width: 100%;"><a href="https://hoctapit.com/category/linux/ssl/" style="float: none; width: auto;">SSL</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-825" style="white-space: normal; float: left; width: 100%;"><a href="https://hoctapit.com/category/linux/elk-stack/" style="float: none; width: auto;">ELK stack</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-34"><a href="https://hoctapit.com/category/windows/">Windows</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children td-menu-item td-normal-menu menu-item-31"><a href="https://hoctapit.com/category/thu-thuat/" class="sf-with-ul">Thủ thuật<i class="td-icon-menu-down"></i></a>
+<ul class="sub-menu" style="float: none; width: 13.5714em; display: none;">
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-32" style="white-space: normal; float: left; width: 100%;"><a href="https://hoctapit.com/category/thu-thuat/hosting-domain/" style="float: none; width: auto;">Hosting – Domain</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-33" style="white-space: normal; float: left; width: 100%;"><a href="https://hoctapit.com/category/thu-thuat/thu-thuat-may-tinh-phan-mem/" style="float: none; width: auto;">Máy tính, phần mềm</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-29"><a href="https://hoctapit.com/category/ao-hoa/">Ảo hóa</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-165"><a href="https://hoctapit.com/category/dockercontainer/">Docker/Container</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-menu-item td-normal-menu menu-item-884"><a href="https://hoctapit.com/category/cloud/">Cloud</a></li>
+</ul></div></div>
+<div class="header-search-wrap">
+<div class="td-search-btns-wrap">
+<a id="td-header-search-button" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" role="button" class="dropdown-toggle " data-toggle="dropdown"><i class="td-icon-search"></i></a>
+<a id="td-header-search-button-mob" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" role="button" class="dropdown-toggle " data-toggle="dropdown"><i class="td-icon-search"></i></a>
+</div>
+<div class="td-drop-down-search" aria-labelledby="td-header-search-button">
+<form method="get" class="td-search-form" action="https://hoctapit.com/">
+<div role="search" class="td-head-form-search-wrap">
+<input id="td-header-search" type="text" value="" name="s" autocomplete="off"><input class="wpb_button wpb_btn-inverse btn" type="submit" id="td-header-search-top" value="Search">
+</div>
+</form>
+<div id="td-aj-search"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="td-main-content-wrap td-container-wrap">
+<div class="td-container td-post-template-5 ">
+<div class="td-crumb-container"><div class="entry-crumbs"><span><a title="" class="entry-crumb" href="https://hoctapit.com/">Home</a></span> <i class="td-icon-right td-bread-sep"></i> <span><a title="View all posts in Linux" class="entry-crumb" href="https://hoctapit.com/category/linux/">Linux</a></span> <i class="td-icon-right td-bread-sep td-bred-no-url-last"></i> <span class="td-bred-no-url-last">HA Redis với Replication và Sentinel</span></div></div>
+<div class="td-pb-row">
+<div class="td-pb-span8 td-main-content" role="main">
+<div class="td-ss-main-content"><div class="clearfix"></div>
+<article id="post-844" class="post-844 post type-post status-publish format-standard has-post-thumbnail hentry category-linux category-redis tag-redis tag-replication tag-sentinel" itemscope="" itemtype="https://schema.org/Article">
+<div class="td-post-header">
+<ul class="td-category"><li class="entry-category"><a href="https://hoctapit.com/category/linux/">Linux</a></li><li class="entry-category"><a href="https://hoctapit.com/category/linux/redis/">Redis</a></li></ul>
+<header class="td-post-title">
+<h1 class="entry-title">HA Redis với Replication và Sentinel</h1>
+<div class="td-module-meta-info">
+<div class="td-post-author-name"><div class="td-author-by">By</div> <a href="https://hoctapit.com/author/dangkiena3/">dangkiena3</a><div class="td-author-line"> - </div> </div> <span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2018-04-18T11:34:43+00:00">18/04/2018</time></span> <div class="td-post-comments"><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#respond"><i class="td-icon-comments"></i>0</a></div> <div class="td-post-views"><i class="td-icon-views"></i><span class="td-nr-views-844">823</span></div> </div>
+</header>
+</div>
+<div class="td-post-content">
+<p><span style="color: #ff0000;"><strong>Xem cả loạt bài về Redis tại đây:</strong></span>&nbsp;<a href="https://hoctapit.com/category/linux/redis/">https://hoctapit.com/category/linux/redis/</a></p>
+<p>Bài viết tham khảo:&nbsp;<a href="http://blog.appconus.com/2017/03/17/redis-high-availibility-voi-sentinel-va-replication-2/">http://blog.appconus.com/2017/03/17/redis-high-availibility-voi-sentinel-va-replication-2/</a></p>
+<p>HA (High Availibity) là yêu cầu cần thiết cho bất cứ ứng dụng nào. Để làm điều đó với Redis thông thường người ta sử dụng Replication và Sentinel.</p>
+<p><strong>Redis Replication:</strong> nhiều thể hiện Redis được ghép với nhau, có 1 con là master, các con còn lại là slave. Mục đích để dữ liệu được phân tán ra các con, một con chết thì vẫn còn các con còn lại.</p>
+<p><strong>Redis Sentinel:</strong> Phương pháp bầu lại master trong replication. Khi con master chết lập tức 1 con slave nào đó sẽ được lên làm master để đảm bảo hệ thống vẫn hoạt động bình thường.</p>
+<p>Với một nhu cầu thông thường, tốt nhất nên có 3 con Redis, đồng thời chạy Sentinel trên 3 con đó luôn.</p>
+<div id="crayon-5ca10732ad0c8369318673" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">master: 192.168.1.1
+slave-1: 192.168.1.2
+slave-2: 192.168.1.3</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732ad0c8369318673-1">1</div><div class="crayon-num" data-line="crayon-5ca10732ad0c8369318673-2">2</div><div class="crayon-num" data-line="crayon-5ca10732ad0c8369318673-3">3</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732ad0c8369318673-1"><span class="crayon-v">master</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.1</span></div><div class="crayon-line" id="crayon-5ca10732ad0c8369318673-2"><span class="crayon-v">slave</span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.2</span></div><div class="crayon-line" id="crayon-5ca10732ad0c8369318673-3"><span class="crayon-v">slave</span><span class="crayon-o">-</span><span class="crayon-cn">2</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.3</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p>&nbsp;</p>
+<p><strong>Bước 1: Cài đặt Redis trên cả 3 con:</strong></p>
+<blockquote class="wp-embedded-content" data-secret="Z4R46jlnh8"><p><a href="https://hoctapit.com/cai-dat-redis-tu-source-tren-centos-install-redis-from-source-centos/">Cài đặt Redis từ source trên Centos – Install Redis from source Centos</a></p></blockquote>
+<p><iframe class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="position: absolute; clip: rect(1px, 1px, 1px, 1px);" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/saved_resource.html" data-secret="Z4R46jlnh8" width="600" height="338" title="“Cài đặt Redis từ source trên Centos – Install Redis from source Centos” — Linux | Network | Services | Security | Thủ thuật" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></p>
+<p><strong>Bước 2: Cấu hình Redis Replication</strong></p>
+<p><em><strong>Trên Master:</strong></em> cài đặt như bài viết trên. Lưu ý phải bind IP của server 192.168.1.1 để export được redis ra ngoài, từ mỗi con phải telnet được port 6379 của 2 con còn lại.</p>
+<p><em><strong>Trên 2 con Slave:</strong></em></p>
+<p>Thêm dòng này vào cuối file config (IP là IP của con master)</p>
+<div id="crayon-5ca10732ad0dd209038351" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">slaveof 192.168.1.1 6379</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732ad0dd209038351-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732ad0dd209038351-1"><span class="crayon-i">slaveof</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.1</span><span class="crayon-h"> </span><span class="crayon-cn">6379</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p>Khởi động lại Redis</p>
+<p>Test thử:</p>
+<p>Trên con master gõ lệnh:</p>
+<div id="crayon-5ca10732ad0df916741151" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">redis-cli info replication</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732ad0df916741151-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732ad0df916741151-1"><span class="crayon-v">redis</span><span class="crayon-o">-</span><span class="crayon-e">cli </span><span class="crayon-e">info </span><span class="crayon-v">replication</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p>Nếu thấy nó báo role: master, connected 2 slaves là OK</p>
+<p>Thử tạo 1 key trên master: redis-cli</p>
+<div id="crayon-5ca10732ad0e1396572464" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">192.168.1.1:6379&gt; set test '1 cai key test'
+OK</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732ad0e1396572464-1">1</div><div class="crayon-num" data-line="crayon-5ca10732ad0e1396572464-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732ad0e1396572464-1"><span class="crayon-cn">192.168.1.1</span><span class="crayon-o">:</span><span class="crayon-cn">6379</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-e">set </span><span class="crayon-i">test</span><span class="crayon-h"> </span><span class="crayon-s">'1 cai key test'</span></div><div class="crayon-line" id="crayon-5ca10732ad0e1396572464-2"><span class="crayon-v">OK</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p>Trên 1 con slave gõ thử lệnh: redis-cli</p>
+<div id="crayon-5ca10732ad0e2976538389" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">192.168.1.2:6379&gt; get test
+'1 cai key test'</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732ad0e2976538389-1">1</div><div class="crayon-num" data-line="crayon-5ca10732ad0e2976538389-2">2</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732ad0e2976538389-1"><span class="crayon-cn">192.168.1.2</span><span class="crayon-o">:</span><span class="crayon-cn">6379</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-e">get </span><span class="crayon-i">test</span></div><div class="crayon-line" id="crayon-5ca10732ad0e2976538389-2"><span class="crayon-s">'1 cai key test'</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p>Là OK, dữ liệu đã được đồng bộ từ master sang.</p>
+<p>Lưu ý trong 1 redis replication, chỉ có con master là ghi dữ liệu được, các con slave chỉ read only thôi nhé.</p>
+<p><strong>Bước 3: Cấu hình Redis-sentinel</strong></p>
+<ul>
+<li>Các&nbsp;<code>sentinel</code>&nbsp;sẽ luôn quan sát&nbsp;<code>master server</code>, khi&nbsp;<code>master</code>&nbsp;sập, các sentinels sẽ loan truyền nhau 1 tín hiệu&nbsp;<code>sdown</code>:&nbsp;<em>tao thấy đại ca chết rồi thì phải</em>.</li>
+<li>Khi đủ 1 số lượng n sentinel đồng ý rằng tao cũng thấy master sập rồi, tụi sentinels sẽ loan tiếp tín hiệu&nbsp;<code>odown</code>:&nbsp;<em>nó thực sự chết rồi đó</em>.</li>
+<li>Lúc này, tụi sentinels sẽ bầu chọn ra 1&nbsp;<code>slave</code>&nbsp;để nâng cấp lên làm&nbsp;<code>master</code>&nbsp;mới, đồng thời cập nhật các cấu hình theo bộ máy chính quyền mới.</li>
+<li>Khi thằng master kia sống lại, nó sẽ được tham gia vào băng nhóm với vai trò&nbsp;<code>slave</code>.</li>
+</ul>
+<p><em><strong>Trên con Master:</strong></em></p>
+<p>Vào thư mục chứa source Redis đã dùng để cài đặt ở bước 1 copy file&nbsp;sentinel.conf vào:</p>
+<div id="crayon-5ca10732ad0e4840294796" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">cp sentinel.conf /etc/redis/</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732ad0e4840294796-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732ad0e4840294796-1"><span class="crayon-e">cp </span><span class="crayon-v">sentinel</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">etc</span><span class="crayon-o">/</span><span class="crayon-v">redis</span><span class="crayon-o">/</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p>Mở file lên, xóa hết nội dung đi, rồi điền như sau:</p>
+<div id="crayon-5ca10732afc12415828507" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">daemonize yes
+pidfile "/var/run/redis/redis-sentinel.pid"
+logfile "/var/log/redis/redis-sentinel.log"
+
+bind 192.168.1.1
+port 26379
+
+sentinel monitor mymaster 192.168.1.1 6379 2
+sentinel down-after-milliseconds mymaster 2000
+sentinel failover-timeout mymaster 180000
+sentinel parallel-syncs mymaster 1</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-1">1</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-2">2</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-3">3</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-4">4</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-5">5</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-6">6</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-7">7</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-8">8</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-9">9</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-10">10</div><div class="crayon-num" data-line="crayon-5ca10732afc12415828507-11">11</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732afc12415828507-1"><span class="crayon-e">daemonize </span><span class="crayon-e">yes</span></div><div class="crayon-line" id="crayon-5ca10732afc12415828507-2"><span class="crayon-i">pidfile</span><span class="crayon-h"> </span><span class="crayon-s">"/var/run/redis/redis-sentinel.pid"</span></div><div class="crayon-line" id="crayon-5ca10732afc12415828507-3"><span class="crayon-i">logfile</span><span class="crayon-h"> </span><span class="crayon-s">"/var/log/redis/redis-sentinel.log"</span></div><div class="crayon-line" id="crayon-5ca10732afc12415828507-4">&nbsp;</div><div class="crayon-line" id="crayon-5ca10732afc12415828507-5"><span class="crayon-i">bind</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.1</span></div><div class="crayon-line" id="crayon-5ca10732afc12415828507-6"><span class="crayon-i">port</span><span class="crayon-h"> </span><span class="crayon-cn">26379</span></div><div class="crayon-line" id="crayon-5ca10732afc12415828507-7">&nbsp;</div><div class="crayon-line" id="crayon-5ca10732afc12415828507-8"><span class="crayon-e">sentinel </span><span class="crayon-e">monitor </span><span class="crayon-i">mymaster</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.1</span><span class="crayon-h"> </span><span class="crayon-cn">6379</span><span class="crayon-h"> </span><span class="crayon-cn">2</span></div><div class="crayon-line" id="crayon-5ca10732afc12415828507-9"><span class="crayon-e">sentinel </span><span class="crayon-v">down</span><span class="crayon-o">-</span><span class="crayon-v">after</span><span class="crayon-o">-</span><span class="crayon-e">milliseconds </span><span class="crayon-i">mymaster</span><span class="crayon-h"> </span><span class="crayon-cn">2000</span></div><div class="crayon-line" id="crayon-5ca10732afc12415828507-10"><span class="crayon-e">sentinel </span><span class="crayon-v">failover</span><span class="crayon-o">-</span><span class="crayon-e">timeout </span><span class="crayon-i">mymaster</span><span class="crayon-h"> </span><span class="crayon-cn">180000</span></div><div class="crayon-line" id="crayon-5ca10732afc12415828507-11"><span class="crayon-e">sentinel </span><span class="crayon-v">parallel</span><span class="crayon-o">-</span><span class="crayon-e">syncs </span><span class="crayon-i">mymaster</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p><em><span style="text-decoration: underline;">Giải thích sơ qua:</span></em></p>
+<p>Redis sentinel sẽ lắng nghe ở port 26379, theo dõi con master ở IP 192.168.1.1:6379</p>
+<p>Tham số cuối cùng (<code>2</code>) là số lượng sentinel tối thiểu để tham gia việc bầu chọn (lúc xác định đại ca chết, và bầu đại ca mới),&nbsp;<code>mymaster</code>&nbsp;là cái tên thôi. Đại loại là 3 thằng bầu thằng nào có 2 phiếu thì lên đại ca.</p>
+<p>Start sentinel lên:</p>
+<div id="crayon-5ca10732afc2f693589533" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">redis-sentinel /etc/redis/sentinel.conf</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732afc2f693589533-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732afc2f693589533-1"><span class="crayon-v">redis</span><span class="crayon-o">-</span><span class="crayon-v">sentinel</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-v">etc</span><span class="crayon-o">/</span><span class="crayon-v">redis</span><span class="crayon-o">/</span><span class="crayon-v">sentinel</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p><strong>Trên 2 con Slave:</strong></p>
+<p>Tương tự như trên, nhưng đổi IP Bind tương ứng với từng con.</p>
+<p><strong>Test thử:</strong></p>
+<p>Xem con nào đang là master:</p>
+<div id="crayon-5ca10732afc32268431459" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">redis-cli -h 192.168.1.1 -p 26379 sentinel get-master-addr-by-name mymaster
+
+1) "192.168.1.1"
+2) "6379"</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732afc32268431459-1">1</div><div class="crayon-num" data-line="crayon-5ca10732afc32268431459-2">2</div><div class="crayon-num" data-line="crayon-5ca10732afc32268431459-3">3</div><div class="crayon-num" data-line="crayon-5ca10732afc32268431459-4">4</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732afc32268431459-1"><span class="crayon-v">redis</span><span class="crayon-o">-</span><span class="crayon-v">cli</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">h</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.1</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">p</span><span class="crayon-h"> </span><span class="crayon-cn">26379</span><span class="crayon-h"> </span><span class="crayon-e">sentinel </span><span class="crayon-v">get</span><span class="crayon-o">-</span><span class="crayon-v">master</span><span class="crayon-o">-</span><span class="crayon-v">addr</span><span class="crayon-o">-</span><span class="crayon-v">by</span><span class="crayon-o">-</span><span class="crayon-e">name </span><span class="crayon-i">mymaster</span></div><div class="crayon-line" id="crayon-5ca10732afc32268431459-2">&nbsp;</div><div class="crayon-line" id="crayon-5ca10732afc32268431459-3"><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-s">"192.168.1.1"</span></div><div class="crayon-line" id="crayon-5ca10732afc32268431459-4"><span class="crayon-cn">2</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-s">"6379"</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p>Thử vào con master stop redis đi xem sao:</p>
+<p>Giờ check lại xem thằng khác đã lên master chưa:</p>
+<div id="crayon-5ca10732afc33348073994" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">redis-cli -h 192.168.1.2 -p 26379 sentinel get-master-addr-by-name mymaster
+
+1) "192.168.1.2"
+2) "6379"</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732afc33348073994-1">1</div><div class="crayon-num" data-line="crayon-5ca10732afc33348073994-2">2</div><div class="crayon-num" data-line="crayon-5ca10732afc33348073994-3">3</div><div class="crayon-num" data-line="crayon-5ca10732afc33348073994-4">4</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732afc33348073994-1"><span class="crayon-v">redis</span><span class="crayon-o">-</span><span class="crayon-v">cli</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">h</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.2</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">p</span><span class="crayon-h"> </span><span class="crayon-cn">26379</span><span class="crayon-h"> </span><span class="crayon-e">sentinel </span><span class="crayon-v">get</span><span class="crayon-o">-</span><span class="crayon-v">master</span><span class="crayon-o">-</span><span class="crayon-v">addr</span><span class="crayon-o">-</span><span class="crayon-v">by</span><span class="crayon-o">-</span><span class="crayon-e">name </span><span class="crayon-i">mymaster</span></div><div class="crayon-line" id="crayon-5ca10732afc33348073994-2">&nbsp;</div><div class="crayon-line" id="crayon-5ca10732afc33348073994-3"><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-s">"192.168.1.2"</span></div><div class="crayon-line" id="crayon-5ca10732afc33348073994-4"><span class="crayon-cn">2</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-s">"6379"</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p>Check log của Sentinel để xem việc nó loan tin và bầu master mới như thế nào:</p>
+<div id="crayon-5ca10732afc35905505138" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code" style="display: none;"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">tail -f /var/log/redis/redis-sentinel.log</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732afc35905505138-1">1</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732afc35905505138-1"><span class="crayon-v">tail</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-v">f</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-t">var</span><span class="crayon-o">/</span><span class="crayon-v">log</span><span class="crayon-o">/</span><span class="crayon-v">redis</span><span class="crayon-o">/</span><span class="crayon-v">redis</span><span class="crayon-o">-</span><span class="crayon-v">sentinel</span><span class="crayon-sy">.</span><span class="crayon-v">log</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p></p>
+<div id="crayon-5ca10732afc36150305986" class="crayon-syntax crayon-theme-coy crayon-font-ubuntu-mono crayon-os-mac print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 15px !important; line-height: 15px !important; height: auto;">
+<div class="crayon-toolbar" data-settings=" show" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><span class="crayon-title"></span>
+<div class="crayon-tools" style="font-size: 15px !important;height: 22.5px !important; line-height: 22.5px !important;"><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-copy-button" title="Copy"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon" style="background-size: 48px 128px; background-image: url(&quot;https://94c208d85b72d6a.kcdn.vn/wp-content/plugins/crayon-syntax-highlighter/css/images/toolbar/buttons@2x.png&quot;);"></div></div></div></div>
+<div class="crayon-info" style="min-height: 21px !important; line-height: 21px !important;"></div>
+<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 15px !important; line-height: 15px !important; z-index: 0; opacity: 0; overflow: hidden;">57464:X 07 Jul 16:35:30.270 # +sdown master mymaster 192.168.1.1 6379
+57464:X 07 Jul 16:35:30.301 # +new-epoch 1
+57464:X 07 Jul 16:35:30.301 # +vote-for-leader 2a4d7647d2e995bd7315d8358efbd336d7fc79ad 1
+57464:X 07 Jul 16:35:30.330 # +odown master mymaster 192.168.1.1 6379 #quorum 3/2
+57464:X 07 Jul 16:35:30.330 # Next failover delay: I will not start a failover before Tue Jul  7 16:35:50 2015
+57464:X 07 Jul 16:35:31.432 # +config-update-from sentinel 192.168.1.2:16379 192.168.1.2 16379 @ mymaster 192.168.1.2 6379
+57464:X 07 Jul 16:35:31.432 # +switch-master mymaster 192.168.1.2 6379 192.168.1.2 6379
+57464:X 07 Jul 16:35:31.432 * +slave slave 192.168.1.3:6379 192.168.1.3 6379 @ mymaster 192.168.1.2 6379
+57464:X 07 Jul 16:35:36.519 # +sdown slave 192.168.1.3:6379 192.168.1.3 6379 @ mymaster 192.168.1.2 6379</textarea></div>
+<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+<table class="crayon-table" style="">
+<tbody><tr class="crayon-row">
+<td class="crayon-nums " data-settings="show">
+<div class="crayon-nums-content" style="font-size: 15px !important; line-height: 15px !important;"><div class="crayon-num" data-line="crayon-5ca10732afc36150305986-1">1</div><div class="crayon-num" data-line="crayon-5ca10732afc36150305986-2">2</div><div class="crayon-num" data-line="crayon-5ca10732afc36150305986-3">3</div><div class="crayon-num" data-line="crayon-5ca10732afc36150305986-4">4</div><div class="crayon-num" data-line="crayon-5ca10732afc36150305986-5">5</div><div class="crayon-num" data-line="crayon-5ca10732afc36150305986-6">6</div><div class="crayon-num" data-line="crayon-5ca10732afc36150305986-7">7</div><div class="crayon-num" data-line="crayon-5ca10732afc36150305986-8">8</div><div class="crayon-num" data-line="crayon-5ca10732afc36150305986-9">9</div></div>
+</td>
+<td class="crayon-code"><div class="crayon-pre" style="font-size: 15px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5ca10732afc36150305986-1"><span class="crayon-cn">57464</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-cn">07</span><span class="crayon-h"> </span><span class="crayon-i">Jul</span><span class="crayon-h"> </span><span class="crayon-cn">16</span><span class="crayon-o">:</span><span class="crayon-cn">35</span><span class="crayon-o">:</span><span class="crayon-cn">30.270</span><span class="crayon-h"> </span><span class="crayon-p"># +sdown master mymaster 192.168.1.1 6379</span></div><div class="crayon-line" id="crayon-5ca10732afc36150305986-2"><span class="crayon-cn">57464</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-cn">07</span><span class="crayon-h"> </span><span class="crayon-i">Jul</span><span class="crayon-h"> </span><span class="crayon-cn">16</span><span class="crayon-o">:</span><span class="crayon-cn">35</span><span class="crayon-o">:</span><span class="crayon-cn">30.301</span><span class="crayon-h"> </span><span class="crayon-p"># +new-epoch 1</span></div><div class="crayon-line" id="crayon-5ca10732afc36150305986-3"><span class="crayon-cn">57464</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-cn">07</span><span class="crayon-h"> </span><span class="crayon-i">Jul</span><span class="crayon-h"> </span><span class="crayon-cn">16</span><span class="crayon-o">:</span><span class="crayon-cn">35</span><span class="crayon-o">:</span><span class="crayon-cn">30.301</span><span class="crayon-h"> </span><span class="crayon-p"># +vote-for-leader 2a4d7647d2e995bd7315d8358efbd336d7fc79ad 1</span></div><div class="crayon-line" id="crayon-5ca10732afc36150305986-4"><span class="crayon-cn">57464</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-cn">07</span><span class="crayon-h"> </span><span class="crayon-i">Jul</span><span class="crayon-h"> </span><span class="crayon-cn">16</span><span class="crayon-o">:</span><span class="crayon-cn">35</span><span class="crayon-o">:</span><span class="crayon-cn">30.330</span><span class="crayon-h"> </span><span class="crayon-p"># +odown master mymaster 192.168.1.1 6379 #quorum 3/2</span></div><div class="crayon-line" id="crayon-5ca10732afc36150305986-5"><span class="crayon-cn">57464</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-cn">07</span><span class="crayon-h"> </span><span class="crayon-i">Jul</span><span class="crayon-h"> </span><span class="crayon-cn">16</span><span class="crayon-o">:</span><span class="crayon-cn">35</span><span class="crayon-o">:</span><span class="crayon-cn">30.330</span><span class="crayon-h"> </span><span class="crayon-p"># Next failover delay: I will not start a failover before Tue Jul&nbsp;&nbsp;7 16:35:50 2015</span></div><div class="crayon-line" id="crayon-5ca10732afc36150305986-6"><span class="crayon-cn">57464</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-cn">07</span><span class="crayon-h"> </span><span class="crayon-i">Jul</span><span class="crayon-h"> </span><span class="crayon-cn">16</span><span class="crayon-o">:</span><span class="crayon-cn">35</span><span class="crayon-o">:</span><span class="crayon-cn">31.432</span><span class="crayon-h"> </span><span class="crayon-p"># +config-update-from sentinel 192.168.1.2:16379 192.168.1.2 16379 @ mymaster 192.168.1.2 6379</span></div><div class="crayon-line" id="crayon-5ca10732afc36150305986-7"><span class="crayon-cn">57464</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-cn">07</span><span class="crayon-h"> </span><span class="crayon-i">Jul</span><span class="crayon-h"> </span><span class="crayon-cn">16</span><span class="crayon-o">:</span><span class="crayon-cn">35</span><span class="crayon-o">:</span><span class="crayon-cn">31.432</span><span class="crayon-h"> </span><span class="crayon-p"># +switch-master mymaster 192.168.1.2 6379 192.168.1.2 6379</span></div><div class="crayon-line" id="crayon-5ca10732afc36150305986-8"><span class="crayon-cn">57464</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-cn">07</span><span class="crayon-h"> </span><span class="crayon-i">Jul</span><span class="crayon-h"> </span><span class="crayon-cn">16</span><span class="crayon-o">:</span><span class="crayon-cn">35</span><span class="crayon-o">:</span><span class="crayon-cn">31.432</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-e">slave </span><span class="crayon-i">slave</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.3</span><span class="crayon-o">:</span><span class="crayon-cn">6379</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.3</span><span class="crayon-h"> </span><span class="crayon-cn">6379</span><span class="crayon-h"> </span><span class="crayon-sy">@</span><span class="crayon-h"> </span><span class="crayon-i">mymaster</span><span class="crayon-h"> </span><span class="crayon-cn">192.168.1.2</span><span class="crayon-h"> </span><span class="crayon-cn">6379</span></div><div class="crayon-line" id="crayon-5ca10732afc36150305986-9"><span class="crayon-cn">57464</span><span class="crayon-o">:</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-cn">07</span><span class="crayon-h"> </span><span class="crayon-i">Jul</span><span class="crayon-h"> </span><span class="crayon-cn">16</span><span class="crayon-o">:</span><span class="crayon-cn">35</span><span class="crayon-o">:</span><span class="crayon-cn">36.519</span><span class="crayon-h"> </span><span class="crayon-p"># +sdown slave 192.168.1.3:6379 192.168.1.3 6379 @ mymaster 192.168.1.2 6379</span></div></div></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<p>Giờ start lại redis trên con 192.168.1.1 ban nãy thì nó sẽ join lại vào replication ở role slave</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="td-a-rec td-a-rec-id-content_bottom  td-rec-hide-on-m td-rec-hide-on-tl td-rec-hide-on-tp td-rec-hide-on-p td_uid_9_5ca10735d89a6_rand td_block_template_1"><div class="td-all-devices"><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" target="_blank"><img src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/newspaper-rec728.jpg" class="td-animation-stack-type0-2"></a></div></div> </div>
+<footer>
+<div class="td-post-source-tags">
+<ul class="td-tags td-post-small-box clearfix"><li><span>TAGS</span></li><li><a href="https://hoctapit.com/tag/redis/">redis</a></li><li><a href="https://hoctapit.com/tag/replication/">replication</a></li><li><a href="https://hoctapit.com/tag/sentinel/">sentinel</a></li></ul> </div>
+<div class="td-block-row td-post-next-prev"><div class="td-block-span6 td-post-prev-post"><div class="td-post-next-prev-content"><span>Previous article</span><a href="https://hoctapit.com/20-command-line-tools-de-monitor-performance-tren-linux/">20 command line Tools để monitor Performance trên Linux</a></div></div><div class="td-next-prev-separator"></div><div class="td-block-span6 td-post-next-post"><div class="td-post-next-prev-content"><span>Next article</span><a href="https://hoctapit.com/cau-hinh-loadbalancing-1-cum-redis-sentinel-voi-ha-proxy/">Cấu hình Loadbalancing 1 cụm Redis sentinel với HA Proxy</a></div></div></div> <div class="author-box-wrap"><a href="https://hoctapit.com/author/dangkiena3/"><img alt="" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/08bcca382da0b35bc1a0caf67a61da00.png" srcset="https://secure.gravatar.com/avatar/08bcca382da0b35bc1a0caf67a61da00?s=192&amp;d=mm&amp;r=g 2x" class="avatar avatar-96 photo td-animation-stack-type0-1" height="96" width="96"></a><div class="desc"><div class="td-author-name vcard author"><span class="fn"><a href="https://hoctapit.com/author/dangkiena3/">dangkiena3</a></span></div><div class="td-author-url"><a href="https://hoctapit.com/">https://hoctapit.com</a></div><div class="td-author-description"></div><div class="td-author-social"></div><div class="clearfix"></div></div></div> <span class="td-page-meta" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><meta itemprop="name" content="dangkiena3"></span><meta itemprop="datePublished" content="2018-04-18T11:34:43+00:00"><meta itemprop="dateModified" content="2018-04-18T12:05:55+00:00"><meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/"><span class="td-page-meta" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization"><span class="td-page-meta" itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/logo-300x116.png"></span><meta itemprop="name" content="Linux | Network | Services | Security | Thủ thuật"></span><meta itemprop="headline " content="HA Redis với Replication và Sentinel"><span class="td-page-meta" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/04/redis-php.jpg"><meta itemprop="width" content="640"><meta itemprop="height" content="350"></span> </footer>
+</article> 
+<div class="td_block_wrap td_block_related_posts td_uid_10_5ca10735d930d_rand td_with_ajax_pagination td-pb-border-top td_block_template_1" data-td-block-uid="td_uid_10_5ca10735d930d"><script type="text/javascript">var block_td_uid_10_5ca10735d930d = new tdBlock();
+block_td_uid_10_5ca10735d930d.id = "td_uid_10_5ca10735d930d";
+block_td_uid_10_5ca10735d930d.atts = '{"limit":3,"ajax_pagination":"next_prev","live_filter":"cur_post_same_categories","td_ajax_filter_type":"td_custom_related","class":"td_uid_10_5ca10735d930d_rand","td_column_number":3,"live_filter_cur_post_id":844,"live_filter_cur_post_author":"1","block_template_id":"","header_color":"","ajax_pagination_infinite_stop":"","offset":"","td_ajax_preloading":"","td_filter_default_txt":"","td_ajax_filter_ids":"","el_class":"","color_preset":"","border_top":"","css":"","tdc_css":"","tdc_css_class":"td_uid_10_5ca10735d930d_rand","tdc_css_class_style":"td_uid_10_5ca10735d930d_rand_style"}';
+block_td_uid_10_5ca10735d930d.td_column_number = "3";
+block_td_uid_10_5ca10735d930d.block_type = "td_block_related_posts";
+block_td_uid_10_5ca10735d930d.post_count = "3";
+block_td_uid_10_5ca10735d930d.found_posts = "40";
+block_td_uid_10_5ca10735d930d.header_color = "";
+block_td_uid_10_5ca10735d930d.ajax_pagination_infinite_stop = "";
+block_td_uid_10_5ca10735d930d.max_num_pages = "14";
+tdBlocksArray.push(block_td_uid_10_5ca10735d930d);
+</script><h4 class="td-related-title td-block-title"><a id="td_uid_11_5ca10735d9d4c" class="td-related-left td-cur-simple-item" data-td_filter_value="" data-td_block_id="td_uid_10_5ca10735d930d" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#">RELATED ARTICLES</a><a id="td_uid_12_5ca10735d9d52" class="td-related-right" data-td_filter_value="td_related_more_from_author" data-td_block_id="td_uid_10_5ca10735d930d" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#">MORE FROM AUTHOR</a></h4><div id="td_uid_10_5ca10735d930d" class="td_block_inner">
+<div class="td-related-row">
+<div class="td-related-span4">
+<div class="td_module_related_posts td-animation-stack td_mod_related_posts">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/limit-ssh-access-to-specific-client-by-ip-with-hosts-allow/" rel="bookmark" class="td-image-wrap" title="Limit SSH access to specific client by IP with hosts.allow"><img width="218" height="150" class="entry-thumb td-animation-stack-type0-1" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/ssh-big-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2019/02/ssh-big-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2019/02/ssh-big-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Limit SSH access to specific client by IP with hosts.allow"></a></div> <a href="https://hoctapit.com/category/linux/bao-mat/" class="td-post-category">Bảo mật</a> </div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/limit-ssh-access-to-specific-client-by-ip-with-hosts-allow/" rel="bookmark" title="Limit SSH access to specific client by IP with hosts.allow">Limit SSH access to specific client by IP with hosts.allow</a></h3> </div>
+</div>
+</div> 
+<div class="td-related-span4">
+<div class="td_module_related_posts td-animation-stack td_mod_related_posts">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/cai-dat-elk-6-x-logs-stack-de-day-log/" rel="bookmark" class="td-image-wrap" title="Cài đặt ELK 6.x logs stack để đẩy log"><img width="218" height="150" class="entry-thumb td-animation-stack-type0-1" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/tải-xuống-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/12/tải-xuống-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/12/tải-xuống-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Cài đặt ELK 6.x logs stack để đẩy log"></a></div> <a href="https://hoctapit.com/category/linux/" class="td-post-category">Linux</a> </div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/cai-dat-elk-6-x-logs-stack-de-day-log/" rel="bookmark" title="Cài đặt ELK 6.x logs stack để đẩy log">Cài đặt ELK 6.x logs stack để đẩy log</a></h3> </div>
+</div>
+</div> 
+<div class="td-related-span4">
+<div class="td_module_related_posts td-animation-stack td_mod_related_posts">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/huong-dan-cai-dat-osticket-cau-hinh-email-dang-nhap-bang-gmail-oauth2/" rel="bookmark" class="td-image-wrap" title="Hướng dẫn Cài đặt OSTicket, cấu hình email, đăng nhập bằng Gmail oAuth2…"><img width="218" height="150" class="entry-thumb td-animation-stack-type0-1" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/img_banner3-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/12/img_banner3-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/12/img_banner3-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Hướng dẫn Cài đặt OSTicket, cấu hình email, đăng nhập bằng Gmail oAuth2…"></a></div> <a href="https://hoctapit.com/category/linux/" class="td-post-category">Linux</a> </div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/huong-dan-cai-dat-osticket-cau-hinh-email-dang-nhap-bang-gmail-oauth2/" rel="bookmark" title="Hướng dẫn Cài đặt OSTicket, cấu hình email, đăng nhập bằng Gmail oAuth2…">Hướng dẫn Cài đặt OSTicket, cấu hình email, đăng nhập bằng Gmail oAuth2…</a></h3> </div>
+</div>
+</div> </div></div><div class="td-next-prev-wrap"><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" class="td-ajax-prev-page ajax-page-disabled" id="prev-page-td_uid_10_5ca10735d930d" data-td_block_id="td_uid_10_5ca10735d930d"><i class="td-icon-font td-icon-menu-left"></i></a><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" class="td-ajax-next-page" id="next-page-td_uid_10_5ca10735d930d" data-td_block_id="td_uid_10_5ca10735d930d"><i class="td-icon-font td-icon-menu-right"></i></a></div></div> 
+<div class="comments" id="comments">
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">LEAVE A REPLY <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#respond" style="display:none;">Cancel reply</a></small></h3> <form action="https://hoctapit.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+<div class="clearfix"></div>
+<div class="comment-form-input-wrap td-form-comment">
+<textarea placeholder="Comment:" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+<div class="td-warning-comment">Please enter your comment!</div>
+</div>
+<div class="comment-form-input-wrap td-form-author">
+<input class="" id="author" name="author" placeholder="Name:*" type="text" value="" size="30" aria-required="true">
+<div class="td-warning-author">Please enter your name here</div>
+</div>
+<div class="comment-form-input-wrap td-form-email">
+<input class="" id="email" name="email" placeholder="Email:*" type="text" value="" size="30" aria-required="true">
+<div class="td-warning-email-error">You have entered an incorrect email address!</div>
+<div class="td-warning-email">Please enter your email address here</div>
+</div>
+<div class="comment-form-input-wrap td-form-url">
+<input class="" id="url" name="url" placeholder="Website:" type="text" value="" size="30">
+</div>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="844" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="f8d959618b"></p><p style="display: none;"></p> <input type="hidden" id="ak_js" name="ak_js" value="1554057016856"></form>
+</div>
+</div> 
+<div class="clearfix"></div></div>
+</div>
+<div class="td-pb-span4 td-main-sidebar" role="complementary">
+<div class="td-ss-main-sidebar" style="width: 324px; position: fixed; top: auto; bottom: 0px; z-index: 1;"><div class="clearfix"></div>
+<div class="td-a-rec td-a-rec-id-sidebar  td-rec-hide-on-m td-rec-hide-on-tl td-rec-hide-on-tp td-rec-hide-on-p td_uid_13_5ca10735dae5f_rand td_block_template_1"><span class="td-adspot-title">- Advertisement -</span><div class="td-all-devices"><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" target="_blank"><img src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/newspaper-rec300.jpg"></a></div></div><div class="td_block_wrap td_block_7 td_block_widget td_uid_14_5ca10735db055_rand td_with_ajax_pagination td-pb-border-top td_block_template_1 td-column-1 td_block_padding" data-td-block-uid="td_uid_14_5ca10735db055"><script type="text/javascript">var block_td_uid_14_5ca10735db055 = new tdBlock();
+block_td_uid_14_5ca10735db055.id = "td_uid_14_5ca10735db055";
+block_td_uid_14_5ca10735db055.atts = '{"sort":"random_posts","custom_title":"MOST POPULAR","limit":"4","header_color":"","ajax_pagination":"load_more","class":"td_block_widget td_uid_14_5ca10735db055_rand","separator":"","custom_url":"","block_template_id":"","m6_tl":"","post_ids":"","category_id":"","category_ids":"","tag_slug":"","autors_id":"","installed_post_types":"","offset":"","el_class":"","td_ajax_filter_type":"","td_ajax_filter_ids":"","td_filter_default_txt":"All","td_ajax_preloading":"","f_header_font_header":"","f_header_font_title":"Block header","f_header_font_reset":"","f_header_font_family":"","f_header_font_size":"","f_header_font_line_height":"","f_header_font_style":"","f_header_font_weight":"","f_header_font_transform":"","f_header_font_spacing":"","f_header_":"","f_ajax_font_title":"Ajax categories","f_ajax_font_reset":"","f_ajax_font_family":"","f_ajax_font_size":"","f_ajax_font_line_height":"","f_ajax_font_style":"","f_ajax_font_weight":"","f_ajax_font_transform":"","f_ajax_font_spacing":"","f_ajax_":"","f_more_font_title":"Load more button","f_more_font_reset":"","f_more_font_family":"","f_more_font_size":"","f_more_font_line_height":"","f_more_font_style":"","f_more_font_weight":"","f_more_font_transform":"","f_more_font_spacing":"","f_more_":"","m6f_title_font_header":"","m6f_title_font_title":"Article title","m6f_title_font_reset":"","m6f_title_font_family":"","m6f_title_font_size":"","m6f_title_font_line_height":"","m6f_title_font_style":"","m6f_title_font_weight":"","m6f_title_font_transform":"","m6f_title_font_spacing":"","m6f_title_":"","m6f_cat_font_title":"Article category tag","m6f_cat_font_reset":"","m6f_cat_font_family":"","m6f_cat_font_size":"","m6f_cat_font_line_height":"","m6f_cat_font_style":"","m6f_cat_font_weight":"","m6f_cat_font_transform":"","m6f_cat_font_spacing":"","m6f_cat_":"","m6f_meta_font_title":"Article meta info","m6f_meta_font_reset":"","m6f_meta_font_family":"","m6f_meta_font_size":"","m6f_meta_font_line_height":"","m6f_meta_font_style":"","m6f_meta_font_weight":"","m6f_meta_font_transform":"","m6f_meta_font_spacing":"","m6f_meta_":"","ajax_pagination_infinite_stop":"","css":"","tdc_css":"","td_column_number":1,"color_preset":"","border_top":"","tdc_css_class":"td_uid_14_5ca10735db055_rand","tdc_css_class_style":"td_uid_14_5ca10735db055_rand_style"}';
+block_td_uid_14_5ca10735db055.td_column_number = "1";
+block_td_uid_14_5ca10735db055.block_type = "td_block_7";
+block_td_uid_14_5ca10735db055.post_count = "4";
+block_td_uid_14_5ca10735db055.found_posts = "63";
+block_td_uid_14_5ca10735db055.header_color = "";
+block_td_uid_14_5ca10735db055.ajax_pagination_infinite_stop = "";
+block_td_uid_14_5ca10735db055.max_num_pages = "16";
+tdBlocksArray.push(block_td_uid_14_5ca10735db055);
+</script><div class="td-block-title-wrap"><h4 class="block-title td-block-title"><span class="td-pulldown-size">MOST POPULAR</span></h4></div><div id="td_uid_14_5ca10735db055" class="td_block_inner">
+<div class="td-block-span12">
+<div class="td_module_6 td_module_wrap td-animation-stack">
+<div class="td-module-thumb"><a href="https://hoctapit.com/di-chuyen-filethu-muc-trong-git/" rel="bookmark" class="td-image-wrap" title="Di chuyển file/thư mục trong git"><img width="100" height="70" class="entry-thumb td-animation-stack-type0-2" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/git-100x70.jpg" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2017/08/git-100x70.jpg 100w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2017/08/git-218x150.jpg 218w" sizes="(max-width: 100px) 100vw, 100px" alt="" title="Di chuyển file/thư mục trong git"></a></div>
+<div class="item-details">
+ <h3 class="entry-title td-module-title"><a href="https://hoctapit.com/di-chuyen-filethu-muc-trong-git/" rel="bookmark" title="Di chuyển file/thư mục trong git">Di chuyển file/thư mục trong git</a></h3> <div class="td-module-meta-info">
+<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2017-08-15T11:48:40+00:00">15/08/2017</time></span> </div>
+</div>
+</div>
+</div> 
+<div class="td-block-span12">
+<div class="td_module_6 td_module_wrap td-animation-stack">
+<div class="td-module-thumb"><a href="https://hoctapit.com/20-command-line-tools-de-monitor-performance-tren-linux/" rel="bookmark" class="td-image-wrap" title="20 command line Tools để monitor Performance trên Linux"><img width="100" height="70" class="entry-thumb td-animation-stack-type0-2" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/screen_01_big-100x70.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/04/screen_01_big-100x70.png 100w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/04/screen_01_big-218x150.png 218w" sizes="(max-width: 100px) 100vw, 100px" alt="" title="20 command line Tools để monitor Performance trên Linux"></a></div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/20-command-line-tools-de-monitor-performance-tren-linux/" rel="bookmark" title="20 command line Tools để monitor Performance trên Linux">20 command line Tools để monitor Performance trên Linux</a></h3> <div class="td-module-meta-info">
+<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2018-04-12T10:04:50+00:00">12/04/2018</time></span> </div>
+</div>
+</div>
+</div> 
+<div class="td-block-span12">
+<div class="td_module_6 td_module_wrap td-animation-stack">
+<div class="td-module-thumb"><a href="https://hoctapit.com/tang-dung-luong-o-cung-aws-khong-can-reboot-centos/" rel="bookmark" class="td-image-wrap" title="Tăng dung lượng ổ cứng AWS không cần reboot (centos)"><img width="100" height="70" class="entry-thumb td-animation-stack-type0-2" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/Amazon-EBS-2-100x70.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/07/Amazon-EBS-2-100x70.png 100w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/07/Amazon-EBS-2-300x214.png 300w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/07/Amazon-EBS-2-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/07/Amazon-EBS-2.png 504w" sizes="(max-width: 100px) 100vw, 100px" alt="" title="Tăng dung lượng ổ cứng AWS không cần reboot (centos)"></a></div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/tang-dung-luong-o-cung-aws-khong-can-reboot-centos/" rel="bookmark" title="Tăng dung lượng ổ cứng AWS không cần reboot (centos)">Tăng dung lượng ổ cứng AWS không cần reboot (centos)</a></h3> <div class="td-module-meta-info">
+<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2018-07-19T10:42:19+00:00">19/07/2018</time></span> </div>
+</div>
+</div>
+</div> 
+<div class="td-block-span12">
+<div class="td_module_6 td_module_wrap td-animation-stack">
+<div class="td-module-thumb"><a href="https://hoctapit.com/hien-thi-dong-trong-nano-display-line-number-in-nano/" rel="bookmark" class="td-image-wrap" title="Hiển thị dòng trong nano/ Display line number in nano"><img width="100" height="70" class="entry-thumb td-animation-stack-type0-2" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/1000px-Gnu-nano.svg_-100x70.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2017/11/1000px-Gnu-nano.svg_-100x70.png 100w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2017/11/1000px-Gnu-nano.svg_-218x150.png 218w" sizes="(max-width: 100px) 100vw, 100px" alt="" title="Hiển thị dòng trong nano/ Display line number in nano"></a></div>
+<div class="item-details">
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/hien-thi-dong-trong-nano-display-line-number-in-nano/" rel="bookmark" title="Hiển thị dòng trong nano/ Display line number in nano">Hiển thị dòng trong nano/ Display line number in nano</a></h3> <div class="td-module-meta-info">
+<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2017-11-08T18:03:42+00:00">08/11/2017</time></span> </div>
+</div>
+</div>
+</div> </div><div class="td-load-more-wrap"><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" class="td_ajax_load_more td_ajax_load_more_js" id="next-page-td_uid_14_5ca10735db055" data-td_block_id="td_uid_14_5ca10735db055">Load more<i class="td-icon-font td-icon-menu-down"></i></a></div></div> <div class="td_block_wrap td_block_15 td_block_widget td_uid_15_5ca10735deb71_rand td_with_ajax_pagination td-pb-border-top td_block_template_1 td-column-1 td_block_padding" data-td-block-uid="td_uid_15_5ca10735deb71"><script type="text/javascript">var block_td_uid_15_5ca10735deb71 = new tdBlock();
+block_td_uid_15_5ca10735deb71.id = "td_uid_15_5ca10735deb71";
+block_td_uid_15_5ca10735deb71.atts = '{"sort":"random_posts","custom_title":"HOT NEWS","limit":"4","header_color":"","ajax_pagination":"next_prev","class":"td_block_widget td_uid_15_5ca10735deb71_rand","separator":"","custom_url":"","block_template_id":"","mx4_tl":"","post_ids":"","category_id":"","category_ids":"","tag_slug":"","autors_id":"","installed_post_types":"","offset":"","el_class":"","td_ajax_filter_type":"","td_ajax_filter_ids":"","td_filter_default_txt":"All","td_ajax_preloading":"","f_header_font_header":"","f_header_font_title":"Block header","f_header_font_reset":"","f_header_font_family":"","f_header_font_size":"","f_header_font_line_height":"","f_header_font_style":"","f_header_font_weight":"","f_header_font_transform":"","f_header_font_spacing":"","f_header_":"","f_ajax_font_title":"Ajax categories","f_ajax_font_reset":"","f_ajax_font_family":"","f_ajax_font_size":"","f_ajax_font_line_height":"","f_ajax_font_style":"","f_ajax_font_weight":"","f_ajax_font_transform":"","f_ajax_font_spacing":"","f_ajax_":"","f_more_font_title":"Load more button","f_more_font_reset":"","f_more_font_family":"","f_more_font_size":"","f_more_font_line_height":"","f_more_font_style":"","f_more_font_weight":"","f_more_font_transform":"","f_more_font_spacing":"","f_more_":"","mx4f_title_font_header":"","mx4f_title_font_title":"Article title","mx4f_title_font_reset":"","mx4f_title_font_family":"","mx4f_title_font_size":"","mx4f_title_font_line_height":"","mx4f_title_font_style":"","mx4f_title_font_weight":"","mx4f_title_font_transform":"","mx4f_title_font_spacing":"","mx4f_title_":"","mx4f_cat_font_title":"Article category tag","mx4f_cat_font_reset":"","mx4f_cat_font_family":"","mx4f_cat_font_size":"","mx4f_cat_font_line_height":"","mx4f_cat_font_style":"","mx4f_cat_font_weight":"","mx4f_cat_font_transform":"","mx4f_cat_font_spacing":"","mx4f_cat_":"","ajax_pagination_infinite_stop":"","css":"","tdc_css":"","td_column_number":1,"color_preset":"","border_top":"","tdc_css_class":"td_uid_15_5ca10735deb71_rand","tdc_css_class_style":"td_uid_15_5ca10735deb71_rand_style"}';
+block_td_uid_15_5ca10735deb71.td_column_number = "1";
+block_td_uid_15_5ca10735deb71.block_type = "td_block_15";
+block_td_uid_15_5ca10735deb71.post_count = "4";
+block_td_uid_15_5ca10735deb71.found_posts = "63";
+block_td_uid_15_5ca10735deb71.header_color = "";
+block_td_uid_15_5ca10735deb71.ajax_pagination_infinite_stop = "";
+block_td_uid_15_5ca10735deb71.max_num_pages = "16";
+tdBlocksArray.push(block_td_uid_15_5ca10735deb71);
+</script><div class="td-block-title-wrap"><h4 class="block-title td-block-title"><span class="td-pulldown-size">HOT NEWS</span></h4></div><div id="td_uid_15_5ca10735deb71" class="td_block_inner td-column-1"><div class="td-cust-row">
+<div class="td-block-span12">
+<div class="td_module_mx4 td_module_wrap td-animation-stack">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/limit-ssh-access-to-specific-client-by-ip-with-hosts-allow/" rel="bookmark" class="td-image-wrap" title="Limit SSH access to specific client by IP with hosts.allow"><img width="218" height="150" class="entry-thumb td-animation-stack-type0-2" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/ssh-big-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2019/02/ssh-big-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2019/02/ssh-big-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Limit SSH access to specific client by IP with hosts.allow"></a></div> <a href="https://hoctapit.com/category/linux/bao-mat/" class="td-post-category">Bảo mật</a> </div>
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/limit-ssh-access-to-specific-client-by-ip-with-hosts-allow/" rel="bookmark" title="Limit SSH access to specific client by IP with hosts.allow">Limit SSH access to specific client by IP with hosts.allow</a></h3>
+</div>
+</div> 
+<div class="td-block-span12">
+<div class="td_module_mx4 td_module_wrap td-animation-stack">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/tang-dung-luong-o-cung-aws-khong-can-reboot-centos/" rel="bookmark" class="td-image-wrap" title="Tăng dung lượng ổ cứng AWS không cần reboot (centos)"><img width="218" height="150" class="entry-thumb td-animation-stack-type0-2" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/Amazon-EBS-2-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/07/Amazon-EBS-2-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/07/Amazon-EBS-2-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Tăng dung lượng ổ cứng AWS không cần reboot (centos)"></a></div> <a href="https://hoctapit.com/category/cloud/" class="td-post-category">Cloud</a> </div>
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/tang-dung-luong-o-cung-aws-khong-can-reboot-centos/" rel="bookmark" title="Tăng dung lượng ổ cứng AWS không cần reboot (centos)">Tăng dung lượng ổ cứng AWS không cần reboot (centos)</a></h3>
+</div>
+</div> </div><div class="td-cust-row">
+<div class="td-block-span12">
+<div class="td_module_mx4 td_module_wrap td-animation-stack">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/cai-dat-redis-tu-source-tren-centos-install-redis-from-source-centos/" rel="bookmark" class="td-image-wrap" title="Cài đặt Redis từ source trên Centos – Install Redis from source Centos"><img width="218" height="150" class="entry-thumb td-animation-stack-type0-2" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/maxresdefault-218x150.jpg" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/maxresdefault-218x150.jpg 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/maxresdefault-100x70.jpg 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Cài đặt Redis từ source trên Centos – Install Redis from source Centos"></a></div> <a href="https://hoctapit.com/category/linux/" class="td-post-category">Linux</a> </div>
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/cai-dat-redis-tu-source-tren-centos-install-redis-from-source-centos/" rel="bookmark" title="Cài đặt Redis từ source trên Centos – Install Redis from source Centos">Cài đặt Redis từ source trên Centos – Install Redis from...</a></h3>
+</div>
+</div> 
+<div class="td-block-span12">
+<div class="td_module_mx4 td_module_wrap td-animation-stack">
+<div class="td-module-image">
+<div class="td-module-thumb"><a href="https://hoctapit.com/cau-hinh-loadbalancing-1-cum-redis-sentinel-voi-ha-proxy/" rel="bookmark" class="td-image-wrap" title="Cấu hình Loadbalancing 1 cụm Redis sentinel với HA Proxy"><img width="218" height="150" class="entry-thumb td-animation-stack-type0-2" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/haproxy-218x150.png" srcset="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/04/haproxy-218x150.png 218w, https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/04/haproxy-100x70.png 100w" sizes="(max-width: 218px) 100vw, 218px" alt="" title="Cấu hình Loadbalancing 1 cụm Redis sentinel với HA Proxy"></a></div> <a href="https://hoctapit.com/category/linux/" class="td-post-category">Linux</a> </div>
+<h3 class="entry-title td-module-title"><a href="https://hoctapit.com/cau-hinh-loadbalancing-1-cum-redis-sentinel-voi-ha-proxy/" rel="bookmark" title="Cấu hình Loadbalancing 1 cụm Redis sentinel với HA Proxy">Cấu hình Loadbalancing 1 cụm Redis sentinel với HA Proxy</a></h3>
+</div>
+</div> </div></div><div class="td-next-prev-wrap"><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" class="td-ajax-prev-page ajax-page-disabled" id="prev-page-td_uid_15_5ca10735deb71" data-td_block_id="td_uid_15_5ca10735deb71"><i class="td-icon-font td-icon-menu-left"></i></a><a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" class="td-ajax-next-page" id="next-page-td_uid_15_5ca10735deb71" data-td_block_id="td_uid_15_5ca10735deb71"><i class="td-icon-font td-icon-menu-right"></i></a></div></div> <div class="clearfix"></div> <div class="clearfix"></div></div>
+</div>
+</div> 
+</div> 
+</div> 
+
+
+<div class="td-footer-wrapper td-container-wrap td-footer-template-4 ">
+<div class="td-container">
+<div class="td-pb-row">
+<div class="td-pb-span12">
+</div>
+</div>
+<div class="td-pb-row">
+<div class="td-pb-span12">
+<div class="td-footer-info"><div class="footer-logo-wrap"><a href="https://hoctapit.com/"><img class="td-retina-data td-retina-version" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/logo-300x116.png" data-retina="https://94c208d85b72d6a.kcdn.vn/wp-content/uploads/2018/03/logo-300x116.png" alt="" title="" width=""></a></div><div class="footer-text-wrap">Đây là một website chia sẻ thủ thuật, kinh nghiệm, rất mong được anh em góp ý<div class="footer-email-wrap">Contact us: <a href="mailto:dangkiena3@gmail.com">dangkiena3@gmail.com</a></div></div><div class="footer-social-wrap td-social-style-2">
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://facebook.com/dangkiena3" title="Facebook">
+<i class="td-icon-font td-icon-facebook"></i>
+</a>
+</span>
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" title="Twitter">
+<i class="td-icon-font td-icon-twitter"></i>
+</a>
+</span>
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" title="Vimeo">
+<i class="td-icon-font td-icon-vimeo"></i>
+</a>
+</span>
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" title="VKontakte">
+<i class="td-icon-font td-icon-vk"></i>
+</a>
+</span>
+<span class="td-social-icon-wrap">
+<a target="_blank" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" title="Youtube">
+<i class="td-icon-font td-icon-youtube"></i>
+</a>
+</span></div></div> </div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="td-container"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+</div><script type="text/javascript" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/tagdiv_theme.min.js"></script>
+<script type="text/javascript" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/wp-embed.min.js"></script>
+<script async="async" type="text/javascript" src="./HA Redis với Replication và Sentinel _ Linux _ Network _ Services _ Security _ Thủ thuật_files/form.js"></script>
+
+<script type="text/javascript">
+    
+
+	
+
+		(function(){
+			var html_jquery_obj = jQuery('html');
+
+			if (html_jquery_obj.length && (html_jquery_obj.is('.ie8') || html_jquery_obj.is('.ie9'))) {
+
+				var path = 'https://94c208d85b72d6a.kcdn.vn/wp-content/themes/Newspaper/style.css';
+
+				jQuery.get(path, function(data) {
+
+					var str_split_separator = '#td_css_split_separator';
+					var arr_splits = data.split(str_split_separator);
+					var arr_length = arr_splits.length;
+
+					if (arr_length > 1) {
+
+						var dir_path = 'https://94c208d85b72d6a.kcdn.vn/wp-content/themes/Newspaper';
+						var splited_css = '';
+
+						for (var i = 0; i < arr_length; i++) {
+							if (i > 0) {
+								arr_splits[i] = str_split_separator + ' ' + arr_splits[i];
+							}
+							//jQuery('head').append('<style>' + arr_splits[i] + '</style>');
+
+							var formated_str = arr_splits[i].replace(/\surl\(\'(?!data\:)/gi, function regex_function(str) {
+								return ' url(\'' + dir_path + '/' + str.replace(/url\(\'/gi, '').replace(/^\s+|\s+$/gm,'');
+							});
+
+							splited_css += "<style>" + formated_str + "</style>";
+						}
+
+						var td_theme_css = jQuery('link#td-theme-css');
+
+						if (td_theme_css.length) {
+							td_theme_css.after(splited_css);
+						}
+					}
+				});
+			}
+		})();
+
+	
+	
+</script>
+<div id="tdw-css-writer" style="display: none" class="tdw-drag-dialog tdc-window-sidebar">
+<header>
+<a title="Editor" class="tdw-tab tdc-tab-active" href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" data-tab-content="tdw-tab-editor">Edit with Live CSS</a>
+<div class="tdw-less-info" title="This will be red when errors are detected in your CSS and LESS"></div>
+</header>
+<div class="tdw-content">
+<div class="tdw-tabs-content tdw-tab-editor tdc-tab-content-active">
+<script type="text/javascript">
+
+							(function(jQuery, undefined) {
+
+								jQuery(window).ready(function() {
+
+									if ( 'undefined' !== typeof tdcAdminIFrameUI ) {
+										var $liveIframe  = tdcAdminIFrameUI.getLiveIframe();
+
+										if ( $liveIframe.length ) {
+											$liveIframe.load(function() {
+												$liveIframe.contents().find( 'body').append( '<textarea class="tdw-css-writer-editor" style="display: none"></textarea>' );
+											});
+										}
+									}
+
+								});
+
+							})(jQuery);
+
+						</script>
+<textarea class="tdw-css-writer-editor td_live_css_uid_1_5ca10735e242d"></textarea>
+<div id="td_live_css_uid_1_5ca10735e242d" class="td-code-editor"></div>
+<script type="text/javascript">
+							jQuery(window).load(function (){
+
+								if ( 'undefined' !== typeof tdLiveCssInject ) {
+
+									tdLiveCssInject.init();
+
+
+									var editor_textarea = jQuery('.td_live_css_uid_1_5ca10735e242d');
+									var languageTools = ace.require("ace/ext/language_tools");
+									var tdcCompleter = {
+										getCompletions: function (editor, session, pos, prefix, callback) {
+											if (prefix.length === 0) {
+												callback(null, []);
+												return
+											}
+
+											if ('undefined' !== typeof tdcAdminIFrameUI) {
+
+												var data = {
+													error: undefined,
+													getShortcode: ''
+												};
+
+												tdcIFrameData.getShortcodeFromData(data);
+
+												if (!_.isUndefined(data.error)) {
+													tdcDebug.log(data.error);
+												}
+
+												if (!_.isUndefined(data.getShortcode)) {
+
+													var regex = /el_class=\"([A-Za-z0-9_-]*\s*)+\"/g,
+														results = data.getShortcode.match(regex);
+
+													var elClasses = {};
+
+													for (var i = 0; i < results.length; i++) {
+														var currentClasses = results[i]
+															.replace('el_class="', '')
+															.replace('"', '')
+															.split(' ');
+
+														for (var j = 0; j < currentClasses.length; j++) {
+															if (_.isUndefined(elClasses[currentClasses[j]])) {
+																elClasses[currentClasses[j]] = '';
+															}
+														}
+													}
+
+													var arrElClasses = [];
+
+													for (var prop in elClasses) {
+														arrElClasses.push(prop);
+													}
+
+													callback(null, arrElClasses.map(function (item) {
+														return {
+															name: item,
+															value: item,
+															meta: 'in_page'
+														}
+													}));
+												}
+											}
+										}
+									};
+									languageTools.addCompleter(tdcCompleter);
+
+									window.editor = ace.edit("td_live_css_uid_1_5ca10735e242d");
+
+									// 'change' handler is written as function because it's called by tdc_on_add_css_live_components (of wp_footer hook)
+									// We did it to reattach the existing compiled css to the new content received from server.
+									window.editorChangeHandler = function () {
+										//tdwState.lessWasEdited = true;
+
+										window.onbeforeunload = function () {
+											if (tdwState.lessWasEdited) {
+												return "You have attempted to leave this page. Are you sure?";
+											}
+											return false;
+										};
+
+										var editorValue = editor.getSession().getValue();
+
+										editor_textarea.val(editorValue);
+
+										if ('undefined' !== typeof tdcAdminIFrameUI) {
+											tdcAdminIFrameUI.getLiveIframe().contents().find('.tdw-css-writer-editor:first').val(editorValue);
+
+											// Mark the content as modified
+											// This is important for showing info when composer closes
+                                            tdcMain.setContentModified();
+										}
+
+										tdLiveCssInject.less();
+									};
+
+									editor.getSession().setValue(editor_textarea.val());
+									editor.getSession().on('change', editorChangeHandler);
+
+									editor.setTheme("ace/theme/textmate");
+									editor.setShowPrintMargin(false);
+									editor.getSession().setMode("ace/mode/less");
+									editor.setOptions({
+										enableBasicAutocompletion: true,
+										enableSnippets: true,
+										enableLiveAutocompletion: false
+									});
+
+								}
+
+							});
+						</script>
+</div>
+</div>
+<footer>
+<a href="https://hoctapit.com/ha-redis-voi-replication-va-sentinel/#" class="tdw-save-css">Save</a>
+<div class="tdw-more-info-text">Write CSS OR LESS and hit save. CTRL + SPACE for auto-complete.</div>
+<div class="tdw-resize"></div>
+</footer>
+</div>
+
+
+
+
+</body></html>

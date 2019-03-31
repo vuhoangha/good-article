@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://www.redisgreen.net/blog/pubsub-intro/ -->
+<html lang="en" class="wf-sourcesanspro-n4-active wf-sourcesanspro-i4-active wf-sourcesanspro-n3-active wf-sourcesanspro-n6-active wf-active gr__redisgreen_net"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Redis Pub/Sub: Intro Guide</title>
+
+  <link href="./Redis Pub_Sub_ Intro Guide_files/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./Redis Pub_Sub_ Intro Guide_files/main.css">
+
+  <script type="text/javascript" src="./Redis Pub_Sub_ Intro Guide_files/qoa2sth.js"></script>
+  <style type="text/css">.tk-source-sans-pro{font-family:"source-sans-pro",sans-serif;}</style><style type="text/css">@font-face{font-family:source-sans-pro;src:url(https://use.typekit.net/af/d21d6e/00000000000000003b9acb59/27/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/d21d6e/00000000000000003b9acb59/27/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/d21d6e/00000000000000003b9acb59/27/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:source-sans-pro;src:url(https://use.typekit.net/af/6b9929/00000000000000003b9acb58/27/l?subset_id=2&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/6b9929/00000000000000003b9acb58/27/d?subset_id=2&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/6b9929/00000000000000003b9acb58/27/a?subset_id=2&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:source-sans-pro;src:url(https://use.typekit.net/af/27706f/00000000000000003b9acb56/27/l?subset_id=2&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/27706f/00000000000000003b9acb56/27/d?subset_id=2&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/27706f/00000000000000003b9acb56/27/a?subset_id=2&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}@font-face{font-family:source-sans-pro;src:url(https://use.typekit.net/af/36c3ee/00000000000000003b9acb5a/27/l?subset_id=2&fvd=n6&v=3) format("woff2"),url(https://use.typekit.net/af/36c3ee/00000000000000003b9acb5a/27/d?subset_id=2&fvd=n6&v=3) format("woff"),url(https://use.typekit.net/af/36c3ee/00000000000000003b9acb5a/27/a?subset_id=2&fvd=n6&v=3) format("opentype");font-weight:600;font-style:normal;}</style><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body class="" data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+
+  <div id="sticky-content">
+<div id="sticky-content-inner">
+
+<header class="site-nav">
+<div class="container">
+<div class="row">
+<div class="col-lg-10 col-lg-offset-1">
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand rg" href="https://www.redisgreen.net/">RedisGreen</a>
+    <a class="navbar-brand rm" href="https://www.redisgreen.net/redismonitor.html">RedisMonitor</a>
+  </div>
+
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="redisgreen"><a href="https://www.redisgreen.net/">RedisGreen</a></li>
+      <li class="redismonitor"><a href="https://www.redisgreen.net/redismonitor.html">RedisMonitor</a></li>
+      <li class="pricing"><a href="https://www.redisgreen.net/pricing.html">Pricing</a></li>
+      <li><a href="https://www.redisgreen.net/docs.html">Docs</a></li>
+      <li><a href="http://changelog.redisgreen.net/">Changelog</a></li>
+      <li><a href="http://status.redisgreen.net/">Status</a></li>
+      <li><a href="https://dashboard.redisgreen.net/login">Sign In</a></li>
+    </ul>
+  </div>
+</nav>
+
+</div>
+</div>
+</div>
+</header>
+
+<div class="container content">
+<div class="row">
+<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+
+<h1>Redis Pub/Sub: Intro Guide</h1>
+
+<p>Publish/Subscribe (or <strong>pub/sub</strong>) is a software engineering pattern that has been used for decades but often required dedicated messaging servers and specialized knowledge to be useful.</p>
+
+<p>Redis pub/sub is a lean and simple implementation of the publish/subscribe pattern which has been a feature of all Redis servers since the 2.0 release. This means it’s easy to use wherever Redis is deployed, and a fast and simple pub/sub system can be built quickly by deploying Redis.</p>
+
+<p>To understand whether Redis pub/sub is a good fit for an app it’s important first to understand the design and goal of pub/sub, then to consider the particulars of the Redis pub/sub implementation.</p>
+
+<h2 id="pubsub-overview">Pub/sub Overview</h2>
+
+<h3 id="pubsub-design-separating-publishers-from-subscribers">Pub/sub design: separating “publishers” from “subscribers”</h3>
+
+<p>Reducing dependencies and compartmentalizing knowledge are key goals in
+designing scalable software. The <a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">publish/subscribe messaging
+pattern</a>,
+AKA pub/sub, separates the parts of your software that <em>publish</em> messages
+from the parts of your software that <em>act on</em> messages. To better grok this,
+let’s look at some examples:</p>
+
+<h4 id="examples-of-publishers">Examples of “publishers”</h4>
+
+<ul>
+  <li>An app that lets you send a message to a chat room</li>
+  <li>A docker container announcing its health or services</li>
+  <li>An app announcing the prices of stock trades</li>
+  <li>A temperature sensor in your home announcing its reading</li>
+  <li>A message broadcaster in a multiuser game (“Elon has been eaten by a grue”)</li>
+</ul>
+
+<h4 id="examples-of-subscribers">Examples of “subscribers”</h4>
+
+<ul>
+  <li>The apps listening for messages in a chat room.</li>
+  <li>An app that forwards notifications to Slack</li>
+  <li>A mobile client used to see what’s happening in real-time</li>
+  <li>A logging service that records events for later analysis</li>
+</ul>
+
+<p>The pub/sub pattern helps you avoid thinking too much about the <strong>subscribers</strong> when
+working on the <strong>publishers</strong>, and vice versa. In the examples above we can imagine
+several of the subscribers being interested in the messages from any one
+publisher. The subscribers might even want to listen to <em>all</em> publishers.</p>
+
+<p>In pub/sub a publisher doesn’t need to know about its subscribers – it
+pushes a message to a <strong>channel</strong> (often called a <em>topic</em> in other systems) and moves
+on. Any subscribers that happen to be listening on that channel when the message
+is published will receive it.</p>
+
+<p>Subscribers are designed to listen to one or more channels and react to the
+messages as they come in. If a subscriber is unable to keep up with the pace of
+messages published, it will miss some messages. This is a useful design: it
+allows the system to scale beyond the capacity of any slow subscribers.
+Publishers move on quickly without being slowed down by subscriber behavior.</p>
+
+<h3 id="pubsubs-goal-scaling-delivery-not-workload">Pub/sub’s goal: scaling delivery, not workload</h3>
+
+<p>Pub/sub is a pattern used in scaling software – it’s important to understand
+what sort of scaling it helps with. An important distinction is between pub/sub
+and message <strong>queueing</strong>.</p>
+
+<p>In the queueing pattern, a queue (or <strong>list</strong> in Redis) buffers the messages to
+be processed while a pool of workers pops items off the list and handles
+them. In this model, scaling the size of your pool of workers scales the speed
+with which you process your queue, because each message is passed to only one
+worker. All of the workers handle any given message in the exact same
+way.</p>
+
+<p>In pub/sub on the other hand, the system attempts to deliver all of a channel’s
+messages to all of its subscribers. It’s a many-to-many pattern, where each of
+the different subscribers do something unique with the message – one writes it
+to a durable log, one sends it to a Slack channel, one rings a bell in a local
+sales office, etc.</p>
+
+<p>In short, pub/sub scales message <em>delivery</em>, and queueing scales message
+<em>workload processing</em>. Redis is frequently used for both of these goals. See
+<a href="http://sidekiq.org/">Sidekiq</a> for a popular example of queueing with Redis.</p>
+
+<h2 id="redis-pubsub-particulars">Redis pub/sub particulars</h2>
+
+<p>Pub/sub is a pattern that has been around for a very long time, and while the
+core pattern is the same the specific features vary considerably from
+implementation to implementation.</p>
+
+<p>Redis pub/sub is a lightweight, fast implementation. To best understand its
+design, it will be useful to look at some features that are <strong>not</strong> a part of
+Redis pub/sub:</p>
+
+<ul>
+  <li>No persistence or value caching</li>
+  <li>No delivery guarantees</li>
+  <li>No cluster optimization… yet</li>
+</ul>
+
+<h3 id="no-persistence-but-i-thought-it-was-like-a-chat-room">No persistence: “But I thought it was like a chat room…”</h3>
+
+<p>Unlike most Redis operations, which may be written to disk, Redis
+pub/sub is non-persistent. Published messages are passed directly to
+subscribers and then dropped, with no record retained in Redis’s memory or on
+disk.</p>
+
+<p>This can sometimes be confusing for new users who hear that Redis pub/sub is
+often used to implement chat rooms. Many of us think of tools like Slack as chat
+rooms – you log in and see the recent messages and then receive all of the new
+ones. In fact the “seeing recent messages” is not a part of pub/sub at all, and
+must be handled by a separate means. Pub/sub only facilitates the delivery of
+new messages. In this sense pub/sub is like a live stream – when you turn it on
+you start getting information, but you don’t learn anything about what happened
+before you turned it on. Aside: Internet Relay Chat (IRC) uses the pub/sub model
+with no built-in history or message retention – that’s why the chat room
+metaphor is so common.</p>
+
+<p>In fact you can still implement a chat room with Redis and pub/sub. To do so you’ll
+ensure that messages are not only published but also pushed onto a <strong>list</strong>
+so users can see the message history.</p>
+
+<h3 id="no-delivery-guarantees">No delivery guarantees</h3>
+
+<p>Subscribers are not guaranteed to receive messages in the pub/sub model. If a
+subscriber has networking trouble, fails to read messages quickly enough, or
+otherwise appears to not be attached when a message is published, it just won’t
+receive the message. Publishers can send messages to channels even when there
+are no subscribers listening – those messages are dropped.</p>
+
+<p>Certain other messaging systems use read receipts or “acks” or might store a
+buffer for a subscriber which guards against short periods of disconnection.
+Redis chooses the simple option here:
+if you miss a message, you’ve missed the message. Messages that <em>must</em>
+reach their recipient need to be delivered by other means.</p>
+
+<p>This tradeoff sounds worse than it is. Dropping message acknowledgement
+and subscriber-specific buffering lets Redis pub/sub process messages <em>very</em>
+quickly, and there are many systems that benefit from fair-weather message
+delivery.</p>
+
+<h3 id="inefficient-cluster-scaling-for-now">Inefficient cluster scaling, for now…</h3>
+
+<p>Pub/sub is a solution for scaling, so it’s important to consider scaling not
+only your messages but the service you’re using to deliver the messages as well.
+Many messaging systems, including RabbitMQ and Kafka, were designed for high
+availability and reasonable scaling properties as a messaging service setup
+grows.</p>
+
+<p>Redis Cluster (part of Redis since 3.0) has built-in support for Redis pub/sub,
+with an important caveat. Every published message is broadcast to every member
+of a Redis cluster, which can quickly cause large clusters to be overwhelmed
+with traffic.</p>
+
+<p>The short answer to this is to only use pub/sub on individual Redis servers or
+on small pub/sub-specific clusters – both of these options can handle a large
+number of messages. Longer term Redis Cluster will have smarter features for
+routing messages only as needed, but that feature is still in the design phase.</p>
+
+<h2 id="wrapping-up">Wrapping Up</h2>
+
+<p>Overall Redis pub/sub is a useful tool for scaling software. The absence of
+each of the features we looked at above is a design
+tradeoff, resulting in simplicity and speed for Redis at the expense
+of being a panacea for all messaging purposes.</p>
+
+<p>Like many other parts of Redis it’s not tailored for every specialized
+use-case but it can take you a long way with a bit of understanding. Paired with
+the other features of Redis it becomes a very powerful tool in the developer’s
+toolbelt.</p>
+
+<p>With that high-level overview complete, you’re probably ready to look at some
+pub/sub code examples. Take a look at <a href="https://www.redisgreen.net/blog/pubsub-howto">Redis Pub/Sub: How To</a> next.</p>
+
+
+
+<div id="try-redis5" class="redismonitor-inline-ad full">
+  <div class="thumb">
+    <a href="https://dashboard.redisgreen.net/redismonitor_sign_up?utm_campaign=2017a&amp;utm_source=www_redisgreen_net&amp;utm_medium=web&amp;utm_content=inline_ad&amp;utm_term=memorymap+xray">
+      <img src="./Redis Pub_Sub_ Intro Guide_files/rg-logo.png">
+    </a>
+  </div>
+
+  <div class="text">
+    <h2><a href="https://dashboard.redisgreen.net/new?utm_campaign=2017a&amp;utm_source=www_redisgreen_net&amp;utm_medium=web&amp;utm_content=inline_ad&amp;utm_term=trynow+redis5">Try Redis™ 5.0 on RedisGreen</a></h2>
+  </div>
+</div>
+
+
+<p class="meta">Last updated 11 Oct 2016. Originally
+  written by Brian P O'Rourke</p>
+
+<p class="docs-more">
+  <a href="https://www.redisgreen.net/docs.html">← Back to docs</a>
+</p>
+
+</div>
+</div>
+</div>
+
+
+
+</div><!-- sticky-content-inner -->
+</div><!-- sticky-content -->
+<div id="sticky-footer">
+
+<footer class="site-footer">
+<div class="container">
+<div class="row">
+<div class="col-lg-10 col-lg-offset-1">
+
+<p>
+  <span class="copyright">
+    © 2012-2019 <a href="http://www.stovepipestudios.com/">Stovepipe Studios</a>
+  </span>
+  <span class="links">
+    <a href="https://www.redisgreen.net/privacy.html">Privacy Policy</a>
+    <a href="https://www.redisgreen.net/terms.html">Terms of Service</a>
+    <a href="https://www.redisgreen.net/security.html">Security</a>
+    <a href="https://www.redisgreen.net/blog.html">Blog</a>
+    <a href="mailto:support@redisgreen.net">Email Us</a>
+  </span>
+</p>
+
+</div>
+</div>
+</div>
+</footer>
+
+</div><!-- sticky-footer -->
+
+
+
+  <script src="./Redis Pub_Sub_ Intro Guide_files/jquery-2.1.0.min.js"></script>
+  <script src="./Redis Pub_Sub_ Intro Guide_files/bootstrap.min.js"></script>
+  <script src="./Redis Pub_Sub_ Intro Guide_files/main.js"></script>
+
+  
+    <script async="" src="./Redis Pub_Sub_ Intro Guide_files/analytics.js"></script>
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-32182783-1', 'auto');
+      ga('send', 'pageview');
+      // Set up cross-domain tracking
+      ga('require', 'linker');
+      ga('linker:autoLink', ['dashboard.redisgreen.net']);
+    </script>
+  
+
+
+
+</body></html>
