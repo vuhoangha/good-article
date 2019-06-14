@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!-- saved from url=(0168)https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html?fbclid=IwAR3iSKjPPPs7I1d6S-v5nMFFbPnoWjlIW7ICVH86ZSMd-0cp3Pt2HxfYdto#comment-4270492651 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" class="gr__allthingsdistributed_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="generator" content="Jekyll">
+	<link rel="shortcut icon" href="https://www.allthingsdistributed.com/favicon.ico">
+  
+    <link rel="stylesheet" href="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/base_theme.css" type="text/css">
+    <link rel="stylesheet" href="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/styles.css" type="text/css">
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="https://www.allthingsdistributed.com/atom.xml">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.allthingsdistributed.com/index.xml">
+    <title>A one size fits all database doesn't fit anyone - All Things Distributed</title>
+	
+    <meta name="twitter:card" content="summary_large_image">
+		
+	<meta name="twitter:site" content="@werner">
+    <meta name="twitter:title" content="A one size fits all database doesn&#39;t fit anyone">
+	
+    	<meta name="twitter:description" content="The days of the one-size-fits-all monolithic database are behind us, and developers are using a multitude of purpose-built databases.">
+	
+	
+    	<meta name="twitter:image" content="http://www.allthingsdistributed.com/images/decadedynamo.png">
+	
+    <meta name="twitter:url" content="http://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html">
+	<script type="text/javascript" async="" src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/ga.js"></script><script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-967083-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	  <script src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/awshome_s_code.js"></script>
+<script type="text/javascript" async="" src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/embed.js"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.694ea7181ea49f1ce306dfc00c532f53.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.2b6bb3725200b8d992a8cb9c288952d3.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.e04d6946f2fad54035486025e9a4979a.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"></head>
+<body class="mt-main-index layout-wt" data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+    <div id="container">
+        <div id="container-inner">
+            <div id="header">
+                <div id="header-inner">
+                    <div id="header-content">
+                        <h1 id="header-name"><a href="https://www.allthingsdistributed.com/" accesskey="1">All Things Distributed</a></h1>
+                        <h2 id="header-description">Werner Vogels' weblog on building scalable and robust distributed systems.</h2>
+                    </div>
+                </div>
+            </div>
+            <div id="content">
+                <div id="content-inner">
+                    <div id="alpha">
+                        <div id="alpha-inner">
+		  					<div class="entry-asset asset">
+		<div class="asset-header">
+	    	<h2 class="asset-name">
+				<a href="https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html">A one size fits all database doesn't fit anyone</a></h2>
+	    		<div class="asset-meta">
+					<span class="byline">
+	    				By Werner Vogels on 21 June 2018 10:00 AM
+					</span>
+					| <a class="permalink" href="https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html">Permalink</a>
+					| <a href="https://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html#comments">Comments (<script type="text/javascript" src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/get_num_replies_for_entry.js"></script>11<noscript>View</noscript>)</a>
+				</div>
+		</div>
+		<div class="asset-content">
+	    	<div class="asset-body">
+				<p>A common question that I get is why do we offer so many database products? The answer for me is simple: Developers want their applications to be well architected and scale effectively. To do this, they need to be able to use multiple databases and data models within the same application.</p>
+
+<p>Seldom can one database fit the needs of multiple distinct use cases. The days of the one-size-fits-all monolithic database are behind us, and developers are now building highly distributed applications using a multitude of purpose-built databases. Developers are doing what they do best: breaking complex applications into smaller pieces and then picking the best tool to solve each problem. The best tool for a job usually differs by use case.</p>
+
+<p>For decades because the only database choice was a relational database, no matter the shape or function of the data in the application, the data was modeled as relational. Instead of the use case driving the requirements for the database, it was the other way around. The database was driving the data model for the application use case. Is a relational database purpose-built for a normalized schema and to enforce referential integrity in the database? Absolutely, but the key point here is that not all application data models or use cases match the relational model.</p>
+
+<p>As I have talked about before, one of the <a href="https://www.allthingsdistributed.com/2017/10/a-decade-of-dynamo.html">reasons why we built Amazon DynamoDB</a> was that Amazon was pushing the limits of what was a leading commercial database at the time and we were unable to sustain the availability, scalability, and performance needs that our growing Amazon.com business demanded. We found that about 70 percent of our operations were key-value lookups, where only a primary key was used and a single row would be returned. With no need for referential integrity and transactions, we realized these access patterns could be better served by a different type of database. Further, with the growth and scale of Amazon.com, boundless horizontal scale needed to be a key design point--scaling up simply wasn't an option. This, ultimately led to <a href="https://aws.amazon.com/dynamodb/">DynamoDB</a>, a nonrelational database service built to scale out beyond the limits of relational databases.</p>
+
+<p>This doesn't mean relational databases do not provide utility in present-day development and are not available, scalable, or provide high performance. The opposite is true. In fact, this is been proven by our customers as Amazon Aurora remains <a href="http://phx.corporate-ir.net/phoenix.zhtml?c=176060&amp;p=irol-newsArticle&amp;ID=2341103">the fastest growing service in AWS history</a>. What we experienced at Amazon.com was using a database beyond its intended purpose. That learning is at the heart of this blog post—databases are built for a purpose and matching the use case with the database will help you write high-performance, scalable, and more functional applications faster.</p>
+
+<p><strong>Purpose-built databases</strong></p>
+
+<p>The world is still changing and the categories of nonrelational databases continue to grow. We are increasingly seeing customers wanting to build Internet-scale applications that require diverse data models. In response to these needs, developers now have the choice of relational, key-value, document, graph, in-memory, and search databases. Each of these databases solve a specific problem or a group of problems.</p>
+
+<p><img src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/databases.png" width="650"></p>
+
+<p>Let's take a closer look at the purpose for each of these databases:</p>
+
+<ul>
+<li><p><strong>Relational:</strong> A relational database is <em>self-describing</em> because it enables developers to define the database's schema as well as relations and constraints between rows and tables in the database. Developers rely on the functionality of the relational database (not the application code) to enforce the schema and preserve the referential integrity of the data within the database. Typical use cases for a relational database include web and mobile applications, enterprise applications, and online gaming. <a href="https://www.youtube.com/watch?v=RYiQSvqjab0">Airbnb</a> is a great example of a customer building high-performance and scalable applications with Amazon Aurora. Aurora provides Airbnb a fully-managed, scalable, and functional service to run their MySQL workloads.</p></li>
+<li><p><strong>Key-value:</strong> Key-value databases are highly partitionable and allow horizontal scaling at levels that other types of databases cannot achieve. Use cases such as gaming, ad tech, and IoT lend themselves particularly well to the key-value data model where the access patterns require low-latency Gets/Puts for known key values. The purpose of DynamoDB is to provide consistent single-digit millisecond latency for any scale of workloads. This consistent performance is a big part of why the <a href="https://www.youtube.com/watch?v=WUleQzu9l_8">Snapchat Stories feature</a>, which includes Snapchat's largest storage write workload, moved to DynamoDB.</p></li>
+<li><p><strong>Document:</strong> Document databases are intuitive for developers to use because the data in the application tier is typically represented as a JSON document. Developers can persist data using the same document model format that they use in their application code. <a href="https://www.youtube.com/watch?v=Lq4aNihcS8A">Tinder</a> is one example of a customer that is using the flexible schema model of DynamoDB to achieve developer efficiency.</p></li>
+<li><p><strong>Graph:</strong> A graph database's purpose is to make it easy to build and run applications that work with highly connected datasets. Typical use cases for a graph database include social networking, recommendation engines, fraud detection, and knowledge graphs. <a href="https://www.youtube.com/watch?v=Rl6UwE7kLio">Amazon Neptune</a> is a fully-managed graph database service. Neptune supports both the Property Graph model and the Resource Description Framework (RDF), giving you the choice of two graph APIs: TinkerPop and RDF/SPARQL. Current Neptune users are building knowledge graphs, making in-game offer recommendations, and detecting fraud. For example, Thomson Reuters is helping their customers navigate a complex web of global tax policies and regulations by using Neptune.</p></li>
+<li><p><strong>In-memory:</strong> Financial services, Ecommerce, web, and mobile application have use cases such as leaderboards, session stores, and real-time analytics that require microsecond response times and can have large spikes in traffic coming at any time. We built <a href="https://aws.amazon.com/elasticache/">Amazon ElastiCache</a>, offering Memcached and Redis, to serve <a href="https://www.allthingsdistributed.com/2017/11/scaling-amazon-elasticache.html">low latency, high throughput</a> workloads, such as <a href="https://aws.amazon.com/solutions/case-studies/mcdonalds/">McDonald's</a>, that cannot be served with disk-based data stores. <a href="https://aws.amazon.com/dynamodb/dax/">Amazon DynamoDB Accelerator</a> (DAX) is another example of a purpose-built data store. <a href="https://www.allthingsdistributed.com/2017/06/amazon-dynamodb-accelerator-dax.html">DAX was built</a> is to make DynamoDB reads an order of magnitude faster.</p></li>
+<li><p><strong>Search:</strong> Many applications output logs to help developers troubleshoot issues. <a href="https://aws.amazon.com/elasticsearch-service/">Amazon Elasticsearch Service</a> (Amazon ES) is purpose built for providing near real-time visualizations and analytics of machine-generated data by indexing, aggregating, and searching semi structured logs and metrics. Amazon ES is also a powerful, high-performance search engine for full-text search use cases. <a href="https://www.youtube.com/watch?v=oJUpUQ_yNVw">Expedia</a> is using more than 150 Amazon ES domains, 30 TB of data, and 30 billion documents for a variety of mission-critical use cases, ranging from operational monitoring and troubleshooting to distributed application stack tracing and pricing optimization.</p></li>
+</ul>
+
+
+<p><strong>Building applications with purpose-built databases</strong></p>
+
+<p>Developers are building highly distributed and decoupled applications, and AWS enables developers to build these cloud-native applications by using multiple AWS services. Take Expedia, for example. Though to a customer the Expedia website looks like a single application, behind the scenes Expedia.com is composed of many components, each with a specific function. By breaking an application such as Expedia.com into multiple components that have specific jobs (such as microservices, containers, and <a href="https://aws.amazon.com/lambda/">AWS Lambda</a> functions), developers can be more productive by increasing scale and performance, reducing operations, increasing deployment agility, and enabling different components to evolve independently. When building applications, developers can pair each use case with the database that best suits the need.</p>
+
+<p>To make this real, take a look at some of our customers that are using multiple different kinds of databases to build their applications:</p>
+
+<ul>
+<li><a href="https://aws.amazon.com/solutions/case-studies/airbnb/">Airbnb</a> uses DynamoDB to store users' search history for quick lookups as part of personalized search. Airbnb also uses ElastiCache to store session states in-memory for faster site rendering, and they use MySQL on <a href="https://aws.amazon.com/rds/">Amazon RDS</a> as their primary transactional database.</li>
+<li><a href="https://aws.amazon.com/solutions/case-studies/capital-one/">Capital One</a> uses Amazon RDS to store transaction data for state management, Amazon Redshift to store web logs for analytics that need aggregations, and DynamoDB to store user data so that customers can quickly access their information with the Capital One app.</li>
+<li><a href="https://aws.amazon.com/solutions/case-studies/expedia/">Expedia</a> built a real-time data warehouse for the market pricing of lodging and availability data for internal market analysis by using Aurora, Amazon Redshift, and ElastiCache. The data warehouse performs a multistream union and self-join with a 24-hour lookback window using ElastiCache for Redis. The data warehouse also persists the processed data directly into Aurora MySQL and Amazon Redshift to support both operational and analytical queries.</li>
+<li><a href="https://aws.amazon.com/solutions/case-studies/zynga/">Zynga</a> migrated the Zynga poker database from a MySQL farm to DynamoDB and got a massive performance boost. Queries that used to take 30 seconds now take one second. Zynga also uses ElastiCache (Memcached and Redis) in place of their self-managed equivalents for in-memory caching. The automation and serverless scalability of Aurora make it Zynga's first choice for new services using relational databases.</li>
+<li><a href="https://aws.amazon.com/solutions/case-studies/johnson-and-johnson/">Johnson &amp; Johnson</a> uses Amazon RDS, DynamoDB, and Amazon Redshift to minimize time and effort spent on gathering and provisioning data, and allow the quick derivation of insights. AWS database services are helping Johnson &amp; Johnson improve physicians' workflows, optimize the supply chain, and discover new drugs.</li>
+</ul>
+
+
+<p>Just as they are no longer writing monolithic applications, developers also are no longer using a single database for all use cases in an application—they are using many databases. Though the relational database remains alive and well, and is still well suited for many use cases, purpose-built databases for key-value, document, graph, in-memory, and search uses cases can help you optimize for functionality, performance, and scale and—more importantly—your customers' experience. Build on.</p>
+
+			</div>
+		</div>
+		<div class="asset-footer"></div>
+	</div>
+	<h2 class="comments-header"> Comments</h2>
+	<div id="comments"></div>
+	<div class="comments-content">
+		<div id="disqus_thread"><iframe id="dsq-app3042" name="dsq-app3042" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 3449px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+		<script type="text/javascript">
+		    var disqus_shortname = 'allthingsdistributed'; // required: replace example with your forum shortname
+		    var disqus_identifier = 'www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html';
+		    var disqus_url = 'http://www.allthingsdistributed.com/2018/06/purpose-built-databases-in-aws.html';
+
+		    /* * * DON'T EDIT BELOW THIS LINE * * */
+		    (function() {
+		        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+		        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		    })();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		
+	</div>
+
+						</div>
+					</div>
+	    			<div id="beta">
+	    				<div id="beta-inner">
+	 						<div class="widget-search widget">
+								<div class="widget-content">
+									<img src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/wvlogo.jpg">
+								</div>
+							</div>
+							<div class="widget-search widget"> 
+								<h3 class="widget-header">Contact Info</h3> 
+								<div class="widget-content">
+									<b>Werner Vogels</b><br>
+									<i>CTO - Amazon.com</i><br><br>
+									<img src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/email.jpg"><br>
+								</div>
+							</div>
+							<div class="widget-search widget"> 
+								<h3 class="widget-header">Other places</h3> 
+								<div class="widget-content">
+	                				Follow werner on <a href="http://www.twitter.com/werner">twitter</a> if you want to know what he is current reading or thinking about.<br>
+	                At <a href="http://werner.ly/">werner.ly</a> he posts material that doesn't belong on this blog or on twitter.<br>
+								</div>
+							</div>
+							<div class="widget-search widget">
+								<h3 class="widget-header">Check out some great music</h3>
+								<div class="widget-content">
+<a rel="nofollow" href="https://www.amazon.com/gp/product/B0186SFBMY/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B0186SFBMY&amp;linkCode=as2&amp;tag=allthingsdist-20&amp;linkId=32QAR6H4G7AYGBLZ"><img border="0" src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/q"></a><img src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/ir" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;">
+
+								</div>
+							</div>							
+							<div class="widget-search widget">
+								<h3 class="widget-header">Syndication</h3>
+								<div class="widget-content">
+									<img src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/feed.gif" width="9" height="9">
+				 						Subscribe to this weblog's<br>
+				<a href="https://www.allthingsdistributed.com/atom.xml">atom feed</a>
+				 or <a href="https://www.allthingsdistributed.com/index.xml">rss feed</a><br>
+								</div>
+							</div>
+							<div class="widget-search widget">
+								<h3 class="widget-header">Archives</h3>
+								<div class="widget-content">
+							 		<a href="https://www.allthingsdistributed.com/archives.html">All postings</a>
+								</div>
+							</div>
+							<iframe src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/recent.html" seamless="" scrolling="no" width="240" height="1000" frameborder="0"></iframe>
+	    				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+            <div id="footer-inner">
+                <div id="footer-content">
+                    <div class="widget-powered widget">
+                        <div class="widget-content">
+                            Generated by <a href="http://jekyllrb.com/">Jekyll</a> and served out of <a href="http://aws.amazon.com/s3">Amazon S3</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+<!-- SiteCatalyst code version: H.25.1. Copyright 1996-2012 Adobe, Inc. All Rights Reserved --> 
+<script><!--
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code)//--></script> 
+<script language="JavaScript" type="text/javascript"><!--
+if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+//--></script> 
+<noscript> 
+<img src="//amazonwebservices.d2.sc.omtrdc.net/b/ss/awsamazonalldev2/1/H.25.1--NS/0" height="1" width="1" border="0" alt="" /> 
+</noscript> 
+<!--/DO NOT REMOVE/--> 
+<!-- End SiteCatalyst code version: H.25.1. -->
+
+
+<iframe style="display: none;" src="./A one size fits all database doesn&#39;t fit anyone - All Things Distributed_files/saved_resource(1).html"></iframe></body></html>
