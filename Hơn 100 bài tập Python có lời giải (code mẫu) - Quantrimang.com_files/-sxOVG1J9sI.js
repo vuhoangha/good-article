@@ -1,4 +1,0 @@
-if (self.CavalryLogger) { CavalryLogger.start_js(["SkuJS"]); }
-
-__d("cancelIdleCallbackBlue",["IdleCallbackImplementation","TimerStorage","TimeSlice"],(function(a,b,c,d,e,f){var g=b("TimerStorage").IDLE_CALLBACK;function a(a){b("TimerStorage").unset(g,a);var c=g+String(a);b("TimeSlice").cancelWithToken(c);b("IdleCallbackImplementation").cancelIdleCallback(a)}e.exports=a}),null);
-__d("requestIdleCallbackBlue",["TimerStorage","TimeSlice","requestIdleCallbackAcrossTransitions"],(function(a,b,c,d,e,f){e.exports=function(c,d){var e;function f(a){b("TimerStorage").unset(b("TimerStorage").IDLE_CALLBACK,e),c(a)}b("TimeSlice").copyGuardForWrapper(c,f);e=b("requestIdleCallbackAcrossTransitions").call(a,f,d);b("TimerStorage").set(b("TimerStorage").IDLE_CALLBACK,e);return e}}),null);
