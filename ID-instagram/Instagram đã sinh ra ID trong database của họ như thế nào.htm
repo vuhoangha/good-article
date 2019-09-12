@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao -->
+<html ng-app="app" class="ng-scope gr__kipalog_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+    <!-- Standard Meta -->
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+      <meta name="description" content="Đối với những hệ thống nhỏ chỉ cần 1 Database thì chắc chẳng mấy ai quan tâm đến việc tạo ra ID cho bản ghi. Vì dùng auto increment trong MySQL là ...">
+  <meta property="og:title" content="Instagram đã sinh ra ID trong database của họ như thế nào">
+  <meta property="og:site_name" content="kipalog.com">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao">
+  <meta property="og:description" content="Đối với những hệ thống nhỏ chỉ cần 1 Database thì chắc chẳng mấy ai quan tâm đến việc tạo ra ID cho bản ghi. Vì dùng auto increment trong MySQL là ...">
+    <meta property="og:image" content="https://images.viblo.asia/a2222c93-4e01-47d8-89bf-5015cb79819c.jpg">
+
+    <!-- Site Properities -->
+    <title>
+        Instagram đã sinh ra ID trong database của họ như thế nào
+
+    </title>
+    <link data-turbolinks-track="true" href="./Instagram đã sinh ra ID trong database của họ như thế nào_files/application-5760f1ecfa283a3d994b4a09b37eaf19.css" media="all" rel="stylesheet">
+      <link href="./Instagram đã sinh ra ID trong database của họ như thế nào_files/github_customized-5e17bfbdae4ba492e174f8baef4df351.css" media="screen" rel="stylesheet">
+  <link href="./Instagram đã sinh ra ID trong database của họ như thế nào_files/jquery.atwho-bd1caff784d2dfb6114edf35a2b0c23e.css" media="screen" rel="stylesheet">
+  <link href="./Instagram đã sinh ra ID trong database của họ như thế nào_files/post-97b66ebb275b22351558e143407ed8b7.css" media="screen" rel="stylesheet">
+  <link href="./Instagram đã sinh ra ID trong database của họ như thế nào_files/gist-20773397d4229354363019fff7d7136b.css" media="screen" rel="stylesheet">
+  <link href="./Instagram đã sinh ra ID trong database của họ như thế nào_files/minEmoji-47f1416033908780698c228de5f46003.css" media="screen" rel="stylesheet">
+  <link href="./Instagram đã sinh ra ID trong database của họ như thế nào_files/fluidbox.min-dd3681a5f90448ee3a0c1127d98dff81.css" media="screen" rel="stylesheet">
+
+    <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/sdk.js" async="" crossorigin="anonymous"></script><script id="facebook-jssdk" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/sdk(1).js"></script><script async="" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/analytics.js"></script><script data-turbolinks-track="true" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/application-8df18607b20c6c3a4e3aa08ad3dc39ee.js"></script>
+      <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/highlight.pack-6e3d2c639ec8ff13c56974099f30a287.js"></script>
+  <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/marked-a97f19abde47750ea06631107c4b32fb.js"></script>
+  <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/jquery.autosize.min-c49105f226808aac480d152f7dd593fb.js"></script>
+  <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/jquery.caret-b8918a2d362ea65fbcc29409063bea87.js"></script>
+  <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/jquery.atwho-dba1a80c5c1726a33dc28a0c46c3d26d.js"></script>
+  <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/toc-7621f925ac370c37cba0a47d3cf46ebd.js"></script>
+  <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/jMinEmoji-5dba82960b7082242ab55003fd188ead.js"></script>
+  <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/jquery.ba-throttle-debounce.min-dda6fa674e28035b2e200a437e94c9a1.js"></script>
+  <script src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/jquery.fluidbox.min-f572f96df0ca78ebd08880faa510b199.js"></script>
+
+    <link href="https://kipalog.com/assets/common/icon/favicon-70fe7f7a773df88ce80fc2506239715f.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+
+    <!-- GA -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-53121223-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!-- GA -->
+  <style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#1d3c78;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}</style></head>
+  <body data-gr-c-s-loaded="true" cz-shortcut-listen="true"><div id="MathJax_Message" style="display: none;"></div>
+
+    <header class="master-header ng-scope" ng-controller="HeaderController">
+  <div class="ui transparent inverted main menu page grid">
+    <div class="middle aligned column header-container">
+      <!-- Left -->
+      <!-- Logo -->
+      <p class="logo item">
+        <a href="https://kipalog.com/">
+          <img class="ui image" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/logo-089ee7649acd5dd69ceb7c9dddece3bf.png">
+</a>      </p>
+      <!-- Search filed -->
+      <form id="search-form" class="ui search item ng-pristine ng-valid" method="GET" action="https://kipalog.com/search">
+        <div class="ui icon input">
+          <input id="search-field" name="q" class="focus-popup" type="text" placeholder="Tìm kiếm" autocomplete="off" data-content="&lt;span&gt;Nhập từ và &lt;/span&gt;&lt;div class=&#39;enter-button&#39;&gt;&lt;span&gt;enter &lt;/span&gt;&lt;i class=&#39;clockwise rotated level down icon&#39;&gt;&lt;/i&gt;&lt;/div&gt;&lt;span&gt; để bắt đầu tìm kiếm&lt;/span&gt;" data-position="bottom center" data-offset="7">
+        </div>
+      </form>
+
+      <!-- JS variable of logged-in or guest -->
+      <input type="hidden" ng-init="userLoggedIn=true">
+
+      <!-- Logged in header -->
+        <div class="right menu">
+
+          <!-- New post -->
+          <div class="ui simple dropdown item newpost">
+            <a class="main" href="https://kipalog.com/posts/new">
+              <i class="small edit icon"></i>
+              <strong>Viết bài</strong>
+            </a>
+            <i class="triangle down icon">
+            </i>
+            <div class="menu">
+              <div class="head item">
+                Dùng mẫu
+              </div>
+                <a href="https://kipalog.com/posts/new?template_id=1" class="child item">
+                  <i class="file outline icon"></i>
+                  #TIL
+                </a>
+              <div class="head item">
+                Bản nháp
+              </div>
+              <a href="https://kipalog.com/posts/drafts" class="all drafts child item">
+                Xem tất cả nháp
+              </a>
+            </div>
+          </div>
+
+          <!-- Search -->
+          <a class="item scale-item search" href="https://kipalog.com/search">
+            <i class="small search icon"></i>
+          </a>
+
+          <!-- Home -->
+          <a class="item home scale-item" href="https://kipalog.com/posts">
+            <i class="small home icon"></i>
+            <strong>Trang chủ</strong>
+</a>
+          <!-- Store -->
+          <a class="item store scale-item" href="https://kipalog.com/posts/store">
+            <i class="small bookmark icon"></i>
+            <strong>Kho log</strong>
+</a>
+          <!-- Profile -->
+          <div class="ui profile right top pointing dropdown item">
+            <div class="ui avatar image">
+              <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture">
+            </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item" href="https://kipalog.com/users/VuHoangHa/mypage">
+                <i class="user icon"></i>
+                Trang cá nhân
+</a>              <a class="item" href="https://kipalog.com/users/UINpFvm2E7SRx_9ss__EHA">
+                <i class="setting icon"></i>
+                Cài đặt
+</a>              <a class="item signout-able" href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#" url="/users/sign_out">
+                <i class="sign out icon"></i>
+                Đăng xuất
+</a>            </div>
+          </div>
+          <!-- Notification -->
+          <div class="ui notification right top pointing fluid floating dropdown item" ng-click="seeAllNotifications();">
+            <i class="bell icon"></i>
+            <!-- ngIf: unchecked_events_count > 0 -->
+            <div class="menu">
+              <p class="ui dividing header">
+                <span class="clear-all-notify" ng-click="clearAllNotification();">
+                  <i class="checkmark icon"></i>
+                  Đánh dấu đã xem
+                </span>
+                <span class="title">
+                  Thông báo
+                </span>
+              </p>
+              <!-- Notifications -->
+              <!-- ngIf: events.length > 0 --><div ng-if="events.length &gt; 0" class="ui feed segment ng-scope">
+                <!-- Events -->
+                <!-- ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/393309/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="https://thedarkknighttech.com/wp-content/uploads/2019/05/26219665_761834150673851_9060164809285622691_n.jpg" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/26219665_761834150673851_9060164809285622691_n.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Võ Cao Sơn</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Top 5 soft skill nâng tầm sự nghiệp software developer của bạn</strong>
+                    </div>
+                    <div class="extra ng-binding">1 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/392919/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="https://thedarkknighttech.com/wp-content/uploads/2019/05/26219665_761834150673851_9060164809285622691_n.jpg" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/26219665_761834150673851_9060164809285622691_n.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Võ Cao Sơn</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Một vài hành động nhỏ giúp bạn trở thành một developer tầm cỡ hơn</strong>
+                    </div>
+                    <div class="extra ng-binding">1 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/391189/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="https://thedarkknighttech.com/wp-content/uploads/2019/05/26219665_761834150673851_9060164809285622691_n.jpg" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/26219665_761834150673851_9060164809285622691_n.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Võ Cao Sơn</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Một số kinh nghiệm mà mình đã học được khi thực tập tại Primas</strong>
+                    </div>
+                    <div class="extra ng-binding">1 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/388987/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="https://thedarkknighttech.com/wp-content/uploads/2019/05/26219665_761834150673851_9060164809285622691_n.jpg" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/26219665_761834150673851_9060164809285622691_n.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Võ Cao Sơn</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Đừng học code nữa, hãy học cách giải quyết vấn đề</strong>
+                    </div>
+                    <div class="extra ng-binding">2 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/381749/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Phỏng vấn ở Sillicon Valley phần 2 - Kết thúc bất ngờ</strong>
+                    </div>
+                    <div class="extra ng-binding">3 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/377613/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Tôi đã phỏng vấn ở Sillicon valley như thế nào</strong>
+                    </div>
+                    <div class="extra ng-binding">4 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/376064/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="https://www.cantechletter.com/wp-content/uploads/2013/04/inspector-gadget.jpg" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/inspector-gadget.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Minh-Trung Nguyễn</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Data Lake không phải chỉ là tống raw data vào Hadoop</strong>
+                    </div>
+                    <div class="extra ng-binding">4 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/371534/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="https://www.cantechletter.com/wp-content/uploads/2013/04/inspector-gadget.jpg" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/inspector-gadget.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Minh-Trung Nguyễn</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Transfer files từ local computer đến AWS EC2 dùng FileZilla</strong>
+                    </div>
+                    <div class="extra ng-binding">4 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/370958/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="https://www.cantechletter.com/wp-content/uploads/2013/04/inspector-gadget.jpg" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/inspector-gadget.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Minh-Trung Nguyễn</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Bước đầu làm quen với Higher-Order Function trong lập trình hàm</strong>
+                    </div>
+                    <div class="extra ng-binding">4 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/365483/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Bi hài tuyển dụng Dev-Ops</strong>
+                    </div>
+                    <div class="extra ng-binding">4 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/359720/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="https://www.cantechletter.com/wp-content/uploads/2013/04/inspector-gadget.jpg" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/inspector-gadget.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Minh-Trung Nguyễn</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Cách tạo project documentation cho codebase Python dùng Sphinx</strong>
+                    </div>
+                    <div class="extra ng-binding">7 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/352465/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Kubernetes in DevOps - Part 1</strong>
+                    </div>
+                    <div class="extra ng-binding">7 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/351136/clear" class="event ng-scope" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Lời tâm sự của 1 DevOps</strong>
+                    </div>
+                    <div class="extra ng-binding">8 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/342624/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Cổ tích DevOps 2- Quy trình CI</strong>
+                    </div>
+                    <div class="extra ng-binding">9 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/335902/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Cổ tích DevOps</strong>
+                    </div>
+                    <div class="extra ng-binding">10 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/334778/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Để người nông dân cũng hiểu được Blockchain - Part 2</strong>
+                    </div>
+                    <div class="extra ng-binding">10 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/332078/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Câu chuyện gánh Team</strong>
+                    </div>
+                    <div class="extra ng-binding">10 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/321829/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Security Incident - Lộ bảo mật thông tin</strong>
+                    </div>
+                    <div class="extra ng-binding">11 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events --><a ng-repeat="event in events" href="https://kipalog.com/notifications/319975/clear" class="event ng-scope active" ng-class="{active: event.status!=&#39;checked&#39;}">
+                  <div class="label">
+                    <img class="ui avatar image" ng-class="{&#39;square_image&#39;:event.org==true}" ,="" ng-src="http://graph.facebook.com/1843290885904135/picture" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(1)">
+                  </div>
+                  <div class="content">
+                    <div class="summary">
+                      <strong class="ng-binding">Giaosucan</strong>&nbsp;<span ng-bind-html="event.message" class="ng-binding">đã viết bài viết mới</span>&nbsp;<strong class="ng-binding">Cháy dự án</strong>
+                    </div>
+                    <div class="extra ng-binding">12 tháng</div>
+                  </div>
+                </a><!-- end ngRepeat: event in events -->
+              </div><!-- end ngIf: events.length > 0 -->
+              <!-- No notification -->
+              <!-- ngIf: events.length==0 -->
+              <!-- Tail -->
+              <div class="ui tail segment">
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</header>
+
+    <div class="ui small confirm modal" id="semanticAlert">
+  <i class="close icon"></i>
+  <div class="header">
+    Chú ý
+  </div>
+  <div class="content">
+    <div class="left">
+      <i class="orange warning icon"></i>
+    </div>
+    <div class="right">
+      <p class="message">
+      </p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui circular orange button">
+      Ok
+    </div>
+  </div>
+</div>
+
+    <main class="master-body" scrollable-to-top="" data-target=".scroll-top">
+      <!-- Facebook SDK -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1403286366560425',
+      xfbml      : true,
+      version    : 'v2.3'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script type="text/javascript" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/MathJax.js">
+</script>
+<script type="text/x-mathjax-config;executed=true">
+  MathJax.Hub.Config({
+    skipStartupTypeset: true,
+    showProcessingMessages: false,
+    tex2jax: {
+      inlineMath: [['$','$'],['\\(','\\)']]
+    }
+  });
+</script>
+
+<!--post delete modal confirmation-->
+<div class="ui small confirm modal" id="postDelete">
+  <i class="close icon"></i>
+  <div class="header">
+    Xóa bài viết
+  </div>
+  <div class="content">
+    <div class="left">
+      <i class="trash icon"></i>
+    </div>
+    <div class="right">
+      <p>
+        Bạn có chắc chắn muốn xóa bài viết này không ?
+      </p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui circular black button">
+      Không
+    </div>
+    <div class="ui circular positive button">
+      Có
+    </div>
+  </div>
+</div>
+
+<div class="ui small confirm modal" id="commentDelete">
+  <i class="close icon"></i>
+  <div class="header">
+    Xóa bình luận
+  </div>
+  <div class="content">
+    <div class="left">
+      <i class="trash icon"></i>
+    </div>
+    <div class="right">
+      <p>
+        Bạn có chắc chắn muốn xóa bình luận này không ?
+      </p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui circular black button">
+      Không
+    </div>
+    <div class="ui circular positive button">
+      Có
+    </div>
+  </div>
+</div>
+
+<!-- Join Modal-->
+<div class="ui signin modal join-modal" id="login-modal">
+  <i class="close icon"></i>
+  <div class="ui center aligned teal header pc">
+    Chào bạn! Hãy đăng ký hoặc đăng nhập để tiếp tục nhé!
+  </div>
+  <span class="ui center aligned teal header smartphone">
+    Kipalog
+  </span>
+
+  <div class="content">
+
+    <div class="ui two column middle aligned grid basic segment">
+      <div class="equal height row">
+        <!-- Login column -->
+        <div class="column">
+          <!-- SignIn form - place Sign In URL here -->
+          <form accept-charset="UTF-8" action="https://kipalog.com/users/sign_in" class="ui form segment ng-pristine ng-valid" id="new_user" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="jykialsLXrXpM+E1bU6NUIavJcb5hxdkMHOGeRbnI4o="></div>
+            <input id="from" name="from" type="hidden" value="home">
+            <div class="field">
+              <!-- Place Sign Up URL here -->
+              <input type="hidden" id="signUpURL" value="/users">
+            </div>
+            <div class="field">
+              <div class="ui left labeled icon input">
+                <input autofocus="autofocus" id="user_email" name="user[email]" placeholder="Email" type="email" value="">
+                <i class="mail icon"></i>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left labeled icon input">
+                <input autocomplete="off" id="user_password" name="user[password]" placeholder="Password" type="password">
+                <i class="lock icon"></i>
+              </div>
+            </div>
+            <div class="two fluid ui buttons">
+              <input class="ui teal submit button" type="submit" id="signin" value="Đăng nhập">
+              <div class="or"></div>
+              <input class="ui orange button signup-kick" type="submit" id="signup" value="Đăng ký" data-target=".ui.form" data-endpoint="#signUpURL">
+            </div>
+</form>        <!-- Divider -->
+        <div class="ui horizontal divider">
+          or
+        </div>
+        </div>
+        <!-- Divider -->
+        <div class="ui vertical divider">
+          or
+        </div>
+        <!-- Social column -->
+        <div class="center aligned column">
+          <!-- facebook -->
+          <a class="ui facebook button" href="https://kipalog.com/users/auth/facebook">
+            <i class="facebook icon"></i>
+            facebook
+</a>          <!-- twitter -->
+          <a class="ui twitter button" href="https://kipalog.com/users/auth/twitter">
+            <i class="twitter icon"></i>
+            twitter
+</a>          <!-- github-->
+          <a class="ui black button" href="https://kipalog.com/users/auth/github">
+            <i class="github icon"></i>
+            github
+</a>        </div>
+      </div>
+    </div>
+    <br>
+    <!-- Info message -->
+    <div class="ui message">
+      <p>
+        <i class="info icon"></i>
+        Bạn luôn có thể lựa chọn email hoặc các tài khoản mạng xã hội để đăng nhập hoặc đăng ký.
+      </p>
+    </div>
+    <br>
+  </div>
+</div>
+
+
+<div class="ui divided page grid ng-scope" ng-controller="PostController">
+  <div class="twelve wide column md-col">
+    <!-- Markdown header here -->
+    <h1 class="ui teal block fluid header">
+      <strong>Instagram đã sinh ra ID trong database của họ như thế nào</strong>
+      <div class="tag">
+        <!-- Published date -->
+        <div class="published">
+          <a class="ui small avatar image" href="https://kipalog.com/users/nooptr/mypage">
+            <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+</a>          <p class="date">
+            nooptr viết ngày 23/05/2019
+          </p>
+        </div>
+      </div>
+    </h1>
+
+    <!-- Markdown content here -->
+    <section id="content" class="ui pilled segment md" ng-non-bindable="">
+      <p>Đối với những hệ thống nhỏ chỉ cần 1 Database thì chắc chẳng mấy ai quan tâm đến việc tạo ra ID cho bản ghi. Vì dùng auto increment trong MySQL là có thể làm được rồi, chẳng cần phải làm gì thêm.</p>
+
+<p>Thế nhưng với dữ liệu càng ngày càng to ra thì hệ thống chỉ có 1 database duy nhất có thể sẽ không thể đáp ứng được. Bởi vì traffic đang tập trung hết vào database đó.</p>
+
+<p>Để giải quyết bài toán đó thì người ta đã tách database ra thành nhiều database khác nhau, và mỗi database đó sẽ chứa 1 phần dữ liệu. Ví dụ db_01 chứa thông tin user từ 1 đến 1000, db_02 chứa thông tin user từ 1001 đến 2000 chẳng hạn. Và khi query sẽ tìm xem user thuộc database nào và thực hiện truy vấn.</p>
+
+<p><strong>Và kĩ thuật này người ta gọi là sharding.</strong></p>
+
+<p>Thế nhưng có vấn đề xảy ra ở đây là làm thế nào sinh ra ID cho user mà không bị trùng lặp giữa các database đó? Dùng auto increment mặc định của database có giải quyết được không? Làm thế nào để từ 2 ID có thể phán đoán cái nào được sinh ra trước, cái nào được sinh ra sau?</p>
+
+<p>Vậy cùng đọc bài này xem các kĩ sư Instagram đã giải quyết bài toán này thế nào nhé.</p>
+
+<p><strong>Mục tiêu bài viết:</strong></p>
+
+<ul class="ui list">
+<li>Hiểu thêm được 1 cơ chế sinh ID mới.</li>
+<li>Có thể áp dụng vào các bài toán sharding data trong database.</li>
+</ul>
+
+<span id="toc-b-i-c-nh"></span><h2 class="ui dividing header">Bối cảnh</h2>
+
+<p><a href="https://www.instagram.com/">Instagram</a> là 1 trong những mạng xã hội chia sẻ ảnh nổi tiếng nhất cái hành tinh này.</p>
+
+<p>Theo thống kê năm 2016 thì cứ mỗi giây sẽ có 915 photos, 1k post được tạo ra. Quá khủng khiếp phải không nào.</p>
+
+<p>Khi dữ liệu tăng lên kinh khủng như thế thì 1 database sẽ không thể lưu trữ hết được dữ liệu, cùng với tốc độ truy vấn sẽ trở nên ì ạch và tốn nhiều dung lượng bộ nhớ.</p>
+
+<p>Để đảm bảo tất cả dữ liệu quan trọng luôn được lưu trữ trên memory, và sẵn sàng trả về kết quả nhanh nhất cho người dùng thì Instagram bắt đầu thực hiện <strong>Sharding</strong> dữ liệu.</p>
+
+<p>Ảnh bên dưới là 1 ví dụ về sharding trong database. Database sẽ được tách ra thành nhiều database khác nhau, mỗi database sẽ chứa 1 phần dữ liệu. Như ví dụ bên dưới là tách bảng user ra thành nhiều database, mỗi database sẽ chứa 1 phần dữ liệu của bảng user.</p>
+
+<p>Người ta gọi mỗi database tách biệt này là “<strong>Shard</strong>“.<br>
+<a class="fluidbox fluidbox__instance-1 fluidbox--initialized fluidbox--closed fluidbox--ready" href="./Instagram đã sinh ra ID trong database của họ như thế nào_files/a2222c93-4e01-47d8-89bf-5015cb79819c.jpg"><div class="fluidbox__wrap" style="z-index: 990;"><img src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/a2222c93-4e01-47d8-89bf-5015cb79819c.jpg" alt="" class="fluidbox__thumb" style="opacity: 1;"><div class="fluidbox__ghost" style="width: 700px; height: 511px; top: 0px; left: 77.9844px;"></div></div></a><a></a></p>
+
+<p>Tuy nhiên tại thời điểm này có 1 bài toán được đặt ra. Làm thế nào có thể sinh ra ID duy nhất trên từng shard mà không sợ bị trùng lặp (Ví dụ như mỗi photo được upload vào trong hệ thống)?</p>
+
+<p>Cùng đi đọc tiếp phần tiếp theo nhé.</p>
+
+<span id="toc-y-u-c-u-v-m-t-ch-c-n-ng"></span><h2 class="ui dividing header">Yêu cầu về mặt chức năng</h2>
+
+<p>Trước khi đi vào giải quyết bài toán bên trên, thì cùng xem hệ thống Instagram yêu cầu những gì về ID của từng shard nhé.</p>
+
+<ul class="ui list">
+<li>ID được tạo ra phải được sắp xếp theo thời gian. Ví dụ như với 2 ID thì có thể phán đoán được ID nào tạo ra trước, ID nào tạo ra sau.</li>
+<li>ID sẽ bao gồm 64 bits. (Vì sao lại cần 64 bits? Vì nó tương thích với các hệ thống như Redis …)</li>
+<li>Thuật toán sinh ra ID phải đơn giản, dễ hiểu và đặc biệt không được làm thay đổi architecture server của Instagram.</li>
+</ul>
+
+<span id="toc-1-s-gi-i-ph-p-generate-id"></span><h2 class="ui dividing header">1 số giải pháp generate ID</h2>
+
+<p>Hiện tại có rất nhiều giải pháp cho việc sinh ra ID unique. Cụ thể như:</p>
+
+<span id="toc-s-d-ng-auto-increment-trong-database"></span><h3 class="ui dividing header">Sử dụng auto increment trong database</h3>
+
+<p>Về chức năng này thì ai cũng biết rồi. Lúc tạo bảng chỉ cần khai báo auto increment là xong.</p>
+
+<p><strong>Ưu điểm:</strong></p>
+
+<ul class="ui list">
+<li>Cách dùng đơn giản.</li>
+</ul>
+
+<p><strong>Nhược điểm:</strong></p>
+
+<ul class="ui list">
+<li>Chỉ tập trung vào 1 database và không thể phân chia sang database khác được.</li>
+<li>Không thể đảm bảo rằng việc sinh ID ở nhiều database là không bị trùng nhau.</li>
+</ul>
+
+<span id="toc-s-d-ng-uuid"></span><h3 class="ui dividing header">Sử dụng UUID</h3>
+
+<p>Đây cũng là 1 cách khá hay để giải quyết bài toán. UUID là 1 chuẩn chung nhằm sinh ra chuỗi random không trùng nhau (xác suất gần như bằng 0). Ví dụ như: b875d561-20fd-498d-8452-5d5ffa879856.</p>
+
+<p>Thế nhưng cùng xem nó có ưu điểm nhược điểm gì nhé.</p>
+
+<p><strong>Ưu điểm:</strong></p>
+
+<ul class="ui list">
+<li>Cho dù chạy trên nhiều máy tính cùng thời điểm đi chăng nữa thì xác suất các string đó trùng nhau dường như gần bằng 0.</li>
+</ul>
+
+<p><strong>Nhược điểm:</strong></p>
+
+<ul class="ui list">
+<li>Nó bao gồm 128 bits nên hơi to, không phù hợp với yêu cầu của hệ thống (là 64 bits)</li>
+<li>Với 2 ID thì không thể phân biệt ID nào tạo trước, ID nào tạo sau.</li>
+</ul>
+
+<span id="toc-snowflake"></span><h3 class="ui dividing header"><a href="https://github.com/twitter-archive/snowflake">Snowflake</a></h3>
+
+<p>Đây chính là 1 công cụ sinh ra ID random được phát triển bởi Twitter. Cái này sử dụng Apache Zookepper để phối hợp với các node để tạo ID 64 bit duy nhất.</p>
+
+<p><strong>Ưu điểm:</strong></p>
+
+<ul class="ui list">
+<li>Snowflake ID có 64 bit</li>
+<li>Có thể sử dụng time trong component đầu tiên của ID nên có thể sắp xếp được</li>
+</ul>
+
+<p><strong>Nhược điểm:</strong></p>
+
+<ul class="ui list">
+<li>Phải đưa ZooKeeper, Snowflake vào trong kiến trúc của Instagram.</li>
+</ul>
+
+<span id="toc-gi-i-ph-p-c-a-instagram"></span><h2 class="ui dividing header">Giải pháp của Instagram</h2>
+
+<p>Những giải pháp trên đều không đáp ứng được yêu cầu của Instagram nên họ quyết định tự xây dựng cho mình 1 giải pháp riêng.</p>
+
+<p>Họ sẽ dùng thuật toán đơn giản để sinh ra 1 chuỗi ID random duy nhất từ 1 số input đầu vào. Và từ chuỗi ID đó có thể decode ngược lại để lấy ra được input.</p>
+
+<p>ID ở đây chính là ID của photo, ID của posts chẳng hạn.</p>
+
+<p>Database họ sử dụng là PostgreSQL.</p>
+
+<p>Cụ thể như sau.</p>
+
+<p>ID có độ dài 64 bits, sẽ bao gồm những bộ phận sau:</p>
+
+<ul class="ui list">
+<li>41 bits để lưu thời gian (đơn vị milliseconds). Khoảng thời gian này sẽ được tính từ ngày 2011/01/01 00:00.</li>
+<li>13 bits để lưu shard ID. (tối đa có thể tạo ra được 2^13 = 8192 shard)</li>
+<li>10 bits để lưu auto-incrementing sequence, sau đó module 1024. (Vì sao lại là 1024 vì tối đa có 10 bit thôi, mà 2^10 = 1024). Điều đó có nghĩa là có thể tạo ra 1024 IDs trên 1 shard, trên millisecond.</li>
+</ul>
+
+<p><strong>Câu hỏi đặt ra là nếu tạo upload quá 1024 bức ảnh trong 1ms có được không?</strong></p>
+
+<p>Câu trả lời là không nhé. Vì lúc đó thằng thứ 1025 sinh ra ID sẽ bị trùng với thằng thứ 1. Với cả ID là khoá chính nên khi insert vào sẽ bị lỗi. Nên lúc đó chỉ cần try cach đoạn đó là ok.</p>
+
+<p>Công thức sinh ID như sau:</p>
+
+<pre><code class="ui segment hljs erlang"><span class="hljs-variable">ID</span> = (time &lt;&lt; <span class="hljs-number">23</span>) | (shard<span class="hljs-variable">ID</span> &lt;&lt; <span class="hljs-number">10</span>) | (seq<span class="hljs-variable">Id</span> &lt;&lt;<span class="hljs-number">0</span>)
+
+<span class="hljs-variable">Trong</span> đó:
+・time    = now - instagram_epoch_time (<span class="hljs-number">2011</span>/<span class="hljs-number">01</span>/<span class="hljs-number">01</span> <span class="hljs-number">00</span>:<span class="hljs-number">00</span>)
+・shard<span class="hljs-variable">Id</span> = user<span class="hljs-variable">Id</span> <span class="hljs-comment">% 2000</span>
+・seq<span class="hljs-variable">Id</span>   = (current<span class="hljs-variable">SeqID</span> + <span class="hljs-number">1</span>) <span class="hljs-comment">% 1024</span>
+</code></pre>
+
+<p>Từ công thức trên ta có thể thấy ID được tạo ra bằng cách:</p>
+
+<p><strong>ID = (Dịch trái time sang trái 23 bit) bitwise OR (dịch trái shardID 10 bit) bitwise OR (dịch trái seqID 0 bit)</strong></p>
+
+<p>Để mình tổng hợp lại kiến thức về bitwise cho mọi người hiểu nhé:</p>
+
+<ul class="ui list">
+<li>Dịch trái, dịch phải nó cũng giống như chúng ta kéo cảnh cửa sang trái, sang phải thôi. Nếu dịch trái n bit tức là sẽ điền n số 0 vào sau số đó. Ví dụ như dịch trái số 7 (dạng nhị phân là 110) sang trái 5 bit, khi đó nó sẽ thành: 11000000</li>
+<li>bitwise OR tức là thực hiện OR từng bit 1 của 2 số từ phải sang trái. Nếu 2 bit đều là 1 thì sẽ cho kết quả là 1, ngược lại sẽ cho kết quả là 0. Ví dụ như 7 (dạng nhị phân là 110) OR 8 (dạng nhị phân là 111) khi đó kết quả là: 110 OR 111 = 110.</li>
+</ul>
+
+<p><strong>Ví dụ:</strong></p>
+
+<p>Giả sử như người dùng có user_id là 5001, post bức ảnh lên instagram vào thời điểm 2019/05/19 00:00. Tại thời điểm đó sequence hiện tại của table đang là 9000.</p>
+
+<p><strong>Cách tính:</strong></p>
+
+<p>Do thời gian được tính từ ngày 2011/01/01 00:00 nên từ thời điểm đó đến ngày 2019/05/19 00:00 có time = 264384000000 ms.</p>
+
+<p>=&gt; ID = 264384000000 &lt;&lt; 23 (dịch sang trái 23 bit)</p>
+
+<p>Do user_id = 5001, và instagram chỉ có 2000 shard. Nên shardId = 5001 % 2000 = 1001</p>
+
+<p>=&gt; ID |= 1001 &lt;&lt; 10</p>
+
+<p>sequence hiện tại của table đang là 9000, khi đó next_sequence_id là 9001. vậy seqId = 9001 % 1024 = 809</p>
+
+<p>=&gt; ID |= (809) &lt;&lt; 0</p>
+
+<p>Sau khi tính chúng ta ra kết quả ID = 2217813737473025832.</p>
+
+<p><strong>Vậy làm thế nào mà từ số 2217813737473025832 chúng ta có thể decode ngược lại ra time là 264384000000, shardId là 1001, seqId là 809?</strong></p>
+
+<p>Đây có lẽ là phần mình thấy hay nhất. Chúng ta cùng xem tiếp nhé:</p>
+
+<pre><code class="ui segment hljs ruby"><span class="hljs-constant">Time</span>      = (<span class="hljs-number">2217813737473025832</span> <span class="hljs-prompt">&gt;&gt; </span><span class="hljs-number">23</span>) &amp; <span class="hljs-number">0x1FFFFFFFFFF</span> = <span class="hljs-number">264384000000</span>
+<span class="hljs-constant">Shard</span> <span class="hljs-constant">ID</span>  = (<span class="hljs-number">2217813737473025832</span> <span class="hljs-prompt">&gt;&gt; </span><span class="hljs-number">10</span>) &amp; <span class="hljs-number">0x1FFF</span> = <span class="hljs-number">1001</span>
+seqID     = (<span class="hljs-number">2217813737473025832</span> <span class="hljs-prompt">&gt;&gt;  </span><span class="hljs-number">0</span>) &amp; <span class="hljs-number">0x3FF</span> = <span class="hljs-number">809</span>
+</code></pre>
+
+<p>Từ công thức trên ta có thể thấy được:</p>
+
+<ul class="ui list">
+<li>Time sẽ được tính bằng cách dịch sang phải ID 23 bit, sau đó thực hiện AND với 1 số 41 bit toàn số 1. Cái số 41 bit toàn số 1 này chuyển sang dạng hex sẽ là 0x2FFFFFFFFFF.</li>
+<li>ShardID và seqId cũng được decode tương tự.</li>
+</ul>
+
+<p>Đây là 1 example về encode và decode mình đã chuẩn bị được. Dành cho ai muốn test:</p>
+
+<pre><code class="ui segment hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-variable">$uuid</span> = <span class="hljs-number">0</span>;
+
+<span class="hljs-variable">$userId</span> = <span class="hljs-number">5001</span>;
+<span class="hljs-variable">$currentSequenceId</span> = <span class="hljs-number">9000</span>;
+<span class="hljs-variable">$time</span> = <span class="hljs-number">264384000000</span>;
+
+<span class="hljs-comment">// ENCODE</span>
+
+<span class="hljs-variable">$shardId</span> = <span class="hljs-variable">$userId</span> % <span class="hljs-number">2000</span>;
+<span class="hljs-variable">$seqId</span> = <span class="hljs-variable">$currentSequenceId</span> % <span class="hljs-number">1024</span>;
+
+<span class="hljs-variable">$uuid</span> = <span class="hljs-variable">$time</span> &lt;&lt; <span class="hljs-number">23</span>;
+<span class="hljs-variable">$uuid</span> = <span class="hljs-variable">$uuid</span> | (<span class="hljs-variable">$shardId</span> &lt;&lt; <span class="hljs-number">10</span>);
+<span class="hljs-variable">$uuid</span> = <span class="hljs-variable">$uuid</span> | (<span class="hljs-variable">$seqId</span>);
+
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$uuid</span> . PHP_EOL;
+
+<span class="hljs-comment">// DECODE</span>
+
+<span class="hljs-variable">$time</span> = (<span class="hljs-variable">$uuid</span> &gt;&gt; <span class="hljs-number">23</span>) &amp; <span class="hljs-number">0x1FFFFFFFFFF</span>;
+<span class="hljs-variable">$shardId</span> = (<span class="hljs-variable">$uuid</span> &gt;&gt; <span class="hljs-number">10</span>) &amp; <span class="hljs-number">0x1FFF</span>;
+<span class="hljs-variable">$seqId</span> = (<span class="hljs-variable">$uuid</span> &gt;&gt; <span class="hljs-number">0</span>) &amp; <span class="hljs-number">0x3FF</span>;
+
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$time</span> . PHP_EOL;
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$shardId</span> . PHP_EOL;
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$seqId</span> . PHP_EOL;
+</span></code></pre>
+
+<p>Sau khi lấy được shardId là chúng ta có thể dễ dàng truy cập vào từng shard để lấy ra record dựa vào ID (photo_id, post_id …) được rồi. Mà chẳng phải tốn công đi join, select làm gì cho mệt cả.</p>
+
+<p>Hơn nữa nó thao tác giữa các bit nên cứ gọi là nhanh đừng hỏi.</p>
+
+<p>Và đây là ví dụ về PL/PGSQL trong PostgreSQL:</p>
+
+<pre><code class="ui segment hljs cs">CREATE OR REPLACE FUNCTION insta5.next_id(OUT result bigint) AS $$
+DECLARE
+    our_epoch bigint := <span class="hljs-number">1293843600000</span>;
+    seq_id bigint;
+    now_millis bigint;
+    shard_id <span class="hljs-keyword">int</span> := <span class="hljs-number">5</span>;
+<span class="hljs-function">BEGIN
+    SELECT <span class="hljs-title">nextval</span><span class="hljs-params">(<span class="hljs-string">'insta5.table_id_seq'</span>)</span> %% 1024 INTO seq_id</span>;
+    <span class="hljs-function">SELECT <span class="hljs-title">FLOOR</span><span class="hljs-params">(EXTRACT(EPOCH FROM clock_timestamp()</span>) * 1000) INTO now_millis</span>;
+    result := (now_millis - our_epoch) &lt;&lt; <span class="hljs-number">23</span>;
+    result := result | (shard_id &lt;&lt;<span class="hljs-number">10</span>);
+    result := result | (seq_id);
+END;
+    $$ LANGUAGE PLPGSQL;
+
+</code></pre>
+
+<p>Khi tạo bảng sẽ làm như sau:</p>
+
+<pre><code class="ui segment hljs sql"><span class="hljs-operator"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> insta5.our_table (
+    <span class="hljs-string">"id"</span> <span class="hljs-built_in">bigint</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> insta5.next_id(),
+    ...rest <span class="hljs-keyword">of</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">schema</span>...
+  )
+</span></code></pre>
+
+<span id="toc-k-t-lu-n"></span><h2 class="ui dividing header">Kết luận</h2>
+
+<p>Từ 1 con số mà có thể dễ dàng decode nó ra để lấy các thông tin bên trong nó. Đoạn này mình thấy thật vi diệu.</p>
+
+<p>Đúng là mấy anh kĩ sư có kinh nghiệm về design mấy bo mạch, chip các thứ áp dụng vào thấy nó khác bọt thật.</p>
+
+<p>Hi vọng qua bài này sẽ giúp các bạn có 1 kiến thức mới về việc sinh ra ID random, và decode ngược lại.</p>
+
+<p>Nguồn: <a href="https://nghethuatcoding.com/2019/05/19/instagram-da-sinh-ra-id-trong-database-cua-ho-nhu-the-nao/">https://nghethuatcoding.com/2019/05/19/instagram-da-sinh-ra-id-trong-database-cua-ho-nhu-the-nao/</a></p>
+
+<p>==============</p>
+
+<p>Để nhận thông báo khi có bài viết mới nhất thì các bạn có thể like fanpage của mình ở bên dưới nhé:</p>
+
+<p>→→→ <a href="https://www.facebook.com/669339543503374">Nghệ thuật Coding Fanpage Facebook</a></p>
+
+<p>Chúc các bạn 1 tuần thật vui vẻ.</p>
+
+    </section>
+    <!-- Markdown end here -->
+
+    <!-- Social share -->
+    <div class="meta-social-share ng-scope" ng-controller="SocialController">
+      <div class="hidden-meta">
+        <input type="hidden" id="share-url" value="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao">
+        <input type="hidden" id="share-content" value="Instagram đã sinh ra ID trong database của họ như thế nào">
+      </div>
+      <div class="suggest-title">
+        <i class="small forward mail icon"></i>
+        Chia sẻ bài viết với bạn bè nữa nhé!
+      </div>
+      <a class="ui icon small facebook button" ng-click="shareFacebook()">
+        <i class="facebook icon"></i>
+        <span>
+          facebook
+        </span>
+      </a>
+      <a class="ui icon small google plus button" ng-click="share(&#39;gg&#39;)">
+        <i class="google plus icon"></i>
+        <span>
+          google plus
+        </span>
+      </a>
+      <a class="ui icon small twitter button" ng-click="share(&#39;tw&#39;)">
+        <i class="twitter icon"></i>
+        <span>
+          twitter
+        </span>
+      </a>
+    </div>
+
+    <!-- Meta -->
+    <div class="hidden-meta">
+      <input type="hidden" ng-init="like_endpoint=&#39;/likes&#39;">
+      <input type="hidden" ng-init="unlike_endpoint=&#39;/likes/KypzQvODuSealeqoVI37qA&#39;">
+      <input type="hidden" ng-init="follow_endpoint=&#39;/users/follow&#39;">
+      <input type="hidden" ng-init="unfollow_endpoint=&#39;/users/unfollow&#39;">
+      <input type="hidden" ng-init="postId=&#39;KypzQvODuSealeqoVI37qA&#39;">
+      <input type="hidden" ng-init="other_id=&#39;aduxkB9oPaYdG0jQfETiIA&#39;">
+      <input type="hidden" ng-init="like_count=59">
+      <input type="hidden" ng-init="liked=false">
+      <input type="hidden" ng-init="followerCount=111">
+      <input type="hidden" ng-init="userFollowed=false">
+      <input type="hidden" ng-init="userLoggedIn=true">
+      <input type="hidden" ng-init="mentionable_path=&#39;/users/mentionable&#39;">
+    </div>
+
+    <!-- Comments -->
+    <div id="cmts" class="ui threaded comments segment ng-scope" ng-controller="CommentController">
+      <div class="ui huge ribbon label">
+        Bình luận
+      </div>
+      <br><br>
+      <!-- ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/mido/mypage">
+          <img class="lazy" src="https://s15.postimg.org/sd3dp6ftn/profile_pic.jpg">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/mido/mypage">Mido</a>
+          <div class="metadata">
+            <span class="date ng-binding">2 tháng</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p><img class="emoji" title=":+1:" alt=":+1:" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/1f44d.png" height="20" width="20" align="absmiddle">  cho phần example và giải thích khá chi tiết.<br>
+cám ơn bạn.</p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              1
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/nooptr/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/nooptr/mypage">nooptr</a>
+          <div class="metadata">
+            <span class="date ng-binding">2 tháng</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p>thanks bạn đã ủng hộ <img class="emoji" title=":smile:" alt=":smile:" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/1f604.png" height="20" width="20" align="absmiddle"></p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              0
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/MangNguyen/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/21124098">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/MangNguyen/mypage">MangNguyen</a>
+          <div class="metadata">
+            <span class="date ng-binding">2 tháng</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p><a href="https://kipalog.com/users/nooptr/mypage" class="user-mention" title="nooptr">@nooptr</a> Đoạn decode thực chất là dùng bitmask để lấy ra 41 bit đầu tiên, hoặc 23 bit tiếp theo tính từ bit thứ 42, hoặc 10 bit cuối cùng, bạn không cần dịch bit mà đổi dùng bitmask khác cũng sẽ cho ra kết quả tương tự.</p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              2
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/nooptr/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/nooptr/mypage">nooptr</a>
+          <div class="metadata">
+            <span class="date ng-binding">2 tháng</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p><a href="https://kipalog.com/users/MangNguyen/mypage" class="user-mention" title="MangNguyen">@MangNguyen</a> bitmask tức như nào bạn nhỉ?</p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              0
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/nooptr/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/nooptr/mypage">nooptr</a>
+          <div class="metadata">
+            <span class="date ng-binding">2 tháng</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p><a href="https://kipalog.com/users/Ngankim/mypage" class="user-mention" title="Ngankim">@Ngankim</a> cty tên gì b ơi</p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              0
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/chung111/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/male_avatar-f0133698a204bbc1684476efffe76f51.png">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/chung111/mypage">chung</a>
+          <div class="metadata">
+            <span class="date ng-binding">18 ngày</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p><a href="https://sincspa.com/san-pham">https://sincspa.com/san-pham</a></p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              1
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/Joe/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/unnamed.png">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/Joe/mypage">Joe</a>
+          <div class="metadata">
+            <span class="date ng-binding">17 ngày</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p><a href="https://kipalog.com/users/chung111/mypage" class="user-mention" title="chung111">@chung111</a><br>
+Do you pollute everywhere with your muck?</p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              1
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/Joe/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/unnamed.png">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/Joe/mypage">Joe</a>
+          <div class="metadata">
+            <span class="date ng-binding">17 ngày</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p><a href="https://kipalog.com/users/nooptr/mypage" class="user-mention" title="nooptr">@nooptr</a> </p>
+
+<blockquote>
+<p>bitmask tức như nào bạn nhỉ?</p>
+</blockquote>
+
+<p>example: ABCDEF has the bitmask: 1010 1011 1100 1101 1110 1111 <br>
+bit is the binary 1 or 0<br>
+mask means:</p>
+
+<ul class="ui list">
+<li>template or pattern</li>
+<li>something to cover like a robber "masks" himself with pentihose</li>
+</ul>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              1
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/QuocTung1/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(2)">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/QuocTung1/mypage">Quốc Tùng</a>
+          <div class="metadata">
+            <span class="date ng-binding">13 ngày</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p><img class="emoji" title=":heart_eyes:" alt=":heart_eyes:" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/1f60d.png" height="20" width="20" align="absmiddle"> rất hay</p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              1
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/HoangQuocLong/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(3)">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/HoangQuocLong/mypage">Hoàng Quốc Long</a>
+          <div class="metadata">
+            <span class="date ng-binding">8 ngày</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p>rất hay, dùng mấy thuật toán này để áp dụng truyền param qua url cũng dc nè :D</p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              1
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments --><div class="comment ng-scope" ng-repeat="comment in comments">
+        <a class="avatar" href="https://kipalog.com/users/DuongTrung/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture(4)">
+        </a>
+        <div class="content">
+          <a class="author ng-binding" href="https://kipalog.com/users/DuongTrung/mypage">Duong Trung</a>
+          <div class="metadata">
+            <span class="date ng-binding">8 ngày</span>
+            <!-- ngIf: comment.own_comment -->
+          </div>
+          <div class="text cmts-md ng-binding" ng-bind-html="trustAsHtml(comment.content)"><p>quá hay, thank bạn</p>
+</div>
+          <div class="actions">
+            <a class="cmts-link ng-hide" ng-show="comment.liked" ng-click="like_toggle($index)">Bỏ hay</a>
+            <a class="cmts-link" ng-hide="comment.liked" ng-click="like_toggle($index)">Hay</a>
+            <div class="cmts-meta ng-binding">
+              <i ng-class="{&#39;thumbs up outline icon&#39;: !comment.liked, &#39;thumbs up icon&#39;: comment.liked}" class="thumbs up outline icon"></i>
+              1
+            </div>
+          </div>
+        </div>
+      </div><!-- end ngRepeat: comment in comments -->
+
+      <!-- My comment -->
+      <div class="comment" id="my-comment">
+        <div class="hidden-meta">
+          <input type="hidden" ng-init="isCmtsPreviewing=false">
+          <input type="hidden" ng-init="isCmtsAreaFocused=false">
+        </div>
+        <a class="avatar">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/picture">
+        </a>
+        <form accept-charset="UTF-8" action="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao/comments" class="content ng-pristine ng-valid" id="new_comment" method="post" ng-submit="send_comment($event)"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="jykialsLXrXpM+E1bU6NUIavJcb5hxdkMHOGeRbnI4o="></div>
+          <!-- ngIf: comment_error -->
+          <i class="large smile icon cmts-emoji"></i>
+          <textarea class="cmts-area ng-pristine ng-untouched ng-valid" id="my-cmts" name="comment[content]" ng-model="content" ng-show="!isCmtsPreviewing" placeholder="Ý kiến (markdown)" spellcheck="false" style="overflow: hidden; overflow-wrap: break-word; height: 57.6px;"></textarea>
+          <div class="ui raised segment cmts-show ng-hide" ng-show="isCmtsPreviewing"></div>
+          <div class="equal height row cmts-action ng-hide" ng-show="isCmtsAreaFocused">
+            <input type="submit" value="Gửi" class="ui mini button green submit cmts-reset" data-area=".cmts-area">
+            <div class="ui mini button cmts-reset" data-area=".cmts-area">Hủy</div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="ui text shape cmts-pv">
+              <div class="sides">
+                <p class="side pv show-preview active" ng-class="{&#39;active&#39;:!isCmtsPreviewing}" data-shape=".ui.text.shape" data-area=".cmts-area" data-show=".cmts-show">Hiển thị thử</p>
+                <p class="side pv hide-pv" ng-class="{&#39;active&#39;:isCmtsPreviewing}" data-shape=".ui.text.shape" data-area=".cmts-area" data-show=".cmts-show">Chỉnh sửa</p>
+              </div>
+            </div>
+          </div>
+</form>      </div>
+    </div>
+
+    <!-- Smartphone area -->
+    <div class="ui center aligned basic segment smartphone-area">
+      <a class="ui bigger avatar image" href="https://kipalog.com/users/nooptr/mypage">
+        <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+</a>      <a class="author-name" href="https://kipalog.com/users/nooptr/mypage">
+        <h3 class="ui header caption">
+          nooptr
+        </h3>
+</a>      <div class="ui two column grid segment">
+        <!-- Info -->
+        <div class="equal height row">
+          <div class="right aligned column">
+            <a href="https://kipalog.com/users/nooptr/mypage">9</a>
+            bài viết.
+          </div>
+          <div class="left aligned column">
+            <a href="https://kipalog.com/users/nooptr/mypage">111</a>
+            người follow
+          </div>
+        </div>
+        <!-- Button -->
+        <div class="equal height row action-btn">
+          <div class="right aligned column">
+            <div class="ui circular toggle basic button" id="smart-like-button" ng-class="{&#39;active&#39;:liked}" ng-click="like()">
+              <i class="icon empty bookmark" ng-class="liked ? &#39;checkmark&#39; : &#39;empty bookmark&#39; "></i>
+              <span>Kipalog</span>
+            </div>
+          </div>
+          <div class="left aligned column ng-scope" ng-controller="UserFollowController">
+            <div class="ui circular toggle basic button" ng-class="{&#39;active&#39;:userFollowed}" id="smart-follow-button" ng-click="followUser();">
+              <i class="rss icon teal outline" ng-class="{&#39;teal outline&#39;:!userFollowed}"></i>
+              <span class="ng-binding">Follow</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suggest posts list -->
+    <div class="suggest posts list">
+
+      <!-- Same author posts -->
+      <div class="ui huge ribbon label">
+        Cùng một tác giả
+      </div>
+      <div class="ui massive list feed-list">
+        <div class="item">
+          <img class="ui avatar image lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+          <div class="right floated feed-date">
+            38
+            <i class="bookmark icon"></i>
+            4
+            <i class="comment icon"></i>
+          </div>
+          <div class="content">
+            <div class="header">
+              <a href="https://kipalog.com/posts/Thiet-ke-API-Rate-Limiting">Thiết kế API Rate Limiting</a>
+              <div class="tag">
+                <a href="https://kipalog.com/tags/api%20rate%20limiting" class="ui label">
+                  api rate limiting
+                </a>
+                <a href="https://kipalog.com/tags/rate%20limiting" class="ui label">
+                  rate limiting
+                </a>
+                <a href="https://kipalog.com/tags/rate%20limiter" class="ui label">
+                  rate limiter
+                </a>
+                <a href="https://kipalog.com/tags/nghethuatcoding" class="ui label">
+                  nghethuatcoding
+                </a>
+              </div>
+            </div>
+            <div class="detail">
+              Làm việc nhiều với API chắc hẳn ai cũng đã từng nghe thấy từ API Rate Limiting. Ví dụ như với Github API thì Rate Limiting của nó như sau:  (Ảnh)  ...
+            </div>
+            <div class="meta">
+              <a href="https://kipalog.com/users/nooptr/mypage">
+                nooptr
+              </a>
+              viết
+              24 ngày
+              trước
+            </div>
+            <div class="smart-meta">
+              38
+              <i class="bookmark icon"></i>
+              4
+              <i class="comment icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="ui avatar image lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+          <div class="right floated feed-date">
+            31
+            <i class="bookmark icon"></i>
+            9
+            <i class="comment icon"></i>
+          </div>
+          <div class="content">
+            <div class="header">
+              <a href="https://kipalog.com/posts/Discord-da-luu-tru-hang-ti-messages-moi-ngay-nhu-the-nao">Discord đã lưu trữ hàng tỉ messages mỗi ngày như thế nào</a>
+              <div class="tag">
+                <a href="https://kipalog.com/tags/cassandra" class="ui label">
+                  cassandra
+                </a>
+                <a href="https://kipalog.com/tags/apache%20cassandra" class="ui label">
+                  apache cassandra
+                </a>
+                <a href="https://kipalog.com/tags/Database" class="ui label">
+                  Database
+                </a>
+                <a href="https://kipalog.com/tags/NoSQL" class="ui label">
+                  NoSQL
+                </a>
+              </div>
+            </div>
+            <div class="detail">
+              Mình biết đến (Link) cách đây khoảng 2 năm, tại thời điểm mà giá bitcoin tăng khủng khiếp ấy.  Khi đó không biết mọc ở đâu lắm thầy phán bitcoin qu...
+            </div>
+            <div class="meta">
+              <a href="https://kipalog.com/users/nooptr/mypage">
+                nooptr
+              </a>
+              viết
+              1 tháng
+              trước
+            </div>
+            <div class="smart-meta">
+              31
+              <i class="bookmark icon"></i>
+              9
+              <i class="comment icon"></i>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="ui avatar image lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+          <div class="right floated feed-date">
+            25
+            <i class="bookmark icon"></i>
+            3
+            <i class="comment icon"></i>
+          </div>
+          <div class="content">
+            <div class="header">
+              <a href="https://kipalog.com/posts/Hieu-qua-cua-exponential-backoff-trong-xu-li-error-retries">Hiệu quả của exponential backoff trong xử lí error retries</a>
+              <div class="tag">
+                <a href="https://kipalog.com/tags/exponential%20backoff" class="ui label">
+                  exponential backoff
+                </a>
+                <a href="https://kipalog.com/tags/error%20retries" class="ui label">
+                  error retries
+                </a>
+              </div>
+            </div>
+            <div class="detail">
+              Lời mở đầu  Khi làm việc với API chắc hẳn ai cũng không lạ lẫm gì với các vấn đề liên quan đến gửi nhận dữ liệu như: đang gửi thì server bị lỗi đến...
+            </div>
+            <div class="meta">
+              <a href="https://kipalog.com/users/nooptr/mypage">
+                nooptr
+              </a>
+              viết
+              2 năm
+              trước
+            </div>
+            <div class="smart-meta">
+              25
+              <i class="bookmark icon"></i>
+              3
+              <i class="comment icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- From here is right column -->
+  <div class="four wide column meta-col">
+    <div class="sticky stick" ng-class="{stick:pinStick}" style="width: 271px; top: 0px; bottom: initial;">
+      <!-- Info -->
+      <div class="row meta-info">
+        <div class="ui two column middle aligned grid celled segment meta-info">
+          <div class="center aligned column">
+            <span>
+              <a href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao" class="ng-binding">59</a>
+            </span>
+            <p>kipalog</p>
+          </div>
+          <div class="center aligned column">
+            <span>
+              <a class="go-to-comments ng-binding" data-target="#cmts" href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#">11</a>
+            </span>
+            <p>bình luận</p>
+          </div>
+        </div>
+      </div>
+      <!-- Like -->
+      <div class="row ui circular toggle teal basic fluid button" id="pc-like-button" ng-class="{&#39;active&#39;:liked}" ng-click="like()">
+        <i class="left aligned icon bookmark" ng-class="liked ? &#39;checkmark&#39; : &#39;bookmark&#39; "></i>
+        <span class="ng-binding">Kipalog</span>
+      </div>
+      <br><br>
+      <!-- Profile -->
+      <div class="row meta-profile item">
+        <a class="left floated ui bigger avatar image" href="https://kipalog.com/users/nooptr/mypage">
+          <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+</a>        <div ng-controller="UserFollowController" class="ng-scope">
+          <div class="right floated ui mini circular toggle basic button" ng-class="{&#39;active&#39;:userFollowed}" id="pc-follow-button" ng-click="followUser();">
+            <i class="rss icon teal outline" ng-class="{&#39;teal outline&#39;:!userFollowed}"></i>
+            <span class="ng-binding">Follow</span>
+          </div>
+        </div>
+        <div class="info">
+          <div class="name">
+            <a href="https://kipalog.com/users/nooptr/mypage">
+              <h3 class="ui header caption">
+              nooptr
+              </h3>
+</a>          </div>
+          <div class="extra">
+            <a href="https://kipalog.com/users/nooptr/mypage">9</a>
+            bài viết.
+            <br>
+            <a href="https://kipalog.com/users/nooptr/mypage">111</a>
+            người follow
+          </div>
+        </div>
+      </div>
+      <!-- Table of content -->
+      <div class="row meta-toc">
+        <p class="toc-title">
+          <i class="green hand right icon"></i>
+          &nbsp;Đầu mục bài viết
+        </p>
+        <div id="toc" class="toc-fly"><ul class="ui link list"><li class="toc-h2 toc-active"><a href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#toc-b-i-c-nh">Bối cảnh</a></li><li class="toc-h2"><a href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#toc-y-u-c-u-v-m-t-ch-c-n-ng">Yêu cầu về mặt chức năng</a></li><li class="toc-h2"><a href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#toc-1-s-gi-i-ph-p-generate-id">1 số giải pháp generate ID</a></li><li class="toc-h3"><a href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#toc-s-d-ng-auto-increment-trong-database">Sử dụng auto increment trong database</a></li><li class="toc-h3"><a href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#toc-s-d-ng-uuid">Sử dụng UUID</a></li><li class="toc-h3"><a href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#toc-snowflake">Snowflake</a></li><li class="toc-h2"><a href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#toc-gi-i-ph-p-c-a-instagram">Giải pháp của Instagram</a></li><li class="toc-h2"><a href="https://kipalog.com/posts/Instagram-da-sinh-ra-ID-trong-database-cua-ho-nhu-the-nao#toc-k-t-lu-n">Kết luận</a></li></ul></div>
+      </div>
+    </div>
+    <!-- Remind popup -->
+    <div class="anonymous-remind-block ng-hide" ng-show="!userLoggedIn">
+      <div class="ui basic segment anonymous remind">
+        <p class="ui dividing header">
+        Vẫn còn nữa!
+          <span id="remind_dismiss" class="dismiss">x</span>
+        </p>
+        <p class="description">
+          Kipalog vẫn còn rất nhiều bài viết hay và chủ đề thú vị chờ bạn khám phá!
+        </p>
+        <a href="https://kipalog.com/" class="ui signup circular green button">
+          Khám phá
+        </a>
+        <a href="https://kipalog.com/users/sign_in" class="signin">
+          Đăng nhập
+        </a>
+      </div>
+    </div>
+    <!-- Remind popup -->
+    <div class="follow-author-remind-block" ng-show="!userFollowed">
+      <div class="ui basic segment follow remind ng-scope" ng-controller="UserFollowController" ng-class="{&#39;dismissed&#39;:userFollowed}">
+        <p class="ui dividing header">
+          Follow tác giả
+          <span id="remind_dismiss" class="dismiss">x</span>
+        </p>
+        <p class="description">
+          Nhận thông báo khi có bài viết mới cùng tác giả.
+        </p>
+        <div class="follow author row">
+          <a class="ui avatar image" href="https://kipalog.com/users/nooptr/mypage">
+            <img class="lazy" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/5398914">
+</a>          <span class="name">
+            nooptr
+          </span>
+          <a class="ui follow circular button" ng-class="{&#39;active&#39;:userFollowed}" id="pc-follow-button" ng-click="followUser();">
+            <span class="ng-binding">Follow</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </main>
+      <!-- Footer -->
+<footer class="master-footer ui page grid">
+  <div class="row">
+    <div class="column">
+      <div class="ui horizontal divider">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelve wide main column">
+      <div class="links">
+        <a target="_blank" href="http://kipalog.com/tos">
+          Điều khoản
+        </a>
+        <a target="_blank" href="https://www.facebook.com/groups/1466126020344500/">
+          Phản hồi
+        </a>
+        <a target="_blank" href="https://github.com/Kipalog/Issue-tracker">
+          Yêu cầu
+        </a>
+        <a target="_blank" href="https://www.facebook.com/pages/Kipalog/486208978117754">
+          Fanpage
+        </a>
+      </div>
+    </div>
+    <div class="four wide right column">
+      <div class="copyright">
+        <span>
+          Copyright © 2018 Kipalog
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+
+<textarea tabindex="-1" class="autosizejs" id="autosizejs" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; overflow-wrap: break-word; overflow: hidden; transition: none 0s ease 0s; height: 0px !important; min-height: 0px !important; font-family: system-ui; font-size: 14.4px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; white-space: pre-wrap; line-height: normal; width: 731.603px;"></textarea><div class="atwho-container"><div id="atwho-ground-my-cmts"><div class="atwho-view" id="at-view-58"><ul class="atwho-view-ul"></ul></div><div class="atwho-view" id="at-view-64"><ul class="atwho-view-ul"></ul></div></div></div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div><iframe name="fb_xdm_frame_https" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./Instagram đã sinh ra ID trong database của họ như thế nào_files/xd_arbiter.html" style="border: none;"></iframe></div><div></div></div></div></body></html>
