@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://richardartoul.github.io/jekyll/update/2015/04/26/hidden-classes.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Javascript Hidden Classes and Inline Caching in V8</title>
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="./Javascript Hidden Classes and Inline Caching in V8_files/main.css">
+    <link rel="canonical" href="https://richardartoul.github.io/jekyll/update/2015/04/26/hidden-classes.html">
+</head>
+
+
+  <body cz-shortcut-listen="true">
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="https://richardartoul.github.io/">Under the hood</a>
+
+    <nav class="site-nav">
+      <a href="https://richardartoul.github.io/jekyll/update/2015/04/26/hidden-classes.html#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"></path>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"></path>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"></path>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Javascript Hidden Classes and Inline Caching in V8</h1>
+    <p class="post-meta">Apr 26, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <h1 id="hidden-classes">Hidden Classes</h1>
+<p>Javascript is a dynamic programming language which means that properties can easily be added or removed from an object after its instantiation. For example, in the code snippet below an object is instantiated with the properties “make” and “model”; however, after the object has already been created, the “year” property is dynamically added.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">car</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">make</span><span class="p">,</span><span class="nx">model</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">make</span> <span class="o">=</span> <span class="nx">make</span><span class="p">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="nx">model</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">myCar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">car</span><span class="p">(</span><span class="nx">honda</span><span class="p">,</span><span class="nx">accord</span><span class="p">);</span>
+
+<span class="nx">myCar</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="mi">2005</span><span class="p">;</span></code></pre></div>
+
+<p>Most Javascript interpreters use dictionary-like objects (<a href="http://en.wikipedia.org/wiki/Hash_function">hash function</a> based) to store the location of object property values in memory. This structure makes retrieving the value of a property in Javascript more computationally expensive than it would be in a non-dynamic programming language like Java. In Java, all of an objects properties are determined by a fixed object layout before compilation and cannot be dynamically added/removed at runtime. As a result, the values of properties (or pointers to those properties) can be stored as a contiguous buffer in memory with a fixed-offset between each one. The length of an offset can easily be determined based on the property’s type, whereas this is not possible in Javascript where a property’s type can change during runtime. <a href="http://www.programcreek.com/2011/11/what-do-java-objects-look-like-in-memory/">This short blog post</a> does a good job of explaining what Java objects look like in memory.</p>
+
+<p>In a non-dynamic language like Java, a property’s location in memory can often be determined with only a single instruction whereas in Javascript several instructions are required to retrieve the location from a hash table. As a result, property lookup is much slower in Javascript than it is in other languages.</p>
+
+<p>Since the use of dictionaries to find the location of object properties in memory is so inefficient, V8 uses a different method instead: hidden classes. Hidden classes work similarly to the fixed object layouts (classes) used in languages like Java, except they are created at runtime. While reading the rest of this post, keep in mind that V8 attaches a hidden class to each and every object, and the purpose of the hidden classes is to optimize property access time. Now, Lets take a look at what they actually look like.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Point</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span></code></pre></div>
+
+<p>Once the new function is declared, Javascript will create hidden class C0. </p>
+
+<p><img src="./Javascript Hidden Classes and Inline Caching in V8_files/hiddenClass1.png" alt="Source: developers.google.com"></p>
+
+<p>No properties have been defined for point yet, so C0 is empty.</p>
+
+<p>Once the first statement “this.x = x” is executed, V8 will create a second hidden class called C1 that is based on C0. C1 describes the location in memory (relative to the object pointer) where the property x can be found. In this case, x is stored at <a href="http://en.wikipedia.org/wiki/Offset_%28computer_science%29">offset</a> 0, which means that when viewing a point object in memory as a contigous buffer, the first offset will correspond to property x. V8 will also update C0 with a “class transition” which states that if a property x is added to a point object, the hidden class should switch to C1, and that is exactly what happens; the hidden class for the point object below is now C1.</p>
+
+<p><img src="./Javascript Hidden Classes and Inline Caching in V8_files/hiddenClass2.png" alt="Source: developers.google.com"></p>
+
+<blockquote>
+  <p>Everytime a new property is added to an object, the objects old hidden class is updated with a transition path to the new hidden class. Hidden class transitions are important because they allow hidden classes to be shared among objects that are created in the same way. If two objects share a hidden  class and the same property is added to both of them, transitions ensure that both objects receive the same new hidden class and all the optimized code that comes with it.</p>
+</blockquote>
+
+<p>This process is repeated when the statement “this.y = y” is executed. A new hidden class called C2 is created, a class transition is added to C1 stating that if a property “y” is added to a point object (that already contains property “x”) then the hidden class should change to C2, and the point objects hidden class is updated to C2.</p>
+
+<p><img src="./Javascript Hidden Classes and Inline Caching in V8_files/hiddenClass3.png" alt="Source: developers.google.com"></p>
+
+<p>Note: Hidden class transitions are dependent on the order in which properties are added to an object. Take a look at the code snippet below:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="mi">1</span>  <span class="kd">function</span> <span class="nx">Point</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+<span class="mi">2</span>    <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+<span class="mi">3</span>    <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="mi">4</span>  <span class="p">}</span>
+<span class="mi">5</span> 
+<span class="mi">7</span>  <span class="kd">var</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="mi">8</span>  <span class="kd">var</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+<span class="mi">9</span>
+<span class="mi">10</span> <span class="nx">obj1</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="mi">11</span> <span class="nx">obj1</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="mi">12</span>
+<span class="mi">13</span> <span class="nx">obj2</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="mi">14</span> <span class="nx">obj2</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span></code></pre></div>
+
+<p>Up until line 9, obj1 and obj2 shared the same hidden class. However, since properties a and b were added in opposite orders, obj1 and obj2 end up with different hidden classes as a result of following separate transition paths.</p>
+
+<p><img src="./Javascript Hidden Classes and Inline Caching in V8_files/propertyAddOrder.jpg" alt=""></p>
+
+<p>If you’ve been following along closely, your first instinct might be to think that obj1 and obj2 having two different hidden classes isn’t a big deal. As long as each of their hidden classes stores the appropriate offsets, accessing their properties should be just as fast as if they shared a hidden class right? In order to understand why this isn’t true, we need to take a look at another optimization technique employed by V8 called inline caching.</p>
+
+<h1 id="inline-caching">Inline Caching</h1>
+<p>V8 takes advantage of another commonly used technique for optimizing dynamically typed languages called “inline caching”. An in-depth explanation of inline caches in Javascript can be found <a href="https://github.com/sq/JSIL/wiki/Optimizing-dynamic-JavaScript-with-inline-caches">here</a>, but in simple terms inline caching relies upon the observation that repeated calls to the same method tend to occur on the same type of object.</p>
+
+<p>So how does it work? V8 maintains a cache of the type of objects that were passed as a parameter in recent method calls, and uses that information to make an assumption about the type of object that will be passed as a parameter in the future. If V8 is able to make a good assumption about the type of object that will be passed to a method, it can bypass the process of figuring out how to access the objects properties, and instead use the stored information from previous lookups to the objects hidden class.</p>
+
+<p>So how are the concepts of hidden classes and inline caching related? Whenever a method is called on a specific object, the V8 engine has to perform a lookup to that objects hidden class to determine the offset for accessing a specific property. After two successful calls of the same method to the same hidden class, V8 omits the hidden class lookup and simply adds the offset of the property to the object pointer itself. For all future calls of that method, the V8 engine <em>assumes</em> that the hidden class hasn’t changed, and jumps directly into the memory address for a specific property using the offsets stored from previous lookups; this greatly increases execution speed. </p>
+
+<p>Inline caching is also why its so important that objects of same type share hidden classes. If you create two objects of the same type, but with different hidden classes (as we did in the example earlier), V8 won’t be able to use inline caching because even though the two objects are of the same type, their corresponding hidden classes assign different offsets to their properties.</p>
+
+<p><img src="./Javascript Hidden Classes and Inline Caching in V8_files/diffHiddenClasses.jpg" alt=""></p>
+
+<p>Of course, Javascript being a dynamically typed language, ocassionally the assumption about the hidden class of the object will be incorrect, and in that case V8 will “de-optimize” and revert back to the original version of the method call in which the objects hidden class is checked.</p>
+
+<h1 id="optimization-takeaways">Optimization takeaways</h1>
+
+<ol>
+  <li>Always instantiate your object properties in the same order so that hidden classes, and subsequently optimized code, can be shared.</li>
+  <li>Adding properties to an object after instantiation will force a hidden class change and slow down any methods that were optimized for the previous hidden class. Instead, assign all of an object’s properties in its constructor.</li>
+  <li>Code that executes the same method repeatedly will run faster than code that executes many different methods only once (due to inline caching).</li>
+</ol>
+
+<h1 id="sources">Sources</h1>
+<ul>
+  <li><a href="https://developers.google.com/v8/design?hl=sv&amp;csw=1#prop_access">https://developers.google.com/v8/design?hl=sv&amp;csw=1#prop_access</a></li>
+  <li><a href="https://developers.google.com/v8/videos?hl=sv#video0a">https://developers.google.com/v8/videos?hl=sv#video0a</a></li>
+  <li><a href="https://developers.google.com/v8/videos?hl=sv#video0a">http://mrale.ph/blog/2012/06/03/explaining-js-vms-in-js-inline-caches.html</a></li>
+  <li><a href="https://developers.google.com/v8/videos?hl=sv#video0a">https://medium.com/@twokul/hidden-classes-in-javascript-and-inline-caching-a02940939e25</a></li>
+  <li><a href="https://developers.google.com/v8/videos?hl=sv#video0a">http://en.wikipedia.org/wiki/Inline_caching</a></li>
+  <li><a href="https://developers.google.com/v8/videos?hl=sv#video0a">http://en.wikipedia.org/wiki/Function_overloading</a></li>
+  <li><a href="https://developers.google.com/v8/videos?hl=sv#video0a">https://developers.google.com/v8/videos?hl=sv#video0ahttps://livoris.net/node/65</a></li>
+  <li><a href="https://developers.google.com/v8/videos?hl=sv#video0a">http://www.programcreek.com/2011/11/what-do-java-objects-look-like-in-memory/</a></li>
+  <li><a href="https://developers.google.com/v8/videos?hl=sv#video0a">https://github.com/sq/JSIL/wiki/Optimizing-dynamic-JavaScript-with-inline-caches</a></li>
+</ul>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Under the hood</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Under the hood</li>
+          <li><a href="mailto:richardartoul@gmail.com">richardartoul@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/richardartoul">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"></path>
+                </svg>
+              </span>
+
+              <span class="username">richardartoul</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text"></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  
+
+
+<ul id="ddict_notifications"></ul></body></html>
